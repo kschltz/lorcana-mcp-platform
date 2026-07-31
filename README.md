@@ -67,11 +67,15 @@ edit its entry in `scripts.json` following `packages/engine/src/effects/dsl.ts`.
 
 ## Known rules limitations
 
-- ~34% of ability sentences are not yet translated (see `coverage.json` histogram);
-  affected cards play with keywords/stats only.
-- Unmappable exotic triggers map to the closest engine trigger; a few unique effects
-  (cost reduction, put-under, deck-ordering) are modeled as documented no-ops.
+- ~32% of ability sentences are not yet translated (see `coverage.json` histogram);
+  affected cards play with keywords/stats only. Sets 10–12 are ~72% sentence-matched;
+  set 13 is not in the bulk dump yet.
+- Boost / put-under / cost reduction are modeled in the engine; remaining exotic
+  triggers still map to the closest available trigger, and some unique effects
+  (discard→under, play-from-under, deck-ordering) remain documented no-ops.
 - Core format deck construction only (≤2 inks). Illumineer's Quest cards excluded.
+- Bulk playtest datapoints: `run-match.ts --metrics out.jsonl` writes one JSON line
+  per game (winner, turns, lore, eventCounts).
 
 See `packages/*/README.md` for per-package contracts and deviation logs. `SPEC.md` is
 the architecture source of truth.
