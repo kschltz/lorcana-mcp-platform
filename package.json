@@ -1,0 +1,13 @@
+{
+  "name": "lorcana-mcp-platform",
+  "private": true,
+  "type": "module",
+  "workspaces": ["packages/*"],
+  "scripts": {
+    "build": "npm run build -w @lorcana/card-data && npm run build -w @lorcana/engine && npm run build -w @lorcana/mcp-server && npm run build -w @lorcana/bots && npm run build -w @lorcana/ui",
+    "test": "npm test --workspaces --if-present",
+    "dev": "npm run dev -w @lorcana/mcp-server",
+    "start": "node packages/mcp-server/dist/server.js"
+  },
+  "devDependencies": { "typescript": "^5.6.3", "vitest": "^2.1.8", "tsx": "^4.19.2" }
+}

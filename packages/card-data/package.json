@@ -1,0 +1,24 @@
+{
+  "name": "@lorcana/card-data",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./cards": "./dist-data/cards.json",
+    "./scripts": "./dist-data/scripts.json"
+  },
+  "scripts": {
+    "build": "tsc",
+    "build-data": "tsx src/normalize.ts && tsx src/generate-scripts.ts",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.43",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.8"
+  }
+}

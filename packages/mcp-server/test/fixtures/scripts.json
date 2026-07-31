@@ -1,0 +1,96 @@
+{
+ "TST-001": {
+  "cardId": "TST-001",
+  "keywords": [
+   {
+    "name": "Rush"
+   }
+  ]
+ },
+ "TST-002": {
+  "cardId": "TST-002"
+ },
+ "TST-003": {
+  "cardId": "TST-003"
+ },
+ "TST-004": {
+  "cardId": "TST-004"
+ },
+ "TST-005": {
+  "cardId": "TST-005"
+ },
+ "TST-006": {
+  "cardId": "TST-006"
+ },
+ "TST-007": {
+  "cardId": "TST-007"
+ },
+ "TST-008": {
+  "cardId": "TST-008"
+ },
+ "TST-009": {
+  "cardId": "TST-009"
+ },
+ "TST-010": {
+  "cardId": "TST-010"
+ },
+ "TST-011": {
+  "cardId": "TST-011"
+ },
+ "TST-012": {
+  "cardId": "TST-012"
+ },
+ "TST-013": {
+  "cardId": "TST-013"
+ },
+ "TST-014": {
+  "cardId": "TST-014"
+ },
+ "TST-015": {
+  "cardId": "TST-015"
+ },
+ "TST-016": {
+  "cardId": "TST-016"
+ },
+ "TST-017": {
+  "cardId": "TST-017"
+ },
+ "TST-018": {
+  "cardId": "TST-018"
+ },
+ "TST-019": {
+  "cardId": "TST-019"
+ },
+ "TST-020": {
+  "cardId": "TST-020"
+ },
+ "TST-021": {
+  "cardId": "TST-021",
+  "triggered": [
+   {
+    "trigger": "ON_PLAY",
+    "effects": [
+     {
+      "DRAW": {
+       "amount": 2
+      }
+     }
+    ]
+   }
+  ]
+ },
+ "TST-022": {
+  "cardId": "TST-022"
+ },
+ "TST-023": {
+  "cardId": "TST-023",
+  "keywords": [
+   {
+    "name": "Evasive"
+   }
+  ]
+ },
+ "TST-024": {
+  "cardId": "TST-024"
+ }
+}

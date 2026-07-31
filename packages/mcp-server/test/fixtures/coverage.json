@@ -1,0 +1,29 @@
+{
+ "totalCards": 24,
+ "tiersByCard": {
+  "TST-001": "partial",
+  "TST-002": "vanilla",
+  "TST-003": "vanilla",
+  "TST-004": "vanilla",
+  "TST-005": "vanilla",
+  "TST-006": "vanilla",
+  "TST-007": "vanilla",
+  "TST-008": "vanilla",
+  "TST-009": "vanilla",
+  "TST-010": "vanilla",
+  "TST-011": "vanilla",
+  "TST-012": "vanilla",
+  "TST-013": "vanilla",
+  "TST-014": "vanilla",
+  "TST-015": "vanilla",
+  "TST-016": "vanilla",
+  "TST-017": "vanilla",
+  "TST-018": "vanilla",
+  "TST-019": "vanilla",
+  "TST-020": "vanilla",
+  "TST-021": "full",
+  "TST-022": "vanilla",
+  "TST-023": "partial",
+  "TST-024": "vanilla"
+ }
+}

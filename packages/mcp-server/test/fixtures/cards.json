@@ -1,0 +1,592 @@
+[
+ {
+  "id": "TST-001",
+  "name": "Alpha",
+  "subtitle": "Brave Scout",
+  "fullName": "Alpha - Brave Scout",
+  "type": "Character",
+  "colors": [
+   "Amber"
+  ],
+  "cost": 1,
+  "inkable": true,
+  "strength": 1,
+  "willpower": 2,
+  "lore": 1,
+  "classifications": [
+   "Storyborn",
+   "Ally"
+  ],
+  "bodyText": "**Rush**",
+  "rarity": "Common",
+  "setId": "TST",
+  "setNum": 99,
+  "cardNum": 1,
+  "imageUrl": "https://img.example.com/TST-001.png"
+ },
+ {
+  "id": "TST-002",
+  "name": "Beta",
+  "subtitle": "Loyal Guard",
+  "fullName": "Beta - Loyal Guard",
+  "type": "Character",
+  "colors": [
+   "Steel"
+  ],
+  "cost": 2,
+  "inkable": true,
+  "strength": 2,
+  "willpower": 3,
+  "lore": 2,
+  "classifications": [
+   "Storyborn",
+   "Ally"
+  ],
+  "bodyText": "",
+  "rarity": "Common",
+  "setId": "TST",
+  "setNum": 99,
+  "cardNum": 2,
+  "imageUrl": "https://img.example.com/TST-002.png"
+ },
+ {
+  "id": "TST-003",
+  "name": "Gamma",
+  "subtitle": "Swift Runner",
+  "fullName": "Gamma - Swift Runner",
+  "type": "Character",
+  "colors": [
+   "Amber"
+  ],
+  "cost": 3,
+  "inkable": true,
+  "strength": 3,
+  "willpower": 4,
+  "lore": 1,
+  "classifications": [
+   "Storyborn",
+   "Ally"
+  ],
+  "bodyText": "",
+  "rarity": "Common",
+  "setId": "TST",
+  "setNum": 99,
+  "cardNum": 3,
+  "imageUrl": "https://img.example.com/TST-003.png"
+ },
+ {
+  "id": "TST-004",
+  "name": "Delta",
+  "subtitle": "Wise Sage",
+  "fullName": "Delta - Wise Sage",
+  "type": "Character",
+  "colors": [
+   "Steel"
+  ],
+  "cost": 4,
+  "inkable": true,
+  "strength": 4,
+  "willpower": 2,
+  "lore": 2,
+  "classifications": [
+   "Storyborn",
+   "Ally"
+  ],
+  "bodyText": "",
+  "rarity": "Common",
+  "setId": "TST",
+  "setNum": 99,
+  "cardNum": 4,
+  "imageUrl": "https://img.example.com/TST-004.png"
+ },
+ {
+  "id": "TST-005",
+  "name": "Epsilon",
+  "subtitle": "Bold Knight",
+  "fullName": "Epsilon - Bold Knight",
+  "type": "Character",
+  "colors": [
+   "Amber"
+  ],
+  "cost": 5,
+  "inkable": true,
+  "strength": 1,
+  "willpower": 3,
+  "lore": 1,
+  "classifications": [
+   "Storyborn",
+   "Ally"
+  ],
+  "bodyText": "",
+  "rarity": "Common",
+  "setId": "TST",
+  "setNum": 99,
+  "cardNum": 5,
+  "imageUrl": "https://img.example.com/TST-005.png"
+ },
+ {
+  "id": "TST-006",
+  "name": "Zeta",
+  "subtitle": "Quiet Healer",
+  "fullName": "Zeta - Quiet Healer",
+  "type": "Character",
+  "colors": [
+   "Steel"
+  ],
+  "cost": 1,
+  "inkable": true,
+  "strength": 2,
+  "willpower": 4,
+  "lore": 2,
+  "classifications": [
+   "Storyborn",
+   "Ally"
+  ],
+  "bodyText": "**Rush**",
+  "rarity": "Common",
+  "setId": "TST",
+  "setNum": 99,
+  "cardNum": 6,
+  "imageUrl": "https://img.example.com/TST-006.png"
+ },
+ {
+  "id": "TST-007",
+  "name": "Eta",
+  "subtitle": "Sly Rogue",
+  "fullName": "Eta - Sly Rogue",
+  "type": "Character",
+  "colors": [
+   "Amber"
+  ],
+  "cost": 2,
+  "inkable": true,
+  "strength": 3,
+  "willpower": 2,
+  "lore": 1,
+  "classifications": [
+   "Storyborn",
+   "Ally"
+  ],
+  "bodyText": "",
+  "rarity": "Common",
+  "setId": "TST",
+  "setNum": 99,
+  "cardNum": 7,
+  "imageUrl": "https://img.example.com/TST-007.png"
+ },
+ {
+  "id": "TST-008",
+  "name": "Theta",
+  "subtitle": "Stout Defender",
+  "fullName": "Theta - Stout Defender",
+  "type": "Character",
+  "colors": [
+   "Steel"
+  ],
+  "cost": 3,
+  "inkable": true,
+  "strength": 4,
+  "willpower": 3,
+  "lore": 2,
+  "classifications": [
+   "Storyborn",
+   "Ally"
+  ],
+  "bodyText": "",
+  "rarity": "Common",
+  "setId": "TST",
+  "setNum": 99,
+  "cardNum": 8,
+  "imageUrl": "https://img.example.com/TST-008.png"
+ },
+ {
+  "id": "TST-009",
+  "name": "Iota",
+  "subtitle": "Quick Fox",
+  "fullName": "Iota - Quick Fox",
+  "type": "Character",
+  "colors": [
+   "Amber"
+  ],
+  "cost": 4,
+  "inkable": true,
+  "strength": 1,
+  "willpower": 4,
+  "lore": 1,
+  "classifications": [
+   "Storyborn",
+   "Ally"
+  ],
+  "bodyText": "",
+  "rarity": "Common",
+  "setId": "TST",
+  "setNum": 99,
+  "cardNum": 9,
+  "imageUrl": "https://img.example.com/TST-009.png"
+ },
+ {
+  "id": "TST-010",
+  "name": "Kappa",
+  "subtitle": "Calm Monk",
+  "fullName": "Kappa - Calm Monk",
+  "type": "Character",
+  "colors": [
+   "Steel"
+  ],
+  "cost": 5,
+  "inkable": true,
+  "strength": 2,
+  "willpower": 2,
+  "lore": 2,
+  "classifications": [
+   "Storyborn",
+   "Ally"
+  ],
+  "bodyText": "",
+  "rarity": "Common",
+  "setId": "TST",
+  "setNum": 99,
+  "cardNum": 10,
+  "imageUrl": "https://img.example.com/TST-010.png"
+ },
+ {
+  "id": "TST-011",
+  "name": "Lambda",
+  "subtitle": "Sharp Archer",
+  "fullName": "Lambda - Sharp Archer",
+  "type": "Character",
+  "colors": [
+   "Amber"
+  ],
+  "cost": 1,
+  "inkable": true,
+  "strength": 3,
+  "willpower": 3,
+  "lore": 1,
+  "classifications": [
+   "Storyborn",
+   "Ally"
+  ],
+  "bodyText": "**Rush**",
+  "rarity": "Common",
+  "setId": "TST",
+  "setNum": 99,
+  "cardNum": 11,
+  "imageUrl": "https://img.example.com/TST-011.png"
+ },
+ {
+  "id": "TST-012",
+  "name": "Mu",
+  "subtitle": "Kind Shepherd",
+  "fullName": "Mu - Kind Shepherd",
+  "type": "Character",
+  "colors": [
+   "Steel"
+  ],
+  "cost": 2,
+  "inkable": true,
+  "strength": 4,
+  "willpower": 4,
+  "lore": 2,
+  "classifications": [
+   "Storyborn",
+   "Ally"
+  ],
+  "bodyText": "",
+  "rarity": "Common",
+  "setId": "TST",
+  "setNum": 99,
+  "cardNum": 12,
+  "imageUrl": "https://img.example.com/TST-012.png"
+ },
+ {
+  "id": "TST-013",
+  "name": "Nu",
+  "subtitle": "Daring Pilot",
+  "fullName": "Nu - Daring Pilot",
+  "type": "Character",
+  "colors": [
+   "Amber"
+  ],
+  "cost": 3,
+  "inkable": true,
+  "strength": 1,
+  "willpower": 2,
+  "lore": 1,
+  "classifications": [
+   "Storyborn",
+   "Ally"
+  ],
+  "bodyText": "",
+  "rarity": "Common",
+  "setId": "TST",
+  "setNum": 99,
+  "cardNum": 13,
+  "imageUrl": "https://img.example.com/TST-013.png"
+ },
+ {
+  "id": "TST-014",
+  "name": "Xi",
+  "subtitle": "Patient Tutor",
+  "fullName": "Xi - Patient Tutor",
+  "type": "Character",
+  "colors": [
+   "Steel"
+  ],
+  "cost": 4,
+  "inkable": true,
+  "strength": 2,
+  "willpower": 3,
+  "lore": 2,
+  "classifications": [
+   "Storyborn",
+   "Ally"
+  ],
+  "bodyText": "",
+  "rarity": "Common",
+  "setId": "TST",
+  "setNum": 99,
+  "cardNum": 14,
+  "imageUrl": "https://img.example.com/TST-014.png"
+ },
+ {
+  "id": "TST-015",
+  "name": "Omicron",
+  "subtitle": "Merry Bard",
+  "fullName": "Omicron - Merry Bard",
+  "type": "Character",
+  "colors": [
+   "Amber"
+  ],
+  "cost": 5,
+  "inkable": true,
+  "strength": 3,
+  "willpower": 4,
+  "lore": 1,
+  "classifications": [
+   "Storyborn",
+   "Ally"
+  ],
+  "bodyText": "",
+  "rarity": "Common",
+  "setId": "TST",
+  "setNum": 99,
+  "cardNum": 15,
+  "imageUrl": "https://img.example.com/TST-015.png"
+ },
+ {
+  "id": "TST-016",
+  "name": "Pi",
+  "subtitle": "Keen Tracker",
+  "fullName": "Pi - Keen Tracker",
+  "type": "Character",
+  "colors": [
+   "Steel"
+  ],
+  "cost": 1,
+  "inkable": true,
+  "strength": 4,
+  "willpower": 2,
+  "lore": 2,
+  "classifications": [
+   "Storyborn",
+   "Ally"
+  ],
+  "bodyText": "**Rush**",
+  "rarity": "Common",
+  "setId": "TST",
+  "setNum": 99,
+  "cardNum": 16,
+  "imageUrl": "https://img.example.com/TST-016.png"
+ },
+ {
+  "id": "TST-017",
+  "name": "Rho",
+  "subtitle": "Firm Warden",
+  "fullName": "Rho - Firm Warden",
+  "type": "Character",
+  "colors": [
+   "Amber"
+  ],
+  "cost": 2,
+  "inkable": true,
+  "strength": 1,
+  "willpower": 3,
+  "lore": 1,
+  "classifications": [
+   "Storyborn",
+   "Ally"
+  ],
+  "bodyText": "",
+  "rarity": "Common",
+  "setId": "TST",
+  "setNum": 99,
+  "cardNum": 17,
+  "imageUrl": "https://img.example.com/TST-017.png"
+ },
+ {
+  "id": "TST-018",
+  "name": "Sigma",
+  "subtitle": "Gentle Giant",
+  "fullName": "Sigma - Gentle Giant",
+  "type": "Character",
+  "colors": [
+   "Steel"
+  ],
+  "cost": 3,
+  "inkable": true,
+  "strength": 2,
+  "willpower": 4,
+  "lore": 2,
+  "classifications": [
+   "Storyborn",
+   "Ally"
+  ],
+  "bodyText": "",
+  "rarity": "Common",
+  "setId": "TST",
+  "setNum": 99,
+  "cardNum": 18,
+  "imageUrl": "https://img.example.com/TST-018.png"
+ },
+ {
+  "id": "TST-019",
+  "name": "Tau",
+  "subtitle": "Bright Herald",
+  "fullName": "Tau - Bright Herald",
+  "type": "Character",
+  "colors": [
+   "Amber"
+  ],
+  "cost": 4,
+  "inkable": true,
+  "strength": 3,
+  "willpower": 2,
+  "lore": 1,
+  "classifications": [
+   "Storyborn",
+   "Ally"
+  ],
+  "bodyText": "",
+  "rarity": "Common",
+  "setId": "TST",
+  "setNum": 99,
+  "cardNum": 19,
+  "imageUrl": "https://img.example.com/TST-019.png"
+ },
+ {
+  "id": "TST-020",
+  "name": "Upsilon",
+  "subtitle": "True Captain",
+  "fullName": "Upsilon - True Captain",
+  "type": "Character",
+  "colors": [
+   "Steel"
+  ],
+  "cost": 5,
+  "inkable": true,
+  "strength": 4,
+  "willpower": 3,
+  "lore": 2,
+  "classifications": [
+   "Storyborn",
+   "Ally"
+  ],
+  "bodyText": "",
+  "rarity": "Common",
+  "setId": "TST",
+  "setNum": 99,
+  "cardNum": 20,
+  "imageUrl": "https://img.example.com/TST-020.png"
+ },
+ {
+  "id": "TST-021",
+  "name": "Fireworks",
+  "fullName": "Fireworks",
+  "type": "Action",
+  "colors": [
+   "Amber"
+  ],
+  "cost": 2,
+  "inkable": true,
+  "classifications": [
+   "Action"
+  ],
+  "bodyText": "Draw 2 cards.",
+  "rarity": "Uncommon",
+  "setId": "TST",
+  "setNum": 99,
+  "cardNum": 21,
+  "imageUrl": "https://img.example.com/TST-021.png"
+ },
+ {
+  "id": "TST-022",
+  "name": "Heavy Anchor",
+  "subtitle": "Steel Relic",
+  "fullName": "Heavy Anchor - Steel Relic",
+  "type": "Item",
+  "colors": [
+   "Steel"
+  ],
+  "cost": 3,
+  "inkable": false,
+  "classifications": [
+   "Item"
+  ],
+  "bodyText": "",
+  "rarity": "Rare",
+  "setId": "TST",
+  "setNum": 99,
+  "cardNum": 22,
+  "imageUrl": "https://img.example.com/TST-022.png"
+ },
+ {
+  "id": "TST-023",
+  "name": "Ruby Dragon",
+  "subtitle": "Fierce Wyrm",
+  "fullName": "Ruby Dragon - Fierce Wyrm",
+  "type": "Character",
+  "colors": [
+   "Ruby"
+  ],
+  "cost": 5,
+  "inkable": true,
+  "strength": 5,
+  "willpower": 4,
+  "lore": 2,
+  "classifications": [
+   "Dreamborn",
+   "Dragon"
+  ],
+  "bodyText": "**Evasive**",
+  "rarity": "Rare",
+  "setId": "TST",
+  "setNum": 99,
+  "cardNum": 23,
+  "imageUrl": "https://img.example.com/TST-023.png"
+ },
+ {
+  "id": "TST-024",
+  "name": "Amethyst Owl",
+  "subtitle": "Night Watcher",
+  "fullName": "Amethyst Owl - Night Watcher",
+  "type": "Character",
+  "colors": [
+   "Amethyst"
+  ],
+  "cost": 3,
+  "inkable": true,
+  "strength": 2,
+  "willpower": 3,
+  "lore": 2,
+  "classifications": [
+   "Dreamborn"
+  ],
+  "bodyText": "",
+  "rarity": "Common",
+  "setId": "TST",
+  "setNum": 99,
+  "cardNum": 24,
+  "imageUrl": "https://img.example.com/TST-024.png"
+ }
+]
