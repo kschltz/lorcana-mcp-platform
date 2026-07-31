@@ -2,3 +2,12 @@ node_modules/
 dist/
 data/matches/
 *.log
+.pi-loop.json.lock
+.DS_Store
+.env
+.env.*
+!*.env.example
+bots-p0-*.json
+screenshot*.js
+final-screenshot*.js
+sse-test*.js
