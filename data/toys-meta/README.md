@@ -37,6 +37,13 @@ Inkable flags for sets 6/10/11/12 are patched from
 `data/inkable/lorcast-sets-6-10-11-12.json` (committed lorcana-api bulk has
 broken `Inkable` on those sets).
 
+## Results
+
+See [`RESULTS.md`](./RESULTS.md) for the 4,000-game matrix (seed 42).
+
+**Top counters under heuristic bots:** Amber/Amethyst (~82% WR), Amethyst/Ruby
+Evasive (~74%), Amethyst/Sapphire Evasive (~46%). Steel/bounce shells fare poorly.
+
 ## Caveats
 
 - Heuristic bots, not humans; results are directional.
