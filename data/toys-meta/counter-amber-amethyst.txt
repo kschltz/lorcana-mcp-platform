@@ -1,6 +1,5 @@
-# Core (Sets 9–12): Amber/Amethyst lore race
-# Plan: max cheap L2/L3 lore + Amethyst evasives; outpace Toys' L1 swarm
-# Note: Set 13 not in pool — no Attack of the Vine tech
+# Core (Sets 9–12): Amber/Amethyst — best-performing Toys answer in sims
+# Plan: L2/L3 amber lore + amethyst evasives; race before Horseman closes
 4 The Prince - Searching for His Love
 4 Meeko - Skittish Scrounger
 4 Sebastian - Loyal Crab
@@ -8,6 +7,7 @@
 4 Aurora - Holding Court
 4 Percy - Pupsicle
 4 Mickey Mouse - True Friend
+4 Flash - Records Specialist
 4 Frozone - Super Slick
 4 Christopher Robin - Joining the Fun
 4 Dumbo - The Flying Elephant
@@ -15,4 +15,3 @@
 4 Be Our Guest
 4 Poor Unfortunate Souls
 4 Della's Moon Lullaby
-4 Elinor - Bespelled Queen

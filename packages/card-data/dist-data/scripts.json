@@ -28609,7 +28609,34 @@
   ]
  },
  "WHI-132": {
-  "cardId": "WHI-132"
+  "cardId": "WHI-132",
+  "triggered": [
+   {
+    "trigger": "ON_PLAY",
+    "effects": [
+     {
+      "type": "FOR_EACH",
+      "selector": {
+       "zone": "play",
+       "who": "opponent",
+       "type": "Character",
+       "maxStrength": 2
+      },
+      "effects": [
+       {
+        "type": "EXERT",
+        "target": {
+         "zone": "play",
+         "who": "opponent",
+         "type": "Character",
+         "ref": "$each"
+        }
+       }
+      ]
+     }
+    ]
+   }
+  ]
  },
  "WHI-133": {
   "cardId": "WHI-133",
@@ -29103,7 +29130,35 @@
   ]
  },
  "WHI-165": {
-  "cardId": "WHI-165"
+  "cardId": "WHI-165",
+  "triggered": [
+   {
+    "trigger": "ON_PLAY",
+    "effects": [
+     {
+      "type": "FOR_EACH",
+      "selector": {
+       "zone": "play",
+       "who": "any",
+       "type": "Character",
+       "maxCost": 3
+      },
+      "effects": [
+       {
+        "type": "PUT_INTO_INKWELL",
+        "source": "top-deck",
+        "target": {
+         "zone": "play",
+         "who": "any",
+         "type": "Character",
+         "ref": "$each"
+        }
+       }
+      ]
+     }
+    ]
+   }
+  ]
  },
  "WHI-166": {
   "cardId": "WHI-166"
@@ -33880,8 +33935,25 @@
     "trigger": "ON_QUEST",
     "effects": [
      {
-      "type": "DRAW",
-      "amount": 1
+      "type": "IF",
+      "condition": {
+       "kind": "count",
+       "selector": {
+        "zone": "play",
+        "who": "self",
+        "type": "Character",
+        "classification": "Toy"
+       },
+       "op": ">=",
+       "value": 3
+      },
+      "then": [
+       {
+        "type": "DRAW",
+        "amount": 1
+       }
+      ],
+      "else": []
      }
     ]
    }

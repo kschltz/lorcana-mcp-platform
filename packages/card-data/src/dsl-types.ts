@@ -65,7 +65,11 @@ export interface Selector {
   classification?: string;
   name?: string;
   filter?: "exerted" | "ready" | "damaged" | "undamaged" | "wet";
+  maxCost?: number;
+  maxStrength?: number;
   chosen?: boolean;
+  count?: number;
+  ref?: string;
   /** extension: target the source card of this script */
   self?: boolean;
 }
@@ -100,7 +104,7 @@ export type EffectNode =
   | { type: "GRANT_KEYWORD"; target: Selector; keyword: Keyword; value?: number }
   | { type: "DISCARD"; amount: number; who: "self" | "opponent"; mode: "random" | "chosen" }
   | { type: "LOOK_TOP"; amount: number; then: "keep-order" | "bottom-rest" | "choose-into-hand"; filter?: { type?: CardType; classification?: string } }
-  | { type: "PUT_INTO_INKWELL"; source: "top-deck" | "self"; target?: Selector }
+  | { type: "PUT_INTO_INKWELL"; source?: "top-deck" | "self"; target?: Selector }
   | { type: "SEARCH_DECK"; filter: { type?: CardType; classification?: string; name?: string }; into: "hand" | "play" }
   | { type: "PLAY_CARD_FREE"; filter: { type?: CardType; classification?: string; maxCost?: number; from?: "hand" | "discard" } }
   | { type: "MOVE_DAMAGE"; amount: number; from: Selector; to: Selector }

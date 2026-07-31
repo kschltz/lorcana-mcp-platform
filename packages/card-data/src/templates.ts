@@ -487,6 +487,18 @@ export const SENTENCE_TEMPLATES: SentenceTemplate[] = [
     build: (m) => [{ type: "EXERT", target: chosenSelector(m[1]) }] },
   { name: "exert-all-opposing", re: /^exert all opposing characters$/i,
     build: () => [{ type: "FOR_EACH", selector: opposingCharacters, effects: [{ type: "EXERT", target: { zone: "play", who: "opponent", type: "Character" } }] }] },
+  // Ghostly Tale — soft board stall vs low-strength swarms.
+  { name: "exert-all-opposing-max-str",
+    re: new RegExp(`^exert all opposing characters with ${N} \\{s\\} or less$`, "i"),
+    build: (m) => {
+      const maxStrength = parseNum(m[1]);
+      const sel = { zone: "play" as const, who: "opponent" as const, type: "Character" as const, maxStrength };
+      return [{
+        type: "FOR_EACH",
+        selector: sel,
+        effects: [{ type: "EXERT", target: { zone: "play", who: "opponent", type: "Character", ref: "$each" } }],
+      }];
+    } },
   { name: "opp-exerts-own", re: /^each opponent chooses and exerts one of their ready characters$/i,
     build: () => [{ type: "EXERT", target: { zone: "play", who: "opponent", type: "Character", filter: "ready", chosen: true } }] },
   { name: "enters-exerted-may", re: /^this (character|item|location) may enter play exerted$/i,
@@ -610,6 +622,22 @@ export const SENTENCE_TEMPLATES: SentenceTemplate[] = [
     build: (m) => [{ type: "PUT_INTO_INKWELL", source: "top-deck", target: chosenSelector(m[1]) }] },
   { name: "hand-into-inkwell", re: /^put a card from your hand into your inkwell facedown$/i,
     build: () => [{ type: "PUT_INTO_INKWELL", source: "top-deck", target: { zone: "hand", who: "self", chosen: true } }] },
+  // Spooky Sight — mass ink of low-cost boards (hard Toys hate).
+  { name: "all-chars-cost-into-inkwell", re: new RegExp(
+    `^put all characters with cost ${N} or less into their players'? inkwells? facedown(?: and exerted)?$`, "i"),
+    build: (m) => {
+      const maxCost = parseNum(m[1]);
+      const sel = { zone: "play" as const, who: "any" as const, type: "Character" as const, maxCost };
+      return [{
+        type: "FOR_EACH",
+        selector: sel,
+        effects: [{
+          type: "PUT_INTO_INKWELL",
+          source: "top-deck",
+          target: { zone: "play", who: "any", type: "Character", ref: "$each" },
+        }],
+      }];
+    } },
 
   /* ---- search / play free ---- */
   { name: "search-deck", re: /^search your deck for (?:a|an) ([\w ]+?) card(?: with cost .+)? and put (?:it|that card) into your hand$/i,
@@ -711,6 +739,34 @@ export function matchSentence(rawSentence: string, ctx: SentenceContext, depth =
             type: "IF",
             condition: { kind: "count", selector: yourCharacters, op: ">=", value: parseNum(ifCount[1]) },
             then: inner.nodes, else: [],
+          }],
+        };
+      }
+    }
+    // "if you have N or more (other) Toy characters in play, X" → IF{count+classification}
+    const ifClass = s.match(new RegExp(
+      `^if you have ${N} or more (other )?([A-Z][\\w'-]*) characters in play,\\s*(?:you may )?(.+)$`, "is"));
+    if (ifClass) {
+      const inner = matchSentence(ifClass[4], ctx, depth + 1);
+      if (inner.matched) {
+        // "other" excludes the source character; count threshold is on the full
+        // classification pool, so add 1 when the printed text says "other".
+        const need = parseNum(ifClass[1]) + (ifClass[2] ? 1 : 0);
+        return {
+          matched: true, template: `if-class-count:${inner.template ?? "?"}`,
+          nodes: [{
+            type: "IF",
+            condition: {
+              kind: "count",
+              selector: {
+                zone: "play", who: "self", type: "Character",
+                classification: ifClass[3],
+              },
+              op: ">=",
+              value: need,
+            },
+            then: inner.nodes,
+            else: [],
           }],
         };
       }

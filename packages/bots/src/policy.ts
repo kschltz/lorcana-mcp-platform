@@ -83,10 +83,28 @@ export function effStats(inst: EnrichedCardInstance): EffStats {
   let resist = 0;
   let challenger = 0;
   const text = def?.bodyText ?? "";
+  // Markdown keyword headers (**Evasive**) and plain Lorcana headers
+  // ("Evasive (Only characters...") both appear in card text dumps.
   for (const m of text.matchAll(/\*\*(\w+)\*\*(?:\s*\+?(\d+))?/g)) {
-    kw.add(m[1]);
+    kw.add(m[1]!);
     if (m[1] === "Resist") resist += Number(m[2] ?? 0);
     if (m[1] === "Challenger") challenger += Number(m[2] ?? 0);
+  }
+  for (const m of text.matchAll(
+    /\b(Evasive|Rush|Bodyguard|Ward|Reckless|Support|Alert|Vanish|Boost)\b(?:\s*\+?(\d+))?/gi,
+  )) {
+    const name = m[1]![0]!.toUpperCase() + m[1]!.slice(1).toLowerCase();
+    // Normalize Resist/Challenger separately below; Boost has no combat role here.
+    if (name === "Resist" || name === "Challenger") continue;
+    kw.add(name === "Boost" ? "Boost" : name);
+  }
+  for (const m of text.matchAll(/\bResist\s*\+?(\d+)/gi)) {
+    kw.add("Resist");
+    resist += Number(m[1] ?? 0);
+  }
+  for (const m of text.matchAll(/\bChallenger\s*\+?(\d+)/gi)) {
+    kw.add("Challenger");
+    challenger += Number(m[1] ?? 0);
   }
   let strength = def?.strength ?? 0;
   let willpower = def?.willpower ?? 0;
@@ -275,7 +293,7 @@ function chooseAbility(view: PlayerView, legalActions: LegalAction[]): PlayerAct
 // ---------------------------------------------------------------------------
 
 const DRAW_RE = /draw (?:a |\d+ )?card/i;
-const REMOVAL_RE = /banish chosen|deal \d|damage to chosen|return chosen .* to .*hand/i;
+const REMOVAL_RE = /banish chosen|banish all|deal \d|damage to chosen|return chosen .* to .*hand|put all characters|exert all opposing|spooky|into their players'? inkwell/i;
 
 function scorePlayCard(view: PlayerView, l: LegalAction): number {
   const action = l.action as { cardInstanceId: string; choices?: { options?: string[]; payAlternatives?: Record<string, string> } };
@@ -295,8 +313,24 @@ function scorePlayCard(view: PlayerView, l: LegalAction): number {
     }
     case "Action": {
       if (DRAW_RE.test(def.bodyText)) score = 32;
-      else if (REMOVAL_RE.test(def.bodyText)) score = 26;
-      else score = 8;
+      else if (REMOVAL_RE.test(def.bodyText)) {
+        score = 26;
+        const opp = view.players[oppOf(view.you)];
+        const oppChars = asInstances(opp.play).filter((c) => c.card?.type === "Character");
+        const meChars = asInstances(me.play).filter((c) => c.card?.type === "Character");
+        const text = def.bodyText ?? "";
+        // Mass board wipes / Spooky Sight — cast into wide opposing boards.
+        if (/put all characters with cost|banish all characters|exert all opposing/i.test(text)) {
+          const oppLow = oppChars.filter((c) => (c.card?.cost ?? 99) <= 3).length;
+          const meLow = meChars.filter((c) => (c.card?.cost ?? 99) <= 3).length;
+          if (/put all characters with cost/i.test(text)) {
+            // Spooky Sight also inks our ≤3s — only fire when opponent is wider.
+            score = oppLow >= 3 && oppLow > meLow ? 48 : oppLow >= 2 ? 18 : 4;
+          } else if (oppChars.length >= 3) {
+            score = 44;
+          }
+        }
+      } else score = 8;
       break;
     }
     case "Item":
@@ -414,6 +448,14 @@ function chooseQuest(view: PlayerView, legalActions: LegalAction[]): PlayerActio
     .filter((c) => c.card?.type === "Character" && !c.exerted && isDry(view, c))
     .map((c) => effStats(c).strength);
 
+  // Opposing ready Evasive attackers (only they can challenge our Evasive).
+  const evasiveThreats = opp.play
+    .filter((c) => {
+      if (c.card?.type !== "Character" || c.exerted || !isDry(view, c)) return false;
+      return effStats(c).keywords.has("Evasive");
+    })
+    .map((c) => effStats(c).strength);
+
   const quests = legalActions
     .filter((l) => l.action.type === "QUEST")
     .map((l) => {
@@ -422,7 +464,10 @@ function chooseQuest(view: PlayerView, legalActions: LegalAction[]): PlayerActio
       if (!inst) return undefined;
       const s = effStats(inst);
       const remainingWp = s.willpower - inst.damage;
-      const diesNextTurn = threats.some((str) => str >= remainingWp);
+      const isEvasive = s.keywords.has("Evasive");
+      // Evasive questers only fear opposing Evasive attackers.
+      const relevantThreats = isEvasive ? evasiveThreats : threats;
+      const diesNextTurn = relevantThreats.some((str) => str >= remainingWp);
       const lethal = me.lore + s.lore >= 20;
       const safe = !diesNextTurn;
       if (!lethal && !safe && s.lore < 2) return undefined; // hold back chump questers under fire

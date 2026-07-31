@@ -35,6 +35,10 @@ export interface Selector {
   classification?: string;
   name?: string;
   filter?: "exerted" | "ready" | "damaged" | "undamaged" | "wet";
+  /** Printed cost ≤ this value (engine extension — mass effects like Spooky Sight). */
+  maxCost?: number;
+  /** Effective strength ≤ this value (engine extension — Ghostly Tale / Under the Sea). */
+  maxStrength?: number;
   chosen?: boolean; // chosen:true → ask player to pick (PendingChoice)
   count?: number; // how many to pick when chosen (default 1) — engine extension
   ref?: string; // variable reference, e.g. "$each" inside FOR_EACH — engine extension
@@ -119,6 +123,8 @@ export function validateSelector(s: unknown, path: string): string[] {
       !["exerted", "ready", "damaged", "undamaged", "wet"].includes(s.filter as string))
     errs.push(`${path}.filter: invalid`);
   if (s.count !== undefined && typeof s.count !== "number") errs.push(`${path}.count: must be number`);
+  if (s.maxCost !== undefined && typeof s.maxCost !== "number") errs.push(`${path}.maxCost: must be number`);
+  if (s.maxStrength !== undefined && typeof s.maxStrength !== "number") errs.push(`${path}.maxStrength: must be number`);
   if (s.self !== undefined && typeof s.self !== "boolean") errs.push(`${path}.self: must be boolean`);
   return errs;
 }

@@ -20,7 +20,10 @@ export interface EffStats {
  * Used by continuous abilities (no Ward/chosen logic here). */
 export function matchesSelectorBasic(
   rt: Rt, inst: CardInstance,
-  sel: { zone: string; who: string; type?: string; classification?: string; name?: string; filter?: string },
+  sel: {
+    zone: string; who: string; type?: string; classification?: string; name?: string;
+    filter?: string; maxCost?: number; maxStrength?: number;
+  },
   controller: PlayerId,
 ): boolean {
   const state = rt.state;
@@ -41,6 +44,8 @@ export function matchesSelectorBasic(
   if (sel.type && def.type !== sel.type) return false;
   if (sel.classification && !def.classifications.includes(sel.classification)) return false;
   if (sel.name && def.name !== sel.name) return false;
+  if (sel.maxCost !== undefined && def.cost > sel.maxCost) return false;
+  if (sel.maxStrength !== undefined && effStats(rt, inst).strength > sel.maxStrength) return false;
   switch (sel.filter) {
     case "exerted": if (!inst.exerted) return false; break;
     case "ready": if (inst.exerted) return false; break;

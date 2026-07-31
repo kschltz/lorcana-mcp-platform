@@ -1,14 +1,14 @@
 {
  "totalCards": 2487,
  "tiers": {
-  "full": 1195,
+  "full": 1197,
   "partial": 428,
-  "vanilla": 864
+  "vanilla": 862
  },
  "sentences": {
   "total": 3335,
-  "matched": 2225,
-  "ratio": 0.6671664167916042
+  "matched": 2227,
+  "ratio": 0.6677661169415292
  },
  "unmatchedPatterns": [
   {
@@ -3352,10 +3352,6 @@
    "count": 1
   },
   {
-   "pattern": "Exert all opposing characters with N {X} or less.",
-   "count": 1
-  },
-  {
    "pattern": "Once during your turn, whenever you move a character with N {X} or more here, you may draw a card.",
    "count": 1
   },
@@ -3393,10 +3389,6 @@
   },
   {
    "pattern": "That player puts the top card of their deck into their inkwell facedown.",
-   "count": 1
-  },
-  {
-   "pattern": "Put all characters with cost N or less into their players' inkwells facedown and exerted.",
    "count": 1
   },
   {
@@ -7275,7 +7267,7 @@
   "WHI-129": "partial",
   "WHI-130": "vanilla",
   "WHI-131": "partial",
-  "WHI-132": "vanilla",
+  "WHI-132": "full",
   "WHI-133": "full",
   "WHI-134": "full",
   "WHI-135": "vanilla",
@@ -7308,7 +7300,7 @@
   "WHI-162": "full",
   "WHI-163": "full",
   "WHI-164": "partial",
-  "WHI-165": "vanilla",
+  "WHI-165": "full",
   "WHI-166": "vanilla",
   "WHI-167": "vanilla",
   "WHI-168": "vanilla",
