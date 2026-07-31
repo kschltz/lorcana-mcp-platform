@@ -28,8 +28,15 @@ export function selectorPool(rt: Rt, sel: Selector, controller: PlayerId): CardI
   return out;
 }
 
+/** Optional context for conditions that need a specific permanent (self / under). */
+export interface ConditionContext {
+  self?: CardInstance;
+}
+
 /** Evaluate a Condition against the game state from `controller`'s perspective. */
-export function evalCondition(rt: Rt, cond: Condition, controller: PlayerId): boolean {
+export function evalCondition(
+  rt: Rt, cond: Condition, controller: PlayerId, ctx: ConditionContext = {},
+): boolean {
   switch (cond.kind) {
     case "count": {
       const n = selectorPool(rt, cond.selector, controller).filter((c) =>
@@ -47,6 +54,14 @@ export function evalCondition(rt: Rt, cond: Condition, controller: PlayerId): bo
         const v = cond.stat === "strength" ? s.strength : cond.stat === "willpower" ? s.willpower : s.lore;
         return cmp(cond.op, v, cond.value);
       });
+    }
+    case "has-cards-under": {
+      if (cond.selector.self && ctx.self) {
+        return cmp(cond.op, ctx.self.under?.length ?? 0, cond.value);
+      }
+      return selectorPool(rt, cond.selector, controller).some((c) =>
+        matchesSelectorBasic(rt, c, cond.selector, controller) &&
+        cmp(cond.op, c.under?.length ?? 0, cond.value));
     }
   }
 }

@@ -17,6 +17,7 @@ const EFFECT_TYPES = new Set([
   "RETURN_TO_HAND", "EXERT", "READY", "ADD_MODIFIER", "GRANT_KEYWORD", "DISCARD",
   "LOOK_TOP", "PUT_INTO_INKWELL", "SEARCH_DECK", "PLAY_CARD_FREE", "MOVE_DAMAGE",
   "PREVENT_DAMAGE", "CHOICE", "FOR_EACH", "IF",
+  "PUT_UNDER", "COST_REDUCTION",
 ]);
 const KEYWORDS = new Set([
   "Rush", "Evasive", "Ward", "Bodyguard", "Reckless", "Support", "Resist",
@@ -25,6 +26,7 @@ const KEYWORDS = new Set([
 const TRIGGERS = new Set([
   "ON_PLAY", "ON_QUEST", "ON_CHALLENGE_BANISH", "ON_BANISH",
   "START_OF_TURN", "END_OF_TURN", "ON_OPPONENT_PLAY", "ON_PLAY_CHARACTER",
+  "ON_PUT_UNDER", "ON_PUT_UNDER_FRIENDLY",
 ]);
 
 function validateNodes(nodes: EffectNode[], path: string): string[] {

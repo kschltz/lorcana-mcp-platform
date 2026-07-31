@@ -50,8 +50,14 @@ The interpreter fully supports the DSL shapes emitted by
   inkwell) and an optional `target: Selector`; with no target it defaults to the
   top of the controller's deck. Targeted cards go to their *owner's* inkwell.
 - Vanilla-tier scripts (keywords only, no abilities) play as plain stat cards;
-  zero-node abilities (named noops such as `unmodeled-cost-reduction`) resolve
-  gracefully as no-ops.
+  zero-node abilities (named noops) resolve gracefully as no-ops.
+- **`PUT_UNDER`** / **`ON_PUT_UNDER`** / **`ON_PUT_UNDER_FRIENDLY`** — Boost and
+  put-under synergies (sets 10+). Boost is a once-per-turn activated ability
+  (`pay N` → put top deck card under self), not an on-play effect.
+- **`COST_REDUCTION`** — turn-scoped ink discounts applied on the next matching play.
+- Modifier duration **`until-start-of-next-turn`** (+ `expiresFor`) for
+  "until the start of your next turn" / "during their next turn".
+- Condition **`has-cards-under`** for continuous "while there's a card under…".
 - `tests/real-scripts.test.ts` schema-validates ~20 sampled real generated
   scripts (including every extension user) plus 25 keyword-only scripts.
 

@@ -1,22 +1,18 @@
 {
  "totalCards": 2487,
  "tiers": {
-  "full": 1195,
-  "partial": 428,
-  "vanilla": 864
+  "full": 1267,
+  "partial": 411,
+  "vanilla": 809
  },
  "sentences": {
   "total": 3335,
-  "matched": 2225,
-  "ratio": 0.6671664167916042
+  "matched": 2279,
+  "ratio": 0.6833583208395803
  },
  "unmatchedPatterns": [
   {
    "pattern": "{X}: You pay N{X} less for the next character you play this turn.",
-   "count": 3
-  },
-  {
-   "pattern": "chosen opposing character can't quest during their next turn.",
    "count": 3
   },
   {
@@ -56,7 +52,7 @@
    "count": 2
   },
   {
-   "pattern": "When this character is challenged and banished, you may banish the challenging character.",
+   "pattern": "you may banish the challenging character.",
    "count": 2
   },
   {
@@ -108,7 +104,7 @@
    "count": 2
   },
   {
-   "pattern": "When this character is challenged and banished, banish the challenging character.",
+   "pattern": "banish the challenging character.",
    "count": 2
   },
   {
@@ -124,23 +120,7 @@
    "count": 2
   },
   {
-   "pattern": "you may gain lore equal to the {X} of a character card in your discard.",
-   "count": 2
-  },
-  {
    "pattern": "Twice during your turn, whenever this character is chosen for an action or an item's ability, you may ready him.",
-   "count": 2
-  },
-  {
-   "pattern": "When you play this character and whenever you play a location, you may exert chosen character with N {X} or less.",
-   "count": 2
-  },
-  {
-   "pattern": "Whenever you put a card under this character, you may put a card from your discard into your inkwell facedown and exerted.",
-   "count": 2
-  },
-  {
-   "pattern": "Whenever you put a card under one of your characters or locations, this character gets +N {X} this turn.",
    "count": 2
   },
   {
@@ -868,10 +848,6 @@
    "count": 1
   },
   {
-   "pattern": "Your characters named Mickey Mouse gain Support.",
-   "count": 1
-  },
-  {
    "pattern": "Remove up to N damage from chosen Princess character.",
    "count": 1
   },
@@ -1188,10 +1164,6 @@
    "count": 1
   },
   {
-   "pattern": "Your characters named Flotsam gain Ward.",
-   "count": 1
-  },
-  {
    "pattern": "Thanks For Volunteering - Whenever one of your other characters is banished, each opponent loses N lore.",
    "count": 1
   },
@@ -1469,10 +1441,6 @@
   },
   {
    "pattern": "Show The Way - You pay N{X} less to move your characters to a location.",
-   "count": 1
-  },
-  {
-   "pattern": "Whenever a character quests while here, you may draw a card, then choose and discard a card.",
    "count": 1
   },
   {
@@ -2004,10 +1972,6 @@
    "count": 1
   },
   {
-   "pattern": "Your characters named Lilo gain Support.",
-   "count": 1
-  },
-  {
    "pattern": "each opponent puts the top card of their deck into their inkwell facedown and exerted.",
    "count": 1
   },
@@ -2496,23 +2460,11 @@
    "count": 1
   },
   {
-   "pattern": "if you have a character named Elsa in play, choose an opposing character.",
-   "count": 1
-  },
-  {
    "pattern": "The chosen character doesn't ready at the start of their next turn.",
    "count": 1
   },
   {
    "pattern": "Freeze -{X} - Exert chosen opposing character.",
-   "count": 1
-  },
-  {
-   "pattern": "Your characters named Jetsam gain Rush.",
-   "count": 1
-  },
-  {
-   "pattern": "Your characters named Flotsam gain Evasive.",
    "count": 1
   },
   {
@@ -2748,10 +2700,6 @@
    "count": 1
   },
   {
-   "pattern": "Whenever a character quests while here, you may pay N{X} to return a character card from your discard to your hand.",
-   "count": 1
-  },
-  {
    "pattern": "chosen character gains \"When this character is banished in a challenge, you may return this card to your hand\" this turn.",
    "count": 1
   },
@@ -2860,15 +2808,11 @@
    "count": 1
   },
   {
-   "pattern": "When this character is challenged and banished, each opponent chooses one of their characters and returns that card to their hand.",
+   "pattern": "each opponent chooses one of their characters and returns that card to their hand.",
    "count": 1
   },
   {
    "pattern": "{X}, Banish one of your other characters: Play a character with the same name as the banished character for free.",
-   "count": 1
-  },
-  {
-   "pattern": "Your characters named Zeus gain Ward.",
    "count": 1
   },
   {
@@ -3056,7 +3000,7 @@
    "count": 1
   },
   {
-   "pattern": "Whenever a character quests while here, remove up to N damage from them.",
+   "pattern": "remove up to N damage from them.",
    "count": 1
   },
   {
@@ -3116,51 +3060,7 @@
    "count": 1
   },
   {
-   "pattern": "if there's a card under him, chosen opposing character can't challenge and must quest if able during their next turn.",
-   "count": 1
-  },
-  {
    "pattern": "Whenever one of your characters is chosen for Support, until the start of your next turn, the next time they would be dealt damage they take no damage instead.",
-   "count": 1
-  },
-  {
-   "pattern": "chosen character with a card under them gets +N {X} this turn.",
-   "count": 1
-  },
-  {
-   "pattern": "you may give chosen Detective character +N {X} this turn.",
-   "count": 1
-  },
-  {
-   "pattern": "chosen opponent reveals their hand and discards a non-character card of their choice.",
-   "count": 1
-  },
-  {
-   "pattern": "Whenever you put a card under this character, you may reveal the top card of your deck.",
-   "count": 1
-  },
-  {
-   "pattern": "you may ready chosen character with Boost.",
-   "count": 1
-  },
-  {
-   "pattern": "While you have N or more other Amber characters in play, this character gains Singer N.",
-   "count": 1
-  },
-  {
-   "pattern": "you may put a song card from your discard on the top of your deck.",
-   "count": 1
-  },
-  {
-   "pattern": "The player or players with the most cards in their hands choose and discard N cards.",
-   "count": 1
-  },
-  {
-   "pattern": "Whenever you put a card under one of your characters or locations, you may pay N {X} to draw a card.",
-   "count": 1
-  },
-  {
-   "pattern": "Put a character card from your discard under this item faceup.",
    "count": 1
   },
   {
@@ -3168,31 +3068,7 @@
    "count": 1
   },
   {
-   "pattern": "Whenever a character quests while here, you pay N {X} less for the next character you play this turn.",
-   "count": 1
-  },
-  {
-   "pattern": "Whenever one of your other Amethyst characters is banished in a challenge, you may draw a card.",
-   "count": 1
-  },
-  {
-   "pattern": "you may shuffle a card from chosen player's discard into their deck.",
-   "count": 1
-  },
-  {
    "pattern": "During your turn, if N or more cards have left a player's discard this turn, this character gets +N {X}.",
-   "count": 1
-  },
-  {
-   "pattern": "Whenever you put a card under one of your characters or locations, you may move N damage counter from chosen character to chosen opposing character.",
-   "count": 1
-  },
-  {
-   "pattern": "Then, each player with fewer than N cards in their hand draws until they have N.",
-   "count": 1
-  },
-  {
-   "pattern": "you may choose an opposing character.",
    "count": 1
   },
   {
@@ -3200,31 +3076,7 @@
    "count": 1
   },
   {
-   "pattern": "When this character leaves play, you may return chosen character of yours to your hand.",
-   "count": 1
-  },
-  {
-   "pattern": "While there's a card under this character, she gets +N {X} and gains Evasive.",
-   "count": 1
-  },
-  {
-   "pattern": "Whenever you put a card under this character, you may move up to N damage counters from chosen character to chosen opposing character.",
-   "count": 1
-  },
-  {
-   "pattern": "Move all damage counters from all other characters to that character.",
-   "count": 1
-  },
-  {
-   "pattern": "{X} chosen ready character of yours to draw cards equal to that character's {X}.",
-   "count": 1
-  },
-  {
    "pattern": "During your turn, whenever an opposing character becomes exerted, gain N lore.",
-   "count": 1
-  },
-  {
-   "pattern": "Your characters named Demona gain Rush.",
    "count": 1
   },
   {
@@ -3232,23 +3084,7 @@
    "count": 1
   },
   {
-   "pattern": "When this character is challenged and banished, put N damage counter on each opposing character.",
-   "count": 1
-  },
-  {
    "pattern": "While there's a card under this character, she gets +N {X} and gains \"Whenever this character is challenged, each opponent chooses and discards a card.\"",
-   "count": 1
-  },
-  {
-   "pattern": "you may put a location card from chosen player's discard on the bottom of their deck to gain N lore.",
-   "count": 1
-  },
-  {
-   "pattern": "Then, you may put N damage counter on another chosen character.",
-   "count": 1
-  },
-  {
-   "pattern": "When this character is challenged, return this card to your hand.",
    "count": 1
   },
   {
@@ -3260,15 +3096,7 @@
    "count": 1
   },
   {
-   "pattern": "Whenever you put a card under this character, ready him.",
-   "count": 1
-  },
-  {
    "pattern": "Each of your characters gets +N {X} this turn.",
-   "count": 1
-  },
-  {
-   "pattern": "Put N damage counter on each opposing character.",
    "count": 1
   },
   {
@@ -3281,10 +3109,6 @@
   },
   {
    "pattern": "This location gets +N {X} for each character here.",
-   "count": 1
-  },
-  {
-   "pattern": "Once during your turn, whenever you put a card under one of your characters or locations, you may ready chosen character.",
    "count": 1
   },
   {
@@ -3360,15 +3184,11 @@
    "count": 1
   },
   {
-   "pattern": "Whenever a character quests while here, you may banish this location to gain N lore and give them Evasive until the start of your next turn.",
+   "pattern": "you may banish this location to gain N lore and give them Evasive until the start of your next turn.",
    "count": 1
   },
   {
    "pattern": "During your turn, your Detective characters gain Alert and Resist +N.",
-   "count": 1
-  },
-  {
-   "pattern": "Whenever you put a card under this character, chosen opposing character gets -N {X} this turn.",
    "count": 1
   },
   {
@@ -3412,7 +3232,7 @@
    "count": 1
   },
   {
-   "pattern": "Once during your turn, whenever a character quests while here, you may ready chosen item.",
+   "pattern": "you may ready chosen item.",
    "count": 1
   },
   {
@@ -3457,10 +3277,6 @@
   },
   {
    "pattern": "During your turn, whenever one of your other Steel characters banishes another character in a challenge, gain N lore.",
-   "count": 1
-  },
-  {
-   "pattern": "Whenever you put a card under this character, you may banish chosen opposing character.",
    "count": 1
   },
   {
@@ -3848,10 +3664,6 @@
    "count": 1
   },
   {
-   "pattern": "Your characters named Woody gain Bodyguard.",
-   "count": 1
-  },
-  {
    "pattern": "you may return a character card with N {X} or more from your discard to your hand.",
    "count": 1
   },
@@ -4164,10 +3976,6 @@
    "count": 1
   },
   {
-   "pattern": "When this character leaves play, you may return an item card from your discard to your hand.",
-   "count": 1
-  },
-  {
    "pattern": "Ready chosen item.",
    "count": 1
   },
@@ -4228,7 +4036,7 @@
    "count": 1
   },
   {
-   "pattern": "Whenever a character quests while here, you may remove up to N damage from them.",
+   "pattern": "you may remove up to N damage from them.",
    "count": 1
   },
   {
@@ -5221,11 +5029,6 @@
    "sentence": "you may exert them to draw a card."
   },
   {
-   "cardId": "FAB-005",
-   "fullName": "Minnie Mouse - Sweetheart Princess",
-   "sentence": "Your characters named Mickey Mouse gain Support."
-  },
-  {
    "cardId": "FAB-014",
    "fullName": "Pluto - Determined Defender",
    "sentence": "remove up to 3 damage from this character."
@@ -5303,7 +5106,12 @@
   {
    "cardId": "FAB-069",
    "fullName": "Kuzco - Temperamental Emperor",
-   "sentence": "When this character is challenged and banished, you may banish the challenging character."
+   "sentence": "you may banish the challenging character."
+  },
+  {
+   "cardId": "FAB-071",
+   "fullName": "Cursed Merfolk - Ursula's Handiwork",
+   "sentence": "Whenever this character is challenged, each opponent chooses and discards a card."
   }
  ],
  "tiersByCard": {
@@ -5392,7 +5200,7 @@
   "ARI-083": "partial",
   "ARI-084": "vanilla",
   "ARI-085": "vanilla",
-  "ARI-086": "vanilla",
+  "ARI-086": "full",
   "ARI-087": "full",
   "ARI-088": "full",
   "ARI-089": "full",
@@ -5416,7 +5224,7 @@
   "ARI-107": "full",
   "ARI-108": "vanilla",
   "ARI-109": "full",
-  "ARI-110": "vanilla",
+  "ARI-110": "partial",
   "ARI-111": "vanilla",
   "ARI-112": "vanilla",
   "ARI-113": "vanilla",
@@ -5501,7 +5309,7 @@
   "ARI-192": "vanilla",
   "ARI-193": "full",
   "ARI-194": "vanilla",
-  "ARI-195": "vanilla",
+  "ARI-195": "full",
   "ARI-196": "vanilla",
   "ARI-197": "vanilla",
   "ARI-198": "partial",
@@ -5574,7 +5382,7 @@
   "AZS-061": "partial",
   "AZS-062": "full",
   "AZS-063": "partial",
-  "AZS-064": "vanilla",
+  "AZS-064": "full",
   "AZS-065": "vanilla",
   "AZS-066": "vanilla",
   "AZS-067": "vanilla",
@@ -5612,7 +5420,7 @@
   "AZS-099": "full",
   "AZS-100": "vanilla",
   "AZS-101": "vanilla",
-  "AZS-102": "vanilla",
+  "AZS-102": "full",
   "AZS-103": "partial",
   "AZS-104": "full",
   "AZS-105": "vanilla",
@@ -5720,8 +5528,8 @@
   "FAB-002": "full",
   "FAB-003": "partial",
   "FAB-004": "full",
-  "FAB-005": "partial",
-  "FAB-006": "vanilla",
+  "FAB-005": "full",
+  "FAB-006": "full",
   "FAB-007": "vanilla",
   "FAB-008": "full",
   "FAB-009": "vanilla",
@@ -5736,7 +5544,7 @@
   "FAB-018": "full",
   "FAB-019": "partial",
   "FAB-020": "partial",
-  "FAB-021": "vanilla",
+  "FAB-021": "full",
   "FAB-022": "full",
   "FAB-023": "vanilla",
   "FAB-024": "full",
@@ -5747,7 +5555,7 @@
   "FAB-029": "full",
   "FAB-030": "full",
   "FAB-031": "full",
-  "FAB-032": "vanilla",
+  "FAB-032": "full",
   "FAB-033": "full",
   "FAB-034": "vanilla",
   "FAB-035": "full",
@@ -5871,7 +5679,7 @@
   "FAB-153": "full",
   "FAB-154": "full",
   "FAB-155": "full",
-  "FAB-156": "vanilla",
+  "FAB-156": "full",
   "FAB-157": "full",
   "FAB-158": "full",
   "FAB-159": "full",
@@ -5995,7 +5803,7 @@
   "INK-073": "vanilla",
   "INK-074": "full",
   "INK-075": "vanilla",
-  "INK-076": "partial",
+  "INK-076": "full",
   "INK-077": "full",
   "INK-078": "partial",
   "INK-079": "vanilla",
@@ -6074,7 +5882,7 @@
   "INK-152": "vanilla",
   "INK-153": "full",
   "INK-154": "partial",
-  "INK-155": "vanilla",
+  "INK-155": "full",
   "INK-156": "vanilla",
   "INK-157": "vanilla",
   "INK-158": "full",
@@ -6087,7 +5895,7 @@
   "INK-165": "vanilla",
   "INK-166": "vanilla",
   "INK-167": "vanilla",
-  "INK-168": "vanilla",
+  "INK-168": "full",
   "INK-169": "vanilla",
   "INK-170": "vanilla",
   "INK-171": "vanilla",
@@ -6123,12 +5931,12 @@
   "INK-201": "vanilla",
   "INK-202": "vanilla",
   "INK-203": "vanilla",
-  "INK-204": "vanilla",
+  "INK-204": "full",
   "ROF-001": "vanilla",
   "ROF-002": "vanilla",
   "ROF-003": "full",
   "ROF-004": "vanilla",
-  "ROF-005": "vanilla",
+  "ROF-005": "full",
   "ROF-006": "vanilla",
   "ROF-007": "vanilla",
   "ROF-008": "full",
@@ -6136,7 +5944,7 @@
   "ROF-010": "vanilla",
   "ROF-011": "full",
   "ROF-012": "vanilla",
-  "ROF-013": "vanilla",
+  "ROF-013": "full",
   "ROF-014": "partial",
   "ROF-015": "full",
   "ROF-016": "partial",
@@ -6147,7 +5955,7 @@
   "ROF-021": "full",
   "ROF-022": "vanilla",
   "ROF-023": "full",
-  "ROF-024": "vanilla",
+  "ROF-024": "full",
   "ROF-025": "full",
   "ROF-026": "full",
   "ROF-027": "vanilla",
@@ -6330,7 +6138,7 @@
   "ROF-204": "full",
   "ROJ-001": "vanilla",
   "ROJ-002": "vanilla",
-  "ROJ-003": "vanilla",
+  "ROJ-003": "full",
   "ROJ-004": "partial",
   "ROJ-005": "vanilla",
   "ROJ-006": "full",
@@ -6364,7 +6172,7 @@
   "ROJ-034": "vanilla",
   "ROJ-035": "full",
   "ROJ-036": "vanilla",
-  "ROJ-037": "vanilla",
+  "ROJ-037": "partial",
   "ROJ-038": "vanilla",
   "ROJ-039": "full",
   "ROJ-040": "partial",
@@ -6420,7 +6228,7 @@
   "ROJ-090": "full",
   "ROJ-091": "full",
   "ROJ-092": "full",
-  "ROJ-093": "vanilla",
+  "ROJ-093": "full",
   "ROJ-094": "vanilla",
   "ROJ-095": "full",
   "ROJ-096": "vanilla",
@@ -6428,7 +6236,7 @@
   "ROJ-098": "partial",
   "ROJ-099": "full",
   "ROJ-100": "full",
-  "ROJ-101": "partial",
+  "ROJ-101": "full",
   "ROJ-102": "partial",
   "ROJ-103": "full",
   "ROJ-104": "partial",
@@ -6492,7 +6300,7 @@
   "ROJ-162": "vanilla",
   "ROJ-163": "full",
   "ROJ-164": "vanilla",
-  "ROJ-165": "vanilla",
+  "ROJ-165": "partial",
   "ROJ-166": "vanilla",
   "ROJ-167": "partial",
   "ROJ-168": "vanilla",
@@ -6743,7 +6551,7 @@
   "TFC-005": "full",
   "TFC-006": "full",
   "TFC-007": "full",
-  "TFC-008": "vanilla",
+  "TFC-008": "full",
   "TFC-009": "vanilla",
   "TFC-010": "full",
   "TFC-011": "full",
@@ -6778,15 +6586,15 @@
   "TFC-040": "vanilla",
   "TFC-041": "vanilla",
   "TFC-042": "partial",
-  "TFC-043": "partial",
+  "TFC-043": "full",
   "TFC-044": "full",
   "TFC-045": "full",
-  "TFC-046": "partial",
+  "TFC-046": "full",
   "TFC-047": "vanilla",
   "TFC-048": "vanilla",
   "TFC-049": "full",
   "TFC-050": "full",
-  "TFC-051": "vanilla",
+  "TFC-051": "partial",
   "TFC-052": "vanilla",
   "TFC-053": "full",
   "TFC-054": "full",
@@ -6816,14 +6624,14 @@
   "TFC-078": "vanilla",
   "TFC-079": "vanilla",
   "TFC-080": "vanilla",
-  "TFC-081": "vanilla",
+  "TFC-081": "full",
   "TFC-082": "full",
   "TFC-083": "vanilla",
   "TFC-084": "partial",
   "TFC-085": "full",
   "TFC-086": "vanilla",
   "TFC-087": "full",
-  "TFC-088": "partial",
+  "TFC-088": "full",
   "TFC-089": "vanilla",
   "TFC-090": "vanilla",
   "TFC-091": "full",
@@ -6876,7 +6684,7 @@
   "TFC-138": "full",
   "TFC-139": "full",
   "TFC-140": "vanilla",
-  "TFC-141": "vanilla",
+  "TFC-141": "full",
   "TFC-142": "vanilla",
   "TFC-143": "full",
   "TFC-144": "full",
@@ -6887,7 +6695,7 @@
   "TFC-149": "full",
   "TFC-150": "vanilla",
   "TFC-151": "vanilla",
-  "TFC-152": "vanilla",
+  "TFC-152": "partial",
   "TFC-153": "full",
   "TFC-154": "full",
   "TFC-155": "vanilla",
@@ -6973,7 +6781,7 @@
   "URS-031": "vanilla",
   "URS-032": "vanilla",
   "URS-033": "vanilla",
-  "URS-034": "vanilla",
+  "URS-034": "full",
   "URS-035": "vanilla",
   "URS-036": "full",
   "URS-037": "full",
@@ -7145,40 +6953,40 @@
   "URS-203": "vanilla",
   "URS-204": "vanilla",
   "WHI-001": "full",
-  "WHI-002": "partial",
+  "WHI-002": "full",
   "WHI-003": "partial",
   "WHI-004": "vanilla",
   "WHI-005": "vanilla",
   "WHI-006": "full",
   "WHI-007": "full",
-  "WHI-008": "vanilla",
+  "WHI-008": "full",
   "WHI-009": "full",
   "WHI-010": "full",
   "WHI-011": "full",
   "WHI-012": "vanilla",
   "WHI-013": "full",
-  "WHI-014": "partial",
+  "WHI-014": "full",
   "WHI-015": "full",
   "WHI-016": "vanilla",
   "WHI-017": "full",
   "WHI-018": "full",
-  "WHI-019": "vanilla",
-  "WHI-020": "partial",
+  "WHI-019": "full",
+  "WHI-020": "full",
   "WHI-021": "full",
-  "WHI-022": "partial",
-  "WHI-023": "partial",
+  "WHI-022": "full",
+  "WHI-023": "full",
   "WHI-024": "full",
-  "WHI-025": "partial",
-  "WHI-026": "partial",
+  "WHI-025": "full",
+  "WHI-026": "full",
   "WHI-027": "full",
   "WHI-028": "full",
   "WHI-029": "full",
   "WHI-030": "full",
-  "WHI-031": "vanilla",
+  "WHI-031": "full",
   "WHI-032": "vanilla",
   "WHI-033": "full",
-  "WHI-034": "vanilla",
-  "WHI-035": "vanilla",
+  "WHI-034": "full",
+  "WHI-035": "full",
   "WHI-036": "full",
   "WHI-037": "full",
   "WHI-038": "vanilla",
@@ -7195,22 +7003,22 @@
   "WHI-049": "vanilla",
   "WHI-050": "vanilla",
   "WHI-051": "full",
-  "WHI-052": "vanilla",
+  "WHI-052": "full",
   "WHI-053": "full",
   "WHI-054": "full",
-  "WHI-055": "partial",
+  "WHI-055": "full",
   "WHI-056": "vanilla",
-  "WHI-057": "vanilla",
+  "WHI-057": "full",
   "WHI-058": "full",
-  "WHI-059": "partial",
-  "WHI-060": "partial",
+  "WHI-059": "full",
+  "WHI-060": "full",
   "WHI-061": "full",
-  "WHI-062": "partial",
+  "WHI-062": "full",
   "WHI-063": "full",
-  "WHI-064": "vanilla",
+  "WHI-064": "full",
   "WHI-065": "full",
   "WHI-066": "full",
-  "WHI-067": "vanilla",
+  "WHI-067": "partial",
   "WHI-068": "vanilla",
   "WHI-069": "vanilla",
   "WHI-070": "vanilla",
@@ -7225,29 +7033,29 @@
   "WHI-079": "full",
   "WHI-080": "full",
   "WHI-081": "full",
-  "WHI-082": "vanilla",
+  "WHI-082": "full",
   "WHI-083": "full",
   "WHI-084": "vanilla",
   "WHI-085": "full",
   "WHI-086": "partial",
-  "WHI-087": "partial",
-  "WHI-088": "partial",
-  "WHI-089": "partial",
+  "WHI-087": "full",
+  "WHI-088": "full",
+  "WHI-089": "full",
   "WHI-090": "vanilla",
   "WHI-091": "partial",
-  "WHI-092": "partial",
+  "WHI-092": "full",
   "WHI-093": "full",
   "WHI-094": "partial",
   "WHI-095": "full",
   "WHI-096": "full",
-  "WHI-097": "vanilla",
+  "WHI-097": "full",
   "WHI-098": "partial",
   "WHI-099": "full",
   "WHI-100": "full",
   "WHI-101": "partial",
   "WHI-102": "vanilla",
   "WHI-103": "vanilla",
-  "WHI-104": "partial",
+  "WHI-104": "full",
   "WHI-105": "full",
   "WHI-106": "vanilla",
   "WHI-107": "vanilla",
@@ -7296,7 +7104,7 @@
   "WHI-150": "partial",
   "WHI-151": "vanilla",
   "WHI-152": "full",
-  "WHI-153": "partial",
+  "WHI-153": "full",
   "WHI-154": "partial",
   "WHI-155": "vanilla",
   "WHI-156": "full",
@@ -7360,7 +7168,7 @@
   "WIN-010": "full",
   "WIN-011": "full",
   "WIN-012": "full",
-  "WIN-013": "vanilla",
+  "WIN-013": "full",
   "WIN-014": "vanilla",
   "WIN-015": "full",
   "WIN-016": "full",
@@ -7397,12 +7205,12 @@
   "WIN-047": "partial",
   "WIN-048": "full",
   "WIN-049": "full",
-  "WIN-050": "vanilla",
+  "WIN-050": "partial",
   "WIN-051": "vanilla",
   "WIN-052": "full",
   "WIN-053": "vanilla",
   "WIN-054": "vanilla",
-  "WIN-055": "vanilla",
+  "WIN-055": "full",
   "WIN-056": "full",
   "WIN-057": "partial",
   "WIN-058": "vanilla",
@@ -7455,7 +7263,7 @@
   "WIN-105": "vanilla",
   "WIN-106": "vanilla",
   "WIN-107": "full",
-  "WIN-108": "vanilla",
+  "WIN-108": "full",
   "WIN-109": "full",
   "WIN-110": "full",
   "WIN-111": "full",
@@ -7470,9 +7278,9 @@
   "WIN-120": "full",
   "WIN-121": "full",
   "WIN-122": "full",
-  "WIN-123": "partial",
+  "WIN-123": "full",
   "WIN-124": "full",
-  "WIN-125": "vanilla",
+  "WIN-125": "full",
   "WIN-126": "partial",
   "WIN-127": "partial",
   "WIN-128": "full",
@@ -7493,9 +7301,9 @@
   "WIN-143": "vanilla",
   "WIN-144": "vanilla",
   "WIN-145": "full",
-  "WIN-146": "partial",
+  "WIN-146": "full",
   "WIN-147": "full",
-  "WIN-148": "vanilla",
+  "WIN-148": "full",
   "WIN-149": "full",
   "WIN-150": "vanilla",
   "WIN-151": "full",
@@ -7503,10 +7311,10 @@
   "WIN-153": "full",
   "WIN-154": "partial",
   "WIN-155": "vanilla",
-  "WIN-156": "partial",
+  "WIN-156": "full",
   "WIN-157": "partial",
   "WIN-158": "full",
-  "WIN-159": "vanilla",
+  "WIN-159": "partial",
   "WIN-160": "vanilla",
   "WIN-161": "vanilla",
   "WIN-162": "vanilla",
@@ -7553,7 +7361,7 @@
   "WIN-203": "vanilla",
   "WIN-204": "partial",
   "WIN-205": "full",
-  "WIN-206": "vanilla",
+  "WIN-206": "full",
   "WIN-207": "full",
   "WIN-208": "full",
   "WIN-209": "full",
@@ -7562,11 +7370,11 @@
   "WIN-212": "full",
   "WIN-213": "full",
   "WIN-214": "full",
-  "WIN-215": "vanilla",
+  "WIN-215": "full",
   "WIN-216": "full",
   "WIN-217": "full",
-  "WIN-218": "partial",
-  "WIN-219": "vanilla",
+  "WIN-218": "full",
+  "WIN-219": "partial",
   "WIN-220": "full",
   "WIN-221": "full",
   "WIN-222": "full",
@@ -7574,17 +7382,17 @@
   "WIN-224": "full",
   "WIN-225": "full",
   "WIN-226": "partial",
-  "WIN-227": "vanilla",
+  "WIN-227": "partial",
   "WIN-228": "full",
   "WIN-229": "full",
   "WIN-230": "partial",
   "WIN-231": "full",
   "WIN-232": "full",
-  "WIN-233": "partial",
+  "WIN-233": "full",
   "WIN-234": "full",
   "WIN-235": "full",
   "WIN-236": "full",
-  "WIN-237": "partial",
+  "WIN-237": "full",
   "WIN-238": "full",
   "WIN-239": "full",
   "WIN-240": "partial",
@@ -7600,13 +7408,13 @@
   "WUN-008": "vanilla",
   "WUN-009": "vanilla",
   "WUN-010": "partial",
-  "WUN-011": "vanilla",
+  "WUN-011": "full",
   "WUN-012": "vanilla",
-  "WUN-013": "vanilla",
+  "WUN-013": "full",
   "WUN-014": "vanilla",
   "WUN-015": "partial",
   "WUN-016": "full",
-  "WUN-017": "vanilla",
+  "WUN-017": "full",
   "WUN-018": "vanilla",
   "WUN-019": "partial",
   "WUN-020": "partial",
@@ -7662,7 +7470,7 @@
   "WUN-070": "full",
   "WUN-071": "vanilla",
   "WUN-072": "full",
-  "WUN-073": "vanilla",
+  "WUN-073": "full",
   "WUN-074": "vanilla",
   "WUN-075": "full",
   "WUN-076": "vanilla",
@@ -7687,7 +7495,7 @@
   "WUN-095": "partial",
   "WUN-096": "full",
   "WUN-097": "vanilla",
-  "WUN-098": "vanilla",
+  "WUN-098": "partial",
   "WUN-099": "full",
   "WUN-100": "partial",
   "WUN-101": "full",
@@ -7701,7 +7509,7 @@
   "WUN-109": "full",
   "WUN-110": "vanilla",
   "WUN-111": "vanilla",
-  "WUN-112": "vanilla",
+  "WUN-112": "full",
   "WUN-113": "vanilla",
   "WUN-114": "vanilla",
   "WUN-115": "full",
@@ -7709,7 +7517,7 @@
   "WUN-117": "full",
   "WUN-118": "full",
   "WUN-119": "partial",
-  "WUN-120": "vanilla",
+  "WUN-120": "partial",
   "WUN-121": "partial",
   "WUN-122": "full",
   "WUN-123": "vanilla",
@@ -7736,7 +7544,7 @@
   "WUN-144": "full",
   "WUN-145": "partial",
   "WUN-146": "full",
-  "WUN-147": "vanilla",
+  "WUN-147": "full",
   "WUN-148": "vanilla",
   "WUN-149": "partial",
   "WUN-150": "partial",
