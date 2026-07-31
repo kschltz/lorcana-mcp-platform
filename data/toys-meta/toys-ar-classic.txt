@@ -1,5 +1,6 @@
-# Amber/Ruby Toys — based on Thijn W. "Toys 'r us" (5th, Conflux Ink Clash, 2026-05-16)
-# Source: https://inkdecks.com/lorcana-metagame/deck-toys-r-us-512188
+# Core (Sets 9–12): Amber/Ruby Toys — based on Thijn W. "Toys 'r us"
+# (5th, Conflux Ink Clash, 2026-05-16). Source: inkdecks 512188
+# All cards are WUN/WHI Core-legal printings.
 4 Pterodactyl Janie Doll - Sid's Toy
 4 Woody - Waiting for a Friend
 4 Hamm - Piggy Bank

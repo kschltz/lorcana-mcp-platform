@@ -1,5 +1,6 @@
-# Amber/Ruby Toys — Sid-leaning variant (Vince "Sid's toybox", 4th @ Spellenwinkel.nl Set Champs 2026-06-28)
-# Source: https://inkdecks.com/lorcana-metagame/deck-sid-s-toybox-516250
+# Core (Sets 9–12): Amber/Ruby Toys — Vince "Sid's toybox"
+# (4th @ Spellenwinkel.nl Set Champs 2026-06-28). Source: inkdecks 516250
+# All cards are WUN/WHI Core-legal printings.
 4 Pterodactyl Janie Doll - Sid's Toy
 4 Woody - Waiting for a Friend
 4 Hamm - Piggy Bank

@@ -1,52 +1,52 @@
-# Toys meta counter battery
+# Toys meta counter battery (Core Constructed)
 
-In-process AI-vs-AI sims of candidate counters vs Amber/Ruby Toys
-(Wilds Unknown package), using `@lorcana/bots` heuristics + `@lorcana/engine`.
+In-process AI-vs-AI sims of **Core-legal** candidate counters vs Amber/Ruby
+Toys, using `@lorcana/bots` heuristics + `@lorcana/engine`.
 
-## Toys references
+## Format
 
-| File | Notes |
-|------|--------|
-| `toys-ar-classic.txt` | Thijn W. "Toys 'r us" (inkdecks 512188) |
-| `toys-ar-sidbox.txt` | Vince "Sid's toybox" (inkdecks 516250) |
-
-## Counter candidates
-
-| File | Plan |
-|------|------|
-| `counter-amethyst-ruby.txt` | Evasive + ruby tempo (primary pick) |
-| `counter-amber-amethyst.txt` | Cheap L2 lore race + amethyst draw |
-| `counter-amethyst-sapphire.txt` | Classic evasive + sapphire filter |
-| `counter-emerald-ruby.txt` | Bounce tempo + ruby evasives |
-| `counter-amber-emerald.txt` | Amber race + emerald bounce |
-| `counter-amber-steel.txt` | Amber lore + steel songs |
-| `counter-ruby-steel.txt` | Ruby/Steel removal midrange |
-| `counter-sapphire-steel.txt` | Sapphire ramp into board clears |
-
-## How to run
+Core Constructed after the July 2026 rotation = **Sets 9–13** (FAB–Attack of
+the Vine). This repo’s card pool currently tops out at **Set 12 (WUN)** — Set 13
+is not present — so decks and the `--core` filter use **sets 9–12**.
 
 ```bash
-# Full matrix (N games per matchup, seats alternated)
 npx tsx packages/bots/src/bulk-sim.ts \
+  --core \
   --matrix data/toys-meta \
   --games 250 --seed 42 \
   --metrics data/toys-meta/results.jsonl
 ```
 
 Inkable flags for sets 6/10/11/12 are patched from
-`data/inkable/lorcast-sets-6-10-11-12.json` (committed lorcana-api bulk has
-broken `Inkable` on those sets).
+`data/inkable/lorcast-sets-6-10-11-12.json`.
+
+## Toys references (Core-legal)
+
+| File | Notes |
+|------|--------|
+| `toys-ar-classic.txt` | Thijn W. "Toys 'r us" (inkdecks 512188) |
+| `toys-ar-sidbox.txt` | Vince "Sid's toybox" (inkdecks 516250) |
+
+## Counter candidates (Core 9–12)
+
+| File | Plan |
+|------|------|
+| `counter-amber-amethyst.txt` | Cheap L2 lore + Amethyst evasives |
+| `counter-amethyst-ruby.txt` | Amethyst/Ruby Evasive + Ruby removal |
+| `counter-amethyst-sapphire.txt` | Evasive + sapphire filter / ink hate |
+| `counter-amber-emerald.txt` | Amber race + Mother Knows Best package |
+| `counter-amber-ruby.txt` | Amber/Ruby aggressive race |
+| `counter-amber-steel.txt` | Amber lore + steel damage |
+| `counter-emerald-sapphire.txt` | Bounce-control |
+| `counter-ruby-steel.txt` | Ruby/Steel removal midrange |
+| `counter-sapphire-steel.txt` | Sapphire filter into steel clears |
 
 ## Results
 
-See [`RESULTS.md`](./RESULTS.md) for the 4,000-game matrix (seed 42).
-
-**Top counters under heuristic bots:** Amber/Amethyst (~82% WR), Amethyst/Ruby
-Evasive (~74%), Amethyst/Sapphire Evasive (~46%). Steel/bounce shells fare poorly.
+See [`RESULTS.md`](./RESULTS.md) for the latest Core matrix.
 
 ## Caveats
 
-- Heuristic bots, not humans; results are directional.
-- Many WUN toy texts (Boost / Friend in Me tutoring) are only partially
-  scripted — Toys may be weaker or differently shaped than paper.
-- Set 13 (Attack of the Vine) is not in the committed card pool.
+- Heuristic bots; directional only.
+- Partial WUN scripting (Boost / Friend in Me tutoring).
+- No Set 13 cards (Elinor Brave package, Boost payoffs, etc.).

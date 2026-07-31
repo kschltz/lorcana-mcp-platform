@@ -1,17 +1,17 @@
-# Counter: Ruby/Steel — L2+ quest bodies + mass removal
-# Plan: quest with L2 characters; Zeus/Grab Your Sword/Be Prepared clear go-wide Toys
-4 Captain Hook - Forceful Duelist
+# Core (Sets 9–12): Ruby/Steel removal midrange
+# Plan: challenge + Dragon Fire / Grab Your Bow / steel damage vs go-wide Toys
 4 Fire the Cannons!
 4 Smash
-4 Mr. Smee - Bumbling Mate
-4 Lumiere - Nimble Candelabra
+4 Inner Strength
+4 Mrs. Incredible - Helen Parr
 4 Sisu - Emboldened Warrior
-4 Minnie Mouse - Stylish Surfer
-4 Goofy - Daredevil
-4 Grab Your Sword
-4 And Then Along Came Zeus
+4 Peter Pan - High Flyer
 4 Strength of a Raging Fire
-4 Bagheera - Guardian Jaguar
-4 Tinker Bell - Giant Fairy
-4 Beast - Tragic Hero
-4 Be Prepared
+4 Three Arrows
+4 Dragon Fire
+4 Grab Your Bow
+4 Zeus - Missing His Spark
+4 Vincenzo Santorini - On the Run
+4 Basil - Tenacious Mouse
+4 He Hurled His Thunderbolt
+4 Robin Hood - Champion of Sherwood

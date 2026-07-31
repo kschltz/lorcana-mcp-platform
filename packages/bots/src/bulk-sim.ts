@@ -41,6 +41,9 @@ interface Cli {
   metrics?: string;
   inkable?: string;
   verbose: boolean;
+  /** Restrict deckbuilding to Core Constructed set numbers (inclusive). */
+  coreMin?: number;
+  coreMax?: number;
 }
 
 function parseArgs(argv: string[]): Cli {
@@ -48,6 +51,13 @@ function parseArgs(argv: string[]): Cli {
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i]!;
     if (a === "--verbose") { out.verbose = true; continue; }
+    if (a === "--core") {
+      // Post–July 2026 Core: Sets 9–13. Set 13 is absent from this repo's pool,
+      // so the default window is 9–12 (FAB–WUN).
+      out.coreMin = 9;
+      out.coreMax = 12;
+      continue;
+    }
     const v = argv[++i];
     if (v === undefined) throw new Error(`missing value for ${a}`);
     switch (a) {
@@ -58,6 +68,8 @@ function parseArgs(argv: string[]): Cli {
       case "--seed": out.seed = Number.parseInt(v, 10); break;
       case "--metrics": out.metrics = v; break;
       case "--inkable": out.inkable = v; break;
+      case "--coreMin": out.coreMin = Number.parseInt(v, 10); break;
+      case "--coreMax": out.coreMax = Number.parseInt(v, 10); break;
       default: throw new Error(`unknown arg ${a}`);
     }
   }
@@ -104,8 +116,13 @@ function loadRegistry(inkable: Map<string, boolean>): {
   return { registry: new CardRegistry(cards, scripts), byName };
 }
 
-function parseDeckText(text: string, byName: Map<string, CardDefinition[]>): string[] {
+function parseDeckText(
+  text: string,
+  byName: Map<string, CardDefinition[]>,
+  core?: { min: number; max: number },
+): string[] {
   const ids: string[] = [];
+  const colors = new Set<string>();
   for (const raw of text.split(/\r?\n/)) {
     const line = raw.trim();
     if (!line || line.startsWith("#")) continue;
@@ -113,13 +130,25 @@ function parseDeckText(text: string, byName: Map<string, CardDefinition[]>): str
     if (!m) throw new Error(`bad deck line: ${line}`);
     const qty = Number.parseInt(m[1]!, 10);
     const name = m[2]!.trim();
-    const opts = byName.get(name);
-    if (!opts?.length) throw new Error(`unknown card: ${name}`);
-    // Prefer newest set printing when duplicates share a fullName.
+    let opts = byName.get(name) ?? [];
+    if (core) {
+      opts = opts.filter((c) => c.setNum >= core.min && c.setNum <= core.max);
+      if (!opts.length) {
+        throw new Error(
+          `not Core-legal (sets ${core.min}–${core.max}): ${name}`,
+        );
+      }
+    }
+    if (!opts.length) throw new Error(`unknown card: ${name}`);
+    // Prefer newest legal printing when duplicates share a fullName.
     const card = opts.reduce((a, b) => (a.setNum >= b.setNum ? a : b));
+    for (const col of card.colors) colors.add(col);
     for (let i = 0; i < qty; i++) ids.push(card.id);
   }
   if (ids.length !== 60) throw new Error(`deck must be 60 cards, got ${ids.length}`);
+  if (colors.size > 2) {
+    throw new Error(`deck uses ${colors.size} inks (${[...colors].join(", ")}); max 2`);
+  }
   return ids;
 }
 
@@ -291,11 +320,12 @@ function runPair(
   pathB: string,
   games: number,
   seed0: number,
+  core?: { min: number; max: number },
 ): GameRow[] {
   const labelA = basename(pathA, ".txt");
   const labelB = basename(pathB, ".txt");
-  const deckA = parseDeckText(readFileSync(pathA, "utf8"), byName);
-  const deckB = parseDeckText(readFileSync(pathB, "utf8"), byName);
+  const deckA = parseDeckText(readFileSync(pathA, "utf8"), byName, core);
+  const deckB = parseDeckText(readFileSync(pathB, "utf8"), byName, core);
   const rows: GameRow[] = [];
   for (let g = 1; g <= games; g++) {
     const seed = seed0 + g - 1;
@@ -375,6 +405,13 @@ function main(): void {
   const args = parseArgs(process.argv.slice(2));
   const inkable = loadInkableMap(args.inkable);
   const { registry, byName } = loadRegistry(inkable);
+  const core =
+    args.coreMin !== undefined && args.coreMax !== undefined
+      ? { min: args.coreMin, max: args.coreMax }
+      : undefined;
+  if (core) {
+    console.error(`[bulk-sim] Core Constructed filter: sets ${core.min}–${core.max}`);
+  }
 
   let rows: GameRow[] = [];
   if (args.matrix) {
@@ -389,12 +426,20 @@ function main(): void {
     let pairSeed = args.seed;
     for (const c of counters) {
       for (const t of toys) {
-        rows = rows.concat(runPair(registry, byName, c, t, args.games, pairSeed));
+        rows = rows.concat(runPair(registry, byName, c, t, args.games, pairSeed, core));
         pairSeed += args.games;
       }
     }
   } else {
-    rows = runPair(registry, byName, resolve(args.deckA!), resolve(args.deckB!), args.games, args.seed);
+    rows = runPair(
+      registry,
+      byName,
+      resolve(args.deckA!),
+      resolve(args.deckB!),
+      args.games,
+      args.seed,
+      core,
+    );
   }
 
   summarize(rows);

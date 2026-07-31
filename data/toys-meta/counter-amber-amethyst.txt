@@ -1,17 +1,18 @@
-# Counter: Amber/Amethyst midrange race
-# Plan: cheap L2 lore (Daisy/Lilo/Meeko) + amethyst draw; outpace Toys' L1 swarm
-4 Daisy Duck - Donald's Date
-4 Lilo - Making a Wish
+# Core (Sets 9–12): Amber/Amethyst lore race
+# Plan: cheap L2 lore + Amethyst evasives/filter; outpace Toys' L1 swarm
+# Note: Set 13 not in pool — no Attack of the Vine tech
+4 The Prince - Searching for His Love
 4 Meeko - Skittish Scrounger
-4 Stitch - New Dog
-4 HeiHei - Boat Snack
-4 Lefou - Bumbler
-4 Maleficent - Biding Her Time
-4 Friends On The Other Side
+4 Aurora - Holding Court
+4 Sebastian - Loyal Crab
 4 Mickey Mouse - True Friend
-4 Magic Carpet - Flying Rug
+4 Percy - Pupsicle
 4 Frozone - Super Slick
-4 Tinker Bell - Fast Flier
-4 Rapunzel - Gifted with Healing
-4 Archimedes - Exasperated Owl
-4 Madam Mim - Purple Dragon
+4 Elsa - Exploring the Unknown
+4 Dumbo - The Flying Elephant
+4 Be Our Guest
+4 Della's Moon Lullaby
+4 Poor Unfortunate Souls
+4 Jafar - Lamp Thief
+4 Cinderella - Gentle and Kind
+4 Elinor - Bespelled Queen
