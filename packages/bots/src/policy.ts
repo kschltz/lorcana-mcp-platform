@@ -445,10 +445,21 @@ export function chooseAction(view: PlayerView, legalActions: LegalAction[]): Pla
   if (types.size === 1 && types.has("RESOLVE_CHOICE")) return chooseResolve(view, legalActions);
   if (types.has("MULLIGAN")) return chooseMulligan(view, legalActions);
 
+  // In race matchups, questing L2+ characters is usually higher EV than
+  // optional favorable challenges (which stall our lore clock). Prefer
+  // quest-before-challenge when any legal quester has lore ≥ 2.
+  const hasValueQuest = legalActions.some((l) => {
+    if (l.action.type !== "QUEST") return false;
+    const id = (l.action as { characterId: string }).characterId;
+    const inst = findInstance(view, id);
+    return !!inst && effStats(inst).lore >= 2;
+  });
+
   return (
     chooseInk(view, legalActions) ??
     chooseAbility(view, legalActions) ??
     choosePlayCard(view, legalActions) ??
+    (hasValueQuest ? chooseQuest(view, legalActions) : undefined) ??
     chooseChallenge(view, legalActions) ??
     chooseQuest(view, legalActions) ??
     legalActions.find((l) => l.action.type === "PASS")?.action ??
