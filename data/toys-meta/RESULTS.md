@@ -1,30 +1,29 @@
-# Toys counter matrix results
+# Toys counter matrix results (Core Constructed)
 
-- Games: **4000** (8 counters × 2 Toys lists × 250, seats alternated)
-- Seed: 42
-- Failures: **0**
-- Engine: in-process GameEngine + heuristic policy + Lorcast inkable patch
+Core filter: **sets 9–12** (FAB–WUN). Set 13 not in card pool.
+Games: **4500** (9 counters × 2 Toys × 250). Seed 42. Failures: **0**.
 
-## Combined ranking (win rate as deckA / counter)
+## Combined ranking
 
 | Rank | Counter | WR | Games | Avg turns | vs classic | vs sidbox |
 |------|---------|----|------:|----------:|-----------:|----------:|
-| 1 | `counter-amber-amethyst` | **81.6%** | 500 | 7.1 | 77.2% | 86.0% |
-| 2 | `counter-amethyst-ruby` | **74.2%** | 500 | 6.7 | 74.4% | 74.0% |
-| 3 | `counter-amethyst-sapphire` | **45.8%** | 500 | 7.8 | 45.6% | 46.0% |
-| 4 | `counter-amber-steel` | **28.6%** | 500 | 9.3 | 24.0% | 33.2% |
-| 5 | `counter-amber-emerald` | **22.0%** | 500 | 8.7 | 17.2% | 26.8% |
-| 6 | `counter-emerald-ruby` | **10.8%** | 500 | 7.8 | 11.6% | 10.0% |
-| 7 | `counter-ruby-steel` | **8.8%** | 500 | 11.1 | 6.8% | 10.8% |
-| 8 | `counter-sapphire-steel` | **0.4%** | 500 | 9.9 | 0.8% | 0.0% |
+| 1 | `counter-amber-amethyst` | **43.4%** | 500 | 7.3 | 41.6% | 45.2% |
+| 2 | `counter-amethyst-ruby` | **42.8%** | 500 | 7.7 | 41.2% | 44.4% |
+| 3 | `counter-amethyst-sapphire` | **19.4%** | 500 | 8.2 | 16.4% | 22.4% |
+| 4 | `counter-amber-emerald` | **13.4%** | 500 | 9.2 | 7.6% | 19.2% |
+| 5 | `counter-amber-ruby` | **8.6%** | 500 | 7.6 | 6.8% | 10.4% |
+| 6 | `counter-amber-steel` | **3.0%** | 500 | 8.0 | 3.2% | 2.8% |
+| 7 | `counter-ruby-steel` | **0.8%** | 500 | 8.0 | 0.0% | 1.6% |
+| 8 | `counter-emerald-sapphire` | **0.6%** | 500 | 8.0 | 0.4% | 0.8% |
+| 9 | `counter-sapphire-steel` | **0.0%** | 500 | 8.2 | 0.0% | 0.0% |
 
 ## Takeaways
 
-1. **Best counters:** Amber/Amethyst L2-lore race and Amethyst/Ruby Evasive (~74–86% WR).
-2. **Playable:** Amethyst/Sapphire Evasive (~46%) — roughly even.
-3. **Weak into Toys under this bot:** Emerald bounce shells and Steel removal (~0–33%). Steel stalls on challenges; Toys outrace them.
-4. Sidbox Toys is slightly easier for the top race decks than the classic Horseman-heavy list.
+1. With **Core-only** lists, no counter is a consistent favorite vs Toys in this bot/engine setup.
+2. Closest: **Amber/Amethyst** (~43%) and **Amethyst/Ruby Evasive** (~43%).
+3. Bounce/steel shells remain very poor into the Toys lore clock.
+4. Earlier Infinity-legal sims overstated counter strength (Friends, Grab Your Sword, etc.).
 
 ## Caveats
 
-Heuristic bots; incomplete WUN scripting (Boost / You've Got a Friend in Me tutoring); Set 13 absent. Treat as directional playtest data, not paper truth.
+Heuristic bots; incomplete WUN scripting; no Set 13. Directional only.

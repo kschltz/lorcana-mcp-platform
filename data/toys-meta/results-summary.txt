@@ -1,19 +1,21 @@
 
 === matchup summary (deckA win rate; seats alternated) ===
 matchup                                                  games     A_wr     B_wr   fail    avgT
-counter-amber-amethyst vs toys-ar-classic                  250    77.2%    22.8%      0     7.4
-counter-amber-amethyst vs toys-ar-sidbox                   250    86.0%    14.0%      0     6.9
-counter-amber-emerald vs toys-ar-classic                   250    17.2%    82.8%      0     8.6
-counter-amber-emerald vs toys-ar-sidbox                    250    26.8%    73.2%      0     8.8
-counter-amber-steel vs toys-ar-classic                     250    24.0%    76.0%      0     9.5
-counter-amber-steel vs toys-ar-sidbox                      250    33.2%    66.8%      0     9.2
-counter-amethyst-ruby vs toys-ar-classic                   250    74.4%    25.6%      0     6.7
-counter-amethyst-ruby vs toys-ar-sidbox                    250    74.0%    26.0%      0     6.8
-counter-amethyst-sapphire vs toys-ar-classic               250    45.6%    54.4%      0     7.7
-counter-amethyst-sapphire vs toys-ar-sidbox                250    46.0%    54.0%      0     7.9
-counter-emerald-ruby vs toys-ar-classic                    250    11.6%    88.4%      0     7.8
-counter-emerald-ruby vs toys-ar-sidbox                     250    10.0%    90.0%      0     7.9
-counter-ruby-steel vs toys-ar-classic                      250     6.8%    93.2%      0    10.8
-counter-ruby-steel vs toys-ar-sidbox                       250    10.8%    89.2%      0    11.4
-counter-sapphire-steel vs toys-ar-classic                  250     0.8%    99.2%      0     9.8
-counter-sapphire-steel vs toys-ar-sidbox                   250     0.0%   100.0%      0    10.0
+counter-amber-amethyst vs toys-ar-classic                  250    41.6%    58.4%      0     7.3
+counter-amber-amethyst vs toys-ar-sidbox                   250    45.2%    54.8%      0     7.2
+counter-amber-emerald vs toys-ar-classic                   250     7.6%    92.4%      0     9.2
+counter-amber-emerald vs toys-ar-sidbox                    250    19.2%    80.8%      0     9.3
+counter-amber-ruby vs toys-ar-classic                      250     6.8%    93.2%      0     7.6
+counter-amber-ruby vs toys-ar-sidbox                       250    10.4%    89.6%      0     7.7
+counter-amber-steel vs toys-ar-classic                     250     3.2%    96.8%      0     7.9
+counter-amber-steel vs toys-ar-sidbox                      250     2.8%    97.2%      0     8.0
+counter-amethyst-ruby vs toys-ar-classic                   250    41.2%    58.8%      0     7.6
+counter-amethyst-ruby vs toys-ar-sidbox                    250    44.4%    55.6%      0     7.8
+counter-amethyst-sapphire vs toys-ar-classic               250    16.4%    83.6%      0     8.2
+counter-amethyst-sapphire vs toys-ar-sidbox                250    22.4%    77.6%      0     8.1
+counter-emerald-sapphire vs toys-ar-classic                250     0.4%    99.6%      0     8.1
+counter-emerald-sapphire vs toys-ar-sidbox                 250     0.8%    99.2%      0     7.9
+counter-ruby-steel vs toys-ar-classic                      250     0.0%   100.0%      0     8.1
+counter-ruby-steel vs toys-ar-sidbox                       250     1.6%    98.4%      0     8.0
+counter-sapphire-steel vs toys-ar-classic                  250     0.0%   100.0%      0     8.2
+counter-sapphire-steel vs toys-ar-sidbox                   250     0.0%   100.0%      0     8.2

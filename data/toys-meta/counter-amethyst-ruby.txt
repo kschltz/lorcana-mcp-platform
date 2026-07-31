@@ -1,9 +1,10 @@
 # Core (Sets 9–12): Amethyst/Ruby Evasive
-# Plan: Evasive lore Toys struggle to challenge; Ruby removal for Horseman/Sid
+# Plan: L2/L3 unink lore + Evasive fliers; Ruby removal for Horseman/Sid
 4 Meeko - Skittish Scrounger
+4 Simba - Scrappy Cub
+4 Diablo - Watchful Raven
 4 Frozone - Super Slick
 4 Violet Sabrewing - Senior Junior Woodchuck
-4 Nala - Romping in the Snow
 4 Dumbo - The Flying Elephant
 4 Peter Pan - High Flyer
 4 Elsa - Exploring the Unknown
@@ -14,4 +15,3 @@
 4 Dragon Fire
 4 Grab Your Bow
 4 Gwythaint - Savage Hunter
-4 Bashful - Riding the Rails
