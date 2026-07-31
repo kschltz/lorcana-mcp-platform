@@ -78,6 +78,41 @@ export function queueTurnTriggers(rt: Rt, player: PlayerId, trigger: Trigger): v
   }
 }
 
+/** Queue put-under triggers: host gets ON_PUT_UNDER; all of the owner's
+ * permanents (including host) get ON_PUT_UNDER_FRIENDLY. */
+export function queuePutUnderTriggers(rt: Rt, host: CardInstance): void {
+  rt.queue.push(...triggerFrames(rt, host, "ON_PUT_UNDER"));
+  for (const c of activePlay(rt.state, host.owner)) {
+    rt.queue.push(...triggerFrames(rt, c, "ON_PUT_UNDER_FRIENDLY"));
+  }
+}
+
+/** Put `amount` cards from `owner`'s deck facedown under `host`, then fire triggers. */
+export function putCardsUnder(
+  rt: Rt, host: CardInstance, amount: number, owner: PlayerId = host.owner,
+): number {
+  const p = ps(rt.state, owner);
+  let put = 0;
+  for (let i = 0; i < amount && p.deck.length > 0; i++) {
+    const top = p.deck.shift()!;
+    top.zone = "play";
+    top.enteredTurn = rt.state.turn;
+    top.exerted = false;
+    top.damage = 0;
+    top.modifiers = [];
+    p.play.push(top);
+    (host.under ??= []).push(top.instanceId);
+    put++;
+  }
+  if (put > 0) {
+    addEvent(rt, "put-under",
+      `${put} card(s) put under ${cardLabel(rt, host)}.`,
+      owner, { cardInstanceId: host.instanceId, amount: put });
+    queuePutUnderTriggers(rt, host);
+  }
+  return put;
+}
+
 // ---------------------------------------------------------------------------
 // Suspend / resume plumbing
 // ---------------------------------------------------------------------------
@@ -123,6 +158,8 @@ function describeNode(n: EffectNode): string {
     case "CHOICE": return n.prompt;
     case "FOR_EACH": return "For each";
     case "IF": return "If";
+    case "PUT_UNDER": return `Put ${n.amount ?? 1} under`;
+    case "COST_REDUCTION": return `Pay ${n.amount} less`;
   }
 }
 
@@ -314,6 +351,11 @@ function execNode(rt: Rt, node: EffectNode, frame: EffectsFrame): boolean {
           duration: node.duration,
           ...structuredClone(node.modifier),
         };
+        // Ensure duration from the node wins over any nested copy on modifier.
+        m.duration = node.duration;
+        if (node.duration === "until-start-of-next-turn") {
+          m.expiresFor = ctx.controller;
+        }
         t.modifiers.push(m);
         addEvent(rt, "modifier", `${cardLabel(rt, t)} gains a modifier (${node.duration}).`, t.owner,
           { cardInstanceId: t.instanceId, source: ctx.sourceId });
@@ -697,11 +739,42 @@ function execNode(rt: Rt, node: EffectNode, frame: EffectsFrame): boolean {
       return true;
     }
     case "IF": {
-      const cond = evalCondition(rt, node.condition, ctx.controller);
+      const self = ctx.sourceId ? findInstance(rt.state, ctx.sourceId)?.inst : undefined;
+      const cond = evalCondition(rt, node.condition, ctx.controller, { self });
       const branch = cond ? node.then : (node.else ?? []);
       if (branch.length > 0) {
         rt.queue.splice(1, 0, { kind: "effects", effects: [...branch], ctx: childCtx(ctx) });
       }
+      return true;
+    }
+    case "PUT_UNDER": {
+      const amount = node.amount ?? 1;
+      let hosts: CardInstance[];
+      if (node.target) {
+        const bound = bindTargets(rt, frame, node.target, "t");
+        if (!bound) return false;
+        hosts = bound;
+      } else {
+        const me = ctx.sourceId ? findInstance(rt.state, ctx.sourceId)?.inst : undefined;
+        hosts = me ? [me] : [];
+      }
+      for (const host of hosts) {
+        putCardsUnder(rt, host, amount, ctx.controller);
+      }
+      return true;
+    }
+    case "COST_REDUCTION": {
+      const p = ps(rt.state, ctx.controller);
+      (p.inkDiscounts ??= []).push({
+        amount: node.amount,
+        remaining: node.uses ?? 1,
+        ...(node.filter?.type ? { type: node.filter.type } : {}),
+        ...(node.filter?.classification ? { classification: node.filter.classification } : {}),
+        ...(node.filter?.name ? { name: node.filter.name } : {}),
+      });
+      addEvent(rt, "cost-reduction",
+        `${ctx.controller} will pay ${node.amount} less for their next matching play.`,
+        ctx.controller, { amount: node.amount, filter: node.filter });
       return true;
     }
   }

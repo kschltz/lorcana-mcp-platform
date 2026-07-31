@@ -46,7 +46,8 @@ export interface CardDefinition {
 export interface Modifier {
   id: string;
   source: string;
-  duration: "this-turn" | "while-in-play" | "permanent";
+  duration: "this-turn" | "while-in-play" | "permanent" | "until-start-of-next-turn";
+  expiresFor?: PlayerId;
   stat?: { strength?: number; willpower?: number; lore?: number };
   grantKeywords?: Keyword[];
   removeKeywords?: Keyword[];
@@ -73,11 +74,13 @@ export interface Selector {
 export type Condition =
   | { kind: "count"; selector: Selector; op: ">=" | "<=" | "=="; value: number }
   | { kind: "has-keyword"; selector: Selector; keyword: Keyword }
-  | { kind: "stat"; selector: Selector; stat: "strength" | "willpower" | "lore"; op: ">=" | "<=" | "=="; value: number };
+  | { kind: "stat"; selector: Selector; stat: "strength" | "willpower" | "lore"; op: ">=" | "<=" | "=="; value: number }
+  | { kind: "has-cards-under"; selector: Selector; op: ">=" | "<=" | "=="; value: number };
 
 export type Trigger =
   | "ON_PLAY" | "ON_QUEST" | "ON_CHALLENGE_BANISH" | "ON_BANISH"
-  | "START_OF_TURN" | "END_OF_TURN" | "ON_OPPONENT_PLAY" | "ON_PLAY_CHARACTER";
+  | "START_OF_TURN" | "END_OF_TURN" | "ON_OPPONENT_PLAY" | "ON_PLAY_CHARACTER"
+  | "ON_PUT_UNDER" | "ON_PUT_UNDER_FRIENDLY";
 
 export interface AbilityCost {
   ink?: number;
@@ -107,7 +110,9 @@ export type EffectNode =
   | { type: "PREVENT_DAMAGE"; amount: number; target: Selector; duration: Modifier["duration"] }
   | { type: "CHOICE"; prompt: string; options: EffectNode[][]; min: number; max: number; target?: Selector }
   | { type: "FOR_EACH"; selector: Selector; effects: EffectNode[] }
-  | { type: "IF"; condition: Condition; then: EffectNode[]; else: EffectNode[] };
+  | { type: "IF"; condition: Condition; then: EffectNode[]; else: EffectNode[] }
+  | { type: "PUT_UNDER"; source: "top-deck"; amount?: number; target?: Selector }
+  | { type: "COST_REDUCTION"; amount: number; filter?: { type?: CardType; classification?: string; name?: string; maxCost?: number }; uses?: number };
 
 export interface TriggeredAbility {
   name?: string;

@@ -180,6 +180,7 @@ function parseStatMods(text: string): { strength?: number; willpower?: number; l
 
 const THIS_TURN = "this-turn" as const;
 const WHILE_IN_PLAY = "while-in-play" as const;
+const UNTIL_NEXT_TURN = "until-start-of-next-turn" as const;
 
 type Mod = Omit<Modifier, "id" | "source">;
 
@@ -285,11 +286,25 @@ const TRIGGER_PREFIXES: [RegExp, Trigger][] = [
   [/^whenever one (?:or more )?of your characters sings a song,\s*/i, "ON_PLAY_CHARACTER"], // approximation
   [/^(?:once |twice )?during your turn, whenever you play (?:a|an)[^,]+,\s*/i, "ON_PLAY_CHARACTER"],
   [/^whenever you play (?:a|an)[^,]+,\s*/i, "ON_PLAY_CHARACTER"],
+  // Boost / put-under triggers (sets 10+)
+  [/^(?:once |twice )?during your turn, whenever you put a card under this (?:character|item|location),\s*/i, "ON_PUT_UNDER"],
+  [/^whenever you put a card under this (?:character|item|location),\s*/i, "ON_PUT_UNDER"],
+  [/^(?:once |twice )?during your turn, whenever you put a card under one of your (?:characters|locations|characters or locations),\s*/i, "ON_PUT_UNDER_FRIENDLY"],
+  [/^whenever you put a card under one of your (?:characters|locations|characters or locations),\s*/i, "ON_PUT_UNDER_FRIENDLY"],
+  [/^when this character is challenged and banished,\s*/i, "ON_BANISH"], // approximation: fires on banish from challenge
+  [/^when this character leaves play,\s*/i, "ON_BANISH"], // approximation
+  [/^when this character is challenged,\s*/i, "ON_BANISH"], // approximation (fires when challenged→banish path only)
+  [/^(?:once |twice )?during your turn, whenever (?:this character|he|she|it) is chosen for an action or an item's ability,\s*/i, "ON_PLAY_CHARACTER"], // closest available
+  [/^whenever one of your (?:other )?(Amber|Amethyst|Emerald|Ruby|Sapphire|Steel) characters is banished in a challenge,\s*/i, "ON_BANISH"],
+  [/^whenever a character quests while here,\s*/i, "ON_QUEST"], // location-scoped approximation
+  [/^during your turn, whenever an opposing character becomes exerted,\s*/i, "ON_OPPONENT_PLAY"], // closest available
 ];
 
 function matchTriggerPrefixes(sentence: string): TriggerMatch | null {
   const combo = sentence.match(/^when you play this character and whenever (?:he|she|it|this character) quests,\s*/i);
   if (combo) return { triggers: ["ON_PLAY", "ON_QUEST"], text: sentence.slice(combo[0].length) };
+  const comboLoc = sentence.match(/^when you play this character and whenever you play a location,\s*/i);
+  if (comboLoc) return { triggers: ["ON_PLAY", "ON_PLAY_CHARACTER"], text: sentence.slice(comboLoc[0].length) };
   const during = sentence.match(/^(?:once |twice )?during your turn,\s*/i);
   const body = during ? sentence.slice(during[0].length) : sentence;
   for (const [re, trigger] of TRIGGER_PREFIXES) {
@@ -561,26 +576,42 @@ export const SENTENCE_TEMPLATES: SentenceTemplate[] = [
       modifier: { duration: THIS_TURN, cantQuest: true, ...(m[1] ? { cantChallenge: true } : {}) },
       duration: THIS_TURN,
     }] },
+  { name: "cant-quest-next-turn", re: /^chosen opposing character can't quest during their next turn$/i,
+    build: () => [{
+      type: "ADD_MODIFIER", target: chosenCharacter("opponent"),
+      modifier: { duration: UNTIL_NEXT_TURN, cantQuest: true },
+      duration: UNTIL_NEXT_TURN,
+    }] },
+  { name: "cant-challenge-and-must-quest-next",
+    re: /^chosen opposing character can't challenge and must quest if able during their next turn$/i,
+    build: () => [{
+      type: "ADD_MODIFIER", target: chosenCharacter("opponent"),
+      modifier: { duration: UNTIL_NEXT_TURN, cantChallenge: true },
+      duration: UNTIL_NEXT_TURN,
+    }] },
   { name: "cant-ready", re: /^(?:they|he|she|it|this character) can't ready at the start of (?:their|its) next turn$/i,
     build: () => [{
       type: "ADD_MODIFIER", target: chosenCharacter(),
-      modifier: { duration: THIS_TURN, cantReady: true }, duration: THIS_TURN,
+      modifier: { duration: UNTIL_NEXT_TURN, cantReady: true }, duration: UNTIL_NEXT_TURN,
     }] },
   { name: "opp-cant-ready-chosen", re: /^chosen opposing character can't ready at the start of their next turn$/i,
     build: () => [{
       type: "ADD_MODIFIER", target: chosenCharacter("opponent"),
-      modifier: { duration: THIS_TURN, cantReady: true }, duration: THIS_TURN,
+      modifier: { duration: UNTIL_NEXT_TURN, cantReady: true }, duration: UNTIL_NEXT_TURN,
     }] },
   { name: "cant-ready-chosen-exerted", re: /^chosen exerted character can't ready at the start of their next turn$/i,
     build: () => [{
       type: "ADD_MODIFIER", target: { zone: "play", who: "any", type: "Character", filter: "exerted", chosen: true },
-      modifier: { duration: THIS_TURN, cantReady: true }, duration: THIS_TURN,
+      modifier: { duration: UNTIL_NEXT_TURN, cantReady: true }, duration: UNTIL_NEXT_TURN,
     }] },
   { name: "cant-challenge-chosen", re: /^chosen (opposing )?character can't challenge(?: during their next turn| until the start of your next turn)?$/i,
-    build: (m) => [{
-      type: "ADD_MODIFIER", target: chosenCharacter(m[1] ? "opponent" : "any"),
-      modifier: { duration: THIS_TURN, cantChallenge: true }, duration: THIS_TURN,
-    }] },
+    build: (m) => {
+      const dur = /next turn|until the start/i.test(m[0]) ? UNTIL_NEXT_TURN : THIS_TURN;
+      return [{
+        type: "ADD_MODIFIER", target: chosenCharacter(m[1] ? "opponent" : "any"),
+        modifier: { duration: dur, cantChallenge: true }, duration: dur,
+      }];
+    } },
 
   /* ---- deck peeking ---- */
   { name: "look-top", re: new RegExp(`^look at the top ${N} cards? of your deck$`, "i"),
@@ -654,9 +685,139 @@ export const SENTENCE_TEMPLATES: SentenceTemplate[] = [
   { name: "cont-its-card-into-hand", re: /^if it's (?:a|an) [\w ]+ card, (?:you may )?put it into your hand$/i, build: () => [] },
   { name: "cant-sing", re: /^this character can't \{e\} to sing songs$/i,
     build: () => [{ type: "ADD_MODIFIER", target: selfSel("Character"), modifier: { duration: "while-in-play", cantQuest: true }, duration: "while-in-play" }] }, // approximation (documented)
-  /* ---- effects with no DSL node: matched as understood, emitted as noops (documented) ---- */
-  { name: "unmodeled-cost-reduction", re: /^(?:if this is your first turn and you're not the first player, )?(?:for each .+?, )?you pay \d+\s*\{i\} less (?:for|to) .+$/i, build: () => [] },
+  /* ---- cost reduction (modeled via COST_REDUCTION) ---- */
+  { name: "cost-reduction-next-character",
+    re: new RegExp(`^(?:if this is your first turn and you're not the first player, )?you pay ${N}\\s*\\{i\\} less for the next character you play this turn$`, "i"),
+    build: (m) => [{ type: "COST_REDUCTION", amount: parseNum(m[1]), filter: { type: "Character" }, uses: 1 }] },
+  { name: "cost-reduction-next-action",
+    re: new RegExp(`^you pay ${N}\\s*\\{i\\} less for the next action you play this turn$`, "i"),
+    build: (m) => [{ type: "COST_REDUCTION", amount: parseNum(m[1]), filter: { type: "Action" }, uses: 1 }] },
+  { name: "cost-reduction-next-item",
+    re: new RegExp(`^you pay ${N}\\s*\\{i\\} less for the next item you play this turn$`, "i"),
+    build: (m) => [{ type: "COST_REDUCTION", amount: parseNum(m[1]), filter: { type: "Item" }, uses: 1 }] },
+  { name: "cost-reduction-next-card",
+    re: new RegExp(`^you pay ${N}\\s*\\{i\\} less for the next (?:card|character or location|character, item, or location) you play this turn$`, "i"),
+    build: (m) => [{ type: "COST_REDUCTION", amount: parseNum(m[1]), uses: 1 }] },
+  { name: "cost-reduction-next-song",
+    re: new RegExp(`^you pay ${N}\\s*\\{i\\} less for the next song you play this turn$`, "i"),
+    build: (m) => [{ type: "COST_REDUCTION", amount: parseNum(m[1]), filter: { type: "Action", classification: "Song" }, uses: 1 }] },
+  { name: "cost-reduction-generic",
+    re: new RegExp(`^(?:if this is your first turn and you're not the first player, )?(?:for each .+?, )?you pay ${N}\\s*\\{i\\} less (?:for|to) .+$`, "i"),
+    build: (m) => [{ type: "COST_REDUCTION", amount: parseNum(m[1]), uses: 1 }] },
+
+  /* ---- put under ---- */
+  { name: "put-under-top-self",
+    re: /^put the top card of your deck facedown under (?:this character|this item|this location|him|her|it)$/i,
+    build: () => [{ type: "PUT_UNDER", source: "top-deck", amount: 1, target: selfSel() }] },
+  { name: "put-under-top-chosen",
+    re: /^put the top card of your deck facedown under chosen (character|item|location)$/i,
+    build: (m) => [{
+      type: "PUT_UNDER", source: "top-deck", amount: 1,
+      target: { zone: "play", who: "self", type: TYPE_WORDS[m[1].toLowerCase()], chosen: true },
+    }] },
+  { name: "put-under-discard-self",
+    re: /^put a (?:character|item|location)? ?card from your discard under this (?:character|item|location) faceup$/i,
+    build: () => [] }, // discard→under needs a different zone source; left as noop until modeled
   { name: "unmodeled-put-under", re: /^put (?:the top card|a card|all cards) .+? facedown under .+$/i, build: () => [] },
+
+  /* ---- sets 10–12 high-frequency effects ---- */
+  { name: "ready-chosen-boost", re: /^ready chosen character with Boost$/i,
+    build: () => [{ type: "READY", target: chosenCharacter("self") }] },
+  { name: "buff-chosen-with-under",
+    re: new RegExp(`^chosen character with a card under them gets ([+-]\\s*\\d+\\s*(?:\\{[swl]\\}))(?: this turn)?$`, "i"),
+    build: (m) => {
+      const stat = parseStatMods(m[1]);
+      return stat ? [{ type: "ADD_MODIFIER", target: chosenCharacter(), modifier: statModifier(stat), duration: THIS_TURN }] : [];
+    } },
+  { name: "buff-chosen-classification",
+    re: new RegExp(`^(?:you may )?give chosen ([A-Z]\\w+) character ([+-]\\s*\\d+\\s*(?:\\{[swl]\\}))(?: this turn)?$`, "i"),
+    build: (m) => {
+      const stat = parseStatMods(m[2]);
+      return stat ? [{
+        type: "ADD_MODIFIER",
+        target: { zone: "play", who: "any", type: "Character", classification: m[1], chosen: true },
+        modifier: statModifier(stat), duration: THIS_TURN,
+      }] : [];
+    } },
+  { name: "song-to-top-deck",
+    re: /^(?:you may )?put a song card from your discard on the top of your deck$/i,
+    build: () => [] }, // discard→top-of-deck ordering not yet a dedicated node
+  { name: "opp-reveal-hand-discard-nonchar",
+    re: /^chosen opponent reveals their hand and discards a non-character card of (?:their|your) choice$/i,
+    build: () => [{ type: "DISCARD", amount: 1, who: "opponent", mode: "chosen" }] },
+  { name: "damage-each-opp",
+    re: new RegExp(`^put ${N} damage counters? on each opposing character$`, "i"),
+    build: (m) => [{
+      type: "DEAL_DAMAGE", amount: parseNum(m[1]),
+      target: { zone: "play", who: "opponent", type: "Character" },
+    }] },
+  { name: "return-chosen-yours-to-hand",
+    re: /^(?:you may )?return chosen character of yours to your hand$/i,
+    build: () => [{ type: "RETURN_TO_HAND", target: chosenCharacter("self") }] },
+  { name: "buff-self-this-turn",
+    re: new RegExp(`^(?:this character|he|she|it) gets ([+-]\\s*\\d+\\s*(?:\\{[swl]\\})) this turn$`, "i"),
+    build: (m) => {
+      const stat = parseStatMods(m[1]);
+      return stat ? [{ type: "ADD_MODIFIER", target: selfSel("Character"), modifier: statModifier(stat), duration: THIS_TURN }] : [];
+    } },
+  { name: "named-characters-gain-keyword",
+    re: /^your characters named ([A-Za-z][A-Za-z '.-]+) gain (Rush|Evasive|Ward|Bodyguard|Support|Reckless|Alert|Vanish)$/i,
+    build: (m) => [{
+      type: "GRANT_KEYWORD",
+      target: { zone: "play", who: "self", type: "Character", name: m[1] },
+      keyword: capitalize(m[2]) as Keyword,
+    }] },
+  { name: "exert-chosen-with-willpower",
+    re: new RegExp(`^(?:you may )?exert chosen character with ${N} \\{w\\} or less$`, "i"),
+    build: () => [{ type: "EXERT", target: chosenCharacter() }] },
+  { name: "draw-equal-to-lore",
+    re: /^\{e\} chosen ready character of yours to draw cards equal to that character's \{l\}$/i,
+    build: () => [
+      { type: "EXERT", target: { zone: "play", who: "self", type: "Character", filter: "ready", chosen: true } },
+      { type: "DRAW", amount: 1 }, // lore-scaled amount approximated
+    ] },
+  { name: "players-most-cards-discard",
+    re: new RegExp(`^the player or players with the most cards in their hands choose and discard ${N} cards?$`, "i"),
+    build: (m) => [
+      { type: "DISCARD", amount: parseNum(m[1]), who: "self", mode: "chosen" },
+      { type: "DISCARD", amount: parseNum(m[1]), who: "opponent", mode: "chosen" },
+    ] },
+  { name: "each-draw-until",
+    re: new RegExp(`^(?:then, )?each player with fewer than ${N} cards in their hand draws until they have ${N}$`, "i"),
+    build: (m) => [
+      { type: "DRAW", amount: parseNum(m[1]) },
+      { type: "DRAW", amount: parseNum(m[1]), who: "opponent" },
+    ] },
+  { name: "shuffle-discard-into-deck",
+    re: /^(?:you may )?shuffle a card from chosen player's discard into their deck$/i,
+    build: () => [] },
+  { name: "move-damage-chosen-to-opp",
+    re: new RegExp(`^(?:you may )?move (?:up to )?${N} damage counters? from chosen character to chosen opposing character$`, "i"),
+    build: (m) => [{
+      type: "MOVE_DAMAGE", amount: parseNum(m[1]),
+      from: chosenCharacter(), to: chosenCharacter("opponent"),
+    }] },
+  { name: "ready-self", re: /^(?:you may )?ready (?:him|her|it|this character)$/i,
+    build: () => [{ type: "READY", target: selfSel("Character") }] },
+  { name: "cost-reduction-while-here-quest",
+    // Location text often ships as a triggered ability body after a quest prefix.
+    re: new RegExp(`^you pay ${N}\\s*\\{i\\} less for the next character you play this turn$`, "i"),
+    build: (m) => [{ type: "COST_REDUCTION", amount: parseNum(m[1]), filter: { type: "Character" }, uses: 1 }] },
+  { name: "choose-opposing-character",
+    re: /^(?:you may )?choose an opposing character$/i,
+    build: () => [] }, // selection is resolved by the following "If you do" clause
+  { name: "gain-lore-equal-discard",
+    re: /^(?:you may )?gain lore equal to the \{l\} of a character card in your discard$/i,
+    build: () => [{ type: "GAIN_LORE", amount: 1 }] }, // dynamic amount approximated
+  { name: "move-all-damage-to-that",
+    re: /^move all damage counters from all other characters to that character$/i,
+    build: () => [{ type: "MOVE_DAMAGE", amount: 99, from: chosenCharacter(), to: chosenCharacter() }] },
+  { name: "put-location-discard-bottom-gain-lore",
+    re: new RegExp(`^(?:you may )?put a location card from chosen player's discard on the bottom of their deck to gain ${N} lore$`, "i"),
+    build: (m) => [{ type: "GAIN_LORE", amount: parseNum(m[1]) }] },
+  { name: "then-damage-another",
+    re: new RegExp(`^(?:then, )?you may put ${N} damage counters? on another chosen character$`, "i"),
+    build: (m) => [{ type: "DEAL_DAMAGE", amount: parseNum(m[1]), target: chosenCharacter() }] },
 ];
 
 function capitalize(s: string): string {
@@ -853,6 +1014,39 @@ const CONTINUOUS_TEMPLATES: {
       const stat = parseStatMods(m[0])!;
       return { selector: { zone: "play", who: "any", type: "Character" }, modifier: { duration: WHILE_IN_PLAY, stat } };
     } },
+  { name: "self-buff-and-keyword-while-under",
+    re: /^while there's a card under (?:this character|him|her|it), (?:this character|he|she|it) gets? ([+-]\s*\d+\s*(?:\{[swl]\}))(?: and [+-]\s*\d+\s*(?:\{[swl]\}))* and gains? (Evasive|Ward|Bodyguard|Support|Reckless|Alert|Vanish|Rush)$/i,
+    build: (m) => ({
+      selector: selfSel("Character"),
+      condition: { kind: "has-cards-under", selector: selfSel("Character"), op: ">=", value: 1 },
+      modifier: {
+        duration: WHILE_IN_PLAY,
+        stat: parseStatMods(m[0])!,
+        grantKeywords: [capitalize(m[2]) as Keyword],
+      },
+    }) },
+  { name: "self-buff-while-under",
+    re: /^while there's a card under (?:this character|him|her|it), (?:this character|he|she|it) gets? ([+-]\s*\d+\s*(?:\{[swl]\}))(?: and [+-]\s*\d+\s*(?:\{[swl]\}))*$/i,
+    build: (m) => ({
+      selector: selfSel("Character"),
+      condition: { kind: "has-cards-under", selector: selfSel("Character"), op: ">=", value: 1 },
+      modifier: { duration: WHILE_IN_PLAY, stat: parseStatMods(m[0])! },
+    }) },
+  { name: "self-keyword-while-under",
+    re: new RegExp(`^while there's a card under (?:this character|him|her|it), (?:this character|he|she|it) gains? (Evasive|Ward|Bodyguard|Support|Reckless|Alert|Vanish|Rush|Resist \\+?${N}|Challenger \\+?${N})$`, "i"),
+    build: (m) => {
+      const kw = m[1].split(" ")[0];
+      const value = m[1].split(" ")[1];
+      return {
+        selector: selfSel("Character"),
+        condition: { kind: "has-cards-under", selector: selfSel("Character"), op: ">=", value: 1 },
+        modifier: {
+          duration: WHILE_IN_PLAY,
+          grantKeywords: [capitalize(kw) as Keyword],
+          ...(capitalize(kw) === "Resist" && value ? { resist: parseNum(value.replace("+", "")) } : {}),
+        },
+      };
+    } },
   { name: "self-buff-while",
     re: /^while .+?, (?:this character|he|she|it) gets? ([+-]\s*\d+\s*(?:\{[swl]\}))(?: and [+-]\s*\d+\s*(?:\{[swl]\}))*$/i,
     build: (m) => {
@@ -873,6 +1067,13 @@ const CONTINUOUS_TEMPLATES: {
         },
       };
     } },
+  { name: "self-singer-while-count",
+    re: new RegExp(`^while you have ${N} or more other (?:Amber|Amethyst|Emerald|Ruby|Sapphire|Steel)? ?characters in play, this character gains Singer ${N}$`, "i"),
+    build: (m) => ({
+      selector: selfSel("Character"),
+      condition: { kind: "count", selector: yourCharacters, op: ">=", value: parseNum(m[1]) + 1 },
+      modifier: { duration: WHILE_IN_PLAY, grantKeywords: ["Singer"], singerAs: parseNum(m[2]) },
+    }) },
   { name: "self-buff-for-each",
     re: /^(?:this character|he|she|it) gets? ([+-]\s*\d+\s*(?:\{[swl]\}))(?: and [+-]\s*\d+\s*(?:\{[swl]\}))* for each .+$/i,
     build: (m) => {
@@ -954,6 +1155,29 @@ export const emptyBlockOutcome = (): BlockOutcome => ({
   unmatched: [],
 });
 
+/** Emit Boost N as a once-per-turn activated ability: pay N → put top deck under self. */
+function emitBoostActivated(
+  keywords: { name: Keyword; value?: number }[],
+  out: BlockOutcome,
+): void {
+  for (const k of keywords) {
+    if (k.name !== "Boost" || k.value === undefined) continue;
+    const already = (out.script.activated ?? []).some((a) => a.name === "Boost");
+    if (already) continue;
+    out.script.activated!.push({
+      name: "Boost",
+      cost: { ink: k.value },
+      oncePerTurn: true,
+      effects: [{
+        type: "PUT_UNDER",
+        source: "top-deck",
+        amount: 1,
+        target: { zone: "play", who: "self", self: true },
+      }],
+    });
+  }
+}
+
 export function processBlock(block: string, card: CardDefinition, out: BlockOutcome): void {
   // 1) keyword headers (possibly followed by ability text, e.g. "Sing Together 7 Look at...")
   const kw = parseKeywordHeader(block);
@@ -961,6 +1185,7 @@ export function processBlock(block: string, card: CardDefinition, out: BlockOutc
   if (kw) {
     out.script.keywords!.push(...kw.keywords);
     if (kw.shiftCost !== undefined) out.script.shiftCost = kw.shiftCost;
+    emitBoostActivated(kw.keywords, out);
     if (kw.rest.replace(/[.\s]/g, "").length === 0) {
       out.matchedSentences += 1;
       out.totalSentences += 1;

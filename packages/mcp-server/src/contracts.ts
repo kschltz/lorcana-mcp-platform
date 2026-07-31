@@ -224,7 +224,9 @@ export type Trigger =
   | "START_OF_TURN"
   | "END_OF_TURN"
   | "ON_OPPONENT_PLAY"
-  | "ON_PLAY_CHARACTER";
+  | "ON_PLAY_CHARACTER"
+  | "ON_PUT_UNDER"
+  | "ON_PUT_UNDER_FRIENDLY";
 export interface AbilityCost {
   ink?: number;
   exert?: boolean;

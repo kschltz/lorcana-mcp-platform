@@ -4,7 +4,8 @@
 import type { CardInstance, PlayerId } from "./types.js";
 import type { LegalAction, PlayChoices, PlayerAction } from "./actions.js";
 import {
-  activePlay, cardLabel, defOf, findInstance, isWet, ps, readyInk, scriptOf, type Rt,
+  activePlay, cardLabel, defOf, effectivePlayCost, findInstance, isWet, ps, readyInk,
+  scriptOf, type Rt,
 } from "./state.js";
 import { effStats } from "./keywords.js";
 import {
@@ -177,14 +178,16 @@ function playCardActions(rt: Rt, player: PlayerId, c: CardInstance, ink: number)
     return [base];
   };
 
-  // normal payment
-  if (ink >= def.cost) {
+  // normal payment (after pending cost-reduction discounts)
+  const playCost = effectivePlayCost(rt.state, player, def);
+  if (ink >= playCost) {
     for (const choices of bodyguardVariants(undefined)) {
       const suffix = choices?.options?.includes("exert") ? " (enters exerted)" : "";
+      const discountNote = playCost < def.cost ? ` (discounted from ${def.cost})` : "";
       const action: PlayerAction = choices
         ? { type: "PLAY_CARD", cardInstanceId: c.instanceId, choices }
         : { type: "PLAY_CARD", cardInstanceId: c.instanceId };
-      out.push({ action, description: `Play ${label} for ${def.cost} ink${suffix}` });
+      out.push({ action, description: `Play ${label} for ${playCost} ink${discountNote}${suffix}` });
     }
   }
 
@@ -327,7 +330,10 @@ export function validateAction(rt: Rt, player: PlayerId, action: PlayerAction): 
           return "shift: invalid target (needs a matching-name character you control and enough ink)";
         return null;
       }
-      if (readyInk(state, player) < def.cost) return `not enough ink (need ${def.cost})`;
+      {
+        const need = effectivePlayCost(state, player, def);
+        if (readyInk(state, player) < need) return `not enough ink (need ${need})`;
+      }
       void script;
       return null;
     }

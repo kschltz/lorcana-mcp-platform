@@ -62,7 +62,7 @@ function continuousModifiers(rt: Rt, inst: CardInstance): Array<{ ab: Continuous
       } else if (!matchesSelectorBasic(rt, inst, ab.selector, src.owner)) {
         continue;
       }
-      if (ab.condition && !evalCondition(rt, ab.condition, src.owner)) continue;
+      if (ab.condition && !evalCondition(rt, ab.condition, src.owner, { self: src })) continue;
       out.push({ ab, sourceId: src.instanceId });
     }
   }

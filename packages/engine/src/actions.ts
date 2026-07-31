@@ -3,8 +3,8 @@
 
 import type { CardInstance, PlayerId } from "./types.js";
 import {
-  activePlay, addEvent, banishInstance, cardLabel, defOf, findInstance, opponentOf,
-  payInk, ps, readyInk, scriptOf, syncRng, type Rt,
+  activePlay, addEvent, banishInstance, cardLabel, consumePlayDiscount, defOf,
+  findInstance, opponentOf, payInk, ps, readyInk, scriptOf, syncRng, type Rt,
 } from "./state.js";
 import { effStats, hasKeyword, singerValue } from "./keywords.js";
 import { doChallenge, doQuest } from "./combat.js";
@@ -137,9 +137,15 @@ function execPlayCard(
     shiftTarget = targetLoc.inst;
     payInk(rt, player, script.shiftCost ?? def.cost);
   } else {
-    payInk(rt, player, def.cost);
+    const discount = consumePlayDiscount(rt, player, def);
+    const cost = Math.max(0, def.cost - discount);
+    payInk(rt, player, cost);
+    if (discount > 0) {
+      addEvent(rt, "cost-reduction",
+        `${player} plays ${cardLabel(rt, inst)} for ${cost} ink (−${discount} discount).`,
+        player, { cardInstanceId: inst.instanceId, cost, discount });
+    }
   }
-
   p.hand.splice(idx, 1);
 
   // --- actions resolve then go to discard (they are put into discard as
@@ -175,19 +181,8 @@ function execPlayCard(
       player, { cardInstanceId: inst.instanceId, onto: shiftTarget.instanceId });
   }
 
-  // Boost N: when played, put the top N cards of your deck under it.
-  const boost = (script.keywords ?? []).find((k) => k.name === "Boost")?.value;
-  if (boost && boost > 0) {
-    for (let i = 0; i < boost && p.deck.length > 0; i++) {
-      const top = p.deck.shift()!;
-      top.zone = "play";
-      top.enteredTurn = rt.state.turn;
-      p.play.push(top);
-      (inst.under ??= []).push(top.instanceId);
-    }
-    addEvent(rt, "boost", `${cardLabel(rt, inst)} boosts ${boost} card(s) under it.`, player,
-      { cardInstanceId: inst.instanceId, amount: boost });
-  }
+  // Boost N is an activated once-per-turn ability (pay N → put top card under);
+  // it is emitted by card-data as an activated ability, not an on-play effect.
 
   // Bodyguard: may enter play exerted (choice via options:["exert"]).
   if (hasKeyword(rt, inst, "Bodyguard") && choices?.options?.includes("exert")) {

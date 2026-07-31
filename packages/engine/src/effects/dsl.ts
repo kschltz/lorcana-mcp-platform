@@ -22,7 +22,10 @@ export interface ContinuousAbility {
 }
 export type Trigger =
   | "ON_PLAY" | "ON_QUEST" | "ON_CHALLENGE_BANISH" | "ON_BANISH"
-  | "START_OF_TURN" | "END_OF_TURN" | "ON_OPPONENT_PLAY" | "ON_PLAY_CHARACTER";
+  | "START_OF_TURN" | "END_OF_TURN" | "ON_OPPONENT_PLAY" | "ON_PLAY_CHARACTER"
+  // EXTENSION (sets 10+ Boost): fire on the host that received a card under it /
+  // on every friendly permanent when any of your characters/locations gets a card under.
+  | "ON_PUT_UNDER" | "ON_PUT_UNDER_FRIENDLY";
 export interface AbilityCost { ink?: number; exert?: boolean; discard?: number; banishSelf?: boolean; }
 
 // ---------------------------------------------------------------------------
@@ -48,7 +51,9 @@ export type ConditionOp = ">=" | "<=" | "==";
 export type Condition =
   | { kind: "count"; selector: Selector; op: ConditionOp; value: number }
   | { kind: "has-keyword"; selector: Selector; keyword: Keyword }
-  | { kind: "stat"; selector: Selector; stat: "strength" | "willpower" | "lore"; op: ConditionOp; value: number };
+  | { kind: "stat"; selector: Selector; stat: "strength" | "willpower" | "lore"; op: ConditionOp; value: number }
+  // EXTENSION: cards stacked under the selected permanent (Boost / put-under).
+  | { kind: "has-cards-under"; selector: Selector; op: ConditionOp; value: number };
 
 // ---------------------------------------------------------------------------
 // EffectNode vocabulary (SPEC §4 — interpreter implements all).
@@ -76,7 +81,11 @@ export type EffectNode =
   | { type: "PREVENT_DAMAGE"; amount: number; target: Selector; duration: Modifier["duration"] }
   | { type: "CHOICE"; prompt: string; options: EffectNode[][]; min: number; max: number; target?: Selector }
   | { type: "FOR_EACH"; selector: Selector; effects: EffectNode[] }
-  | { type: "IF"; condition: Condition; then: EffectNode[]; else?: EffectNode[] };
+  | { type: "IF"; condition: Condition; then: EffectNode[]; else?: EffectNode[] }
+  // EXTENSION: put top deck card(s) facedown under a permanent (Boost + put-under effects).
+  | { type: "PUT_UNDER"; source: "top-deck"; amount?: number; target?: Selector }
+  // EXTENSION: turn-scoped "you pay N {i} less for the next … you play".
+  | { type: "COST_REDUCTION"; amount: number; filter?: DeckFilter; uses?: number };
 
 /** Subset of Selector usable for deck/hand searches (no zone/who). */
 export interface DeckFilter {
@@ -91,11 +100,13 @@ export const EFFECT_NODE_TYPES = [
   "BANISH", "RETURN_TO_HAND", "EXERT", "READY", "ADD_MODIFIER", "GRANT_KEYWORD",
   "DISCARD", "LOOK_TOP", "PUT_INTO_INKWELL", "SEARCH_DECK", "PLAY_CARD_FREE",
   "MOVE_DAMAGE", "PREVENT_DAMAGE", "CHOICE", "FOR_EACH", "IF",
+  "PUT_UNDER", "COST_REDUCTION",
 ] as const;
 
 export const TRIGGERS: Trigger[] = [
   "ON_PLAY", "ON_QUEST", "ON_CHALLENGE_BANISH", "ON_BANISH",
   "START_OF_TURN", "END_OF_TURN", "ON_OPPONENT_PLAY", "ON_PLAY_CHARACTER",
+  "ON_PUT_UNDER", "ON_PUT_UNDER_FRIENDLY",
 ];
 
 const KEYWORDS: Keyword[] = [
@@ -126,8 +137,9 @@ export function validateSelector(s: unknown, path: string): string[] {
 function validateCondition(c: unknown, path: string): string[] {
   const errs: string[] = [];
   if (!isObj(c)) return [`${path}: condition must be an object`];
-  if (!["count", "has-keyword", "stat"].includes(c.kind as string)) errs.push(`${path}.kind: invalid`);
-  if (c.kind === "count" || c.kind === "stat") {
+  if (!["count", "has-keyword", "stat", "has-cards-under"].includes(c.kind as string))
+    errs.push(`${path}.kind: invalid`);
+  if (c.kind === "count" || c.kind === "stat" || c.kind === "has-cards-under") {
     if (![">=", "<=", "=="].includes(c.op as string)) errs.push(`${path}.op: invalid`);
     if (typeof c.value !== "number") errs.push(`${path}.value: must be number`);
   }
@@ -214,6 +226,16 @@ export function validateEffectNode(n: unknown, path: string): string[] {
       else (n.else as unknown[]).forEach((e, i) =>
         errs.push(...validateEffectNode(e, `${path}.else[${i}]`)));
     }
+  }
+  if (t === "PUT_UNDER") {
+    if (n.source !== "top-deck") errs.push(`${path}.source: must be "top-deck"`);
+    if (n.amount !== undefined && typeof n.amount !== "number") errs.push(`${path}.amount: must be number`);
+    if (n.target !== undefined) errs.push(...validateSelector(n.target, `${path}.target`));
+  }
+  if (t === "COST_REDUCTION") {
+    if (typeof n.amount !== "number") errs.push(`${path}.amount: must be number`);
+    if (n.filter !== undefined) errs.push(...validateDeckFilter(n.filter, `${path}.filter`));
+    if (n.uses !== undefined && typeof n.uses !== "number") errs.push(`${path}.uses: must be number`);
   }
   return errs;
 }

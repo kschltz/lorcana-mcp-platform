@@ -53,13 +53,17 @@ export function advanceTurn(rt: Rt, seg: "switch" | "draw"): void {
   }
 }
 
-/** Clear "this-turn" modifiers at the end of the active player's turn. */
+/** Clear "this-turn" modifiers and pending ink discounts at the end of the
+ * active player's turn. */
 function endOfTurnCleanup(rt: Rt): void {
+  const active = rt.state.activePlayer;
   for (const pid of ["p1", "p2"] as PlayerId[]) {
     for (const c of rt.state.players[pid].play) {
       c.modifiers = c.modifiers.filter((m) => m.duration !== "this-turn");
     }
   }
+  // Cost reductions are turn-scoped for the player who gained them.
+  rt.state.players[active].inkDiscounts = undefined;
 }
 
 function switchActivePlayer(rt: Rt): void {
@@ -73,6 +77,14 @@ function switchActivePlayer(rt: Rt): void {
  * their lore to their controller. */
 function readyStep(rt: Rt): void {
   const p = rt.state.players[rt.state.activePlayer];
+  // Clear until-start-of-next-turn modifiers that expire for the player whose
+  // turn is beginning (they lasted through the opponent's turn).
+  for (const pid of ["p1", "p2"] as PlayerId[]) {
+    for (const c of rt.state.players[pid].play) {
+      c.modifiers = c.modifiers.filter((m) =>
+        !(m.duration === "until-start-of-next-turn" && m.expiresFor === p.id));
+    }
+  }
   p.inkPlayedThisTurn = 0;
   for (const c of p.inkwell) c.exerted = false;
   for (const c of p.play) {

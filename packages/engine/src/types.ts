@@ -50,7 +50,12 @@ export interface CardInstance {
 export interface Modifier {
   id: string; // for removal/tracing
   source: string; // instanceId that applied it
-  duration: "this-turn" | "while-in-play" | "permanent";
+  // "until-start-of-next-turn": lasts through the opponent's turn; cleared when
+  // `expiresFor`'s next turn begins (extension for "until the start of your next
+  // turn" / "during their next turn").
+  duration: "this-turn" | "while-in-play" | "permanent" | "until-start-of-next-turn";
+  /** Player whose next turn-start clears an until-start-of-next-turn modifier. */
+  expiresFor?: PlayerId;
   stat?: { strength?: number; willpower?: number; lore?: number };
   grantKeywords?: Keyword[];
   removeKeywords?: Keyword[];
@@ -60,6 +65,15 @@ export interface Modifier {
   condition?: string; // DSL expression id, optional
 }
 
+/** Turn-scoped ink discount for upcoming plays (cost-reduction effects). */
+export interface InkDiscount {
+  amount: number;
+  type?: CardType;
+  classification?: string;
+  name?: string;
+  remaining: number; // uses left (usually 1 for "the next … you play")
+}
+
 export interface PlayerState {
   id: PlayerId;
   deck: CardInstance[]; hand: CardInstance[]; inkwell: CardInstance[];
@@ -67,6 +81,8 @@ export interface PlayerState {
   lore: number;
   inkPlayedThisTurn: number;
   mulliganDone: boolean;
+  /** EXTENSION: pending ink discounts from "you pay N less…" effects. */
+  inkDiscounts?: InkDiscount[];
 }
 
 export interface PendingChoice {

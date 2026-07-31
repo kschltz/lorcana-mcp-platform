@@ -20,6 +20,19 @@
  },
  "ARI-002": {
   "cardId": "ARI-002",
+  "triggered": [
+   {
+    "name": "Who's Next",
+    "trigger": "ON_QUEST",
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 2,
+      "uses": 1
+     }
+    ]
+   }
+  ],
   "continuous": [
    {
     "name": "Don't Be Afraid",
@@ -184,6 +197,19 @@
       ],
       "min": 0,
       "max": 1
+     }
+    ]
+   }
+  ],
+  "activated": [
+   {
+    "name": "NOW IT'S A PARTY",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
      }
     ]
    }
@@ -870,10 +896,10 @@
        "chosen": true
       },
       "modifier": {
-       "duration": "this-turn",
+       "duration": "until-start-of-next-turn",
        "cantReady": true
       },
-      "duration": "this-turn"
+      "duration": "until-start-of-next-turn"
      }
     ]
    }
@@ -1075,30 +1101,20 @@
     "trigger": "ON_CHALLENGE_BANISH",
     "effects": [
      {
-      "type": "CHOICE",
-      "prompt": "You may: move 1 damage counter from chosen character to chosen opposing character",
-      "options": [
-       [
-        {
-         "type": "MOVE_DAMAGE",
-         "amount": 1,
-         "from": {
-          "zone": "play",
-          "who": "any",
-          "type": "Character",
-          "chosen": true
-         },
-         "to": {
-          "zone": "play",
-          "who": "opponent",
-          "type": "Character",
-          "chosen": true
-         }
-        }
-       ]
-      ],
-      "min": 0,
-      "max": 1
+      "type": "MOVE_DAMAGE",
+      "amount": 1,
+      "from": {
+       "zone": "play",
+       "who": "any",
+       "type": "Character",
+       "chosen": true
+      },
+      "to": {
+       "zone": "play",
+       "who": "opponent",
+       "type": "Character",
+       "chosen": true
+      }
      }
     ]
    }
@@ -1311,10 +1327,10 @@
        "chosen": true
       },
       "modifier": {
-       "duration": "this-turn",
+       "duration": "until-start-of-next-turn",
        "cantReady": true
       },
-      "duration": "this-turn"
+      "duration": "until-start-of-next-turn"
      }
     ]
    }
@@ -1334,30 +1350,20 @@
     "trigger": "ON_PLAY",
     "effects": [
      {
-      "type": "CHOICE",
-      "prompt": "You may: move up to 2 damage counters from chosen character to chosen opposing character",
-      "options": [
-       [
-        {
-         "type": "MOVE_DAMAGE",
-         "amount": 2,
-         "from": {
-          "zone": "play",
-          "who": "any",
-          "type": "Character",
-          "chosen": true
-         },
-         "to": {
-          "zone": "play",
-          "who": "opponent",
-          "type": "Character",
-          "chosen": true
-         }
-        }
-       ]
-      ],
-      "min": 0,
-      "max": 1
+      "type": "MOVE_DAMAGE",
+      "amount": 2,
+      "from": {
+       "zone": "play",
+       "who": "any",
+       "type": "Character",
+       "chosen": true
+      },
+      "to": {
+       "zone": "play",
+       "who": "opponent",
+       "type": "Character",
+       "chosen": true
+      }
      }
     ]
    }
@@ -1489,7 +1495,23 @@
   "cardId": "ARI-085"
  },
  "ARI-086": {
-  "cardId": "ARI-086"
+  "cardId": "ARI-086",
+  "triggered": [
+   {
+    "name": "RAPID FIRE",
+    "trigger": "ON_QUEST",
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "filter": {
+       "type": "Action"
+      },
+      "uses": 1
+     }
+    ]
+   }
+  ]
  },
  "ARI-087": {
   "cardId": "ARI-087",
@@ -1890,10 +1912,36 @@
      }
     ]
    }
+  ],
+  "activated": [
+   {
+    "name": "DRAWN TO A FIGHT",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 2,
+      "uses": 1
+     }
+    ]
+   }
   ]
  },
  "ARI-110": {
-  "cardId": "ARI-110"
+  "cardId": "ARI-110",
+  "activated": [
+   {
+    "name": "HEY, PIDGE",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
+     }
+    ]
+   }
+  ]
  },
  "ARI-111": {
   "cardId": "ARI-111"
@@ -2035,7 +2083,20 @@
     "value": 7
    }
   ],
-  "shiftCost": 7
+  "shiftCost": 7,
+  "activated": [
+   {
+    "name": "SALVAGE",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
+     }
+    ]
+   }
+  ]
  },
  "ARI-127": {
   "cardId": "ARI-127",
@@ -2889,7 +2950,20 @@
   "cardId": "ARI-194"
  },
  "ARI-195": {
-  "cardId": "ARI-195"
+  "cardId": "ARI-195",
+  "activated": [
+   {
+    "name": "HAVE A LITTLE FAITH",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 2,
+      "uses": 1
+     }
+    ]
+   }
+  ]
  },
  "ARI-196": {
   "cardId": "ARI-196"
@@ -3215,23 +3289,13 @@
     "trigger": "ON_PLAY_CHARACTER",
     "effects": [
      {
-      "type": "CHOICE",
-      "prompt": "You may: ready this character",
-      "options": [
-       [
-        {
-         "type": "READY",
-         "target": {
-          "zone": "play",
-          "who": "self",
-          "type": "Character",
-          "self": true
-         }
-        }
-       ]
-      ],
-      "min": 0,
-      "max": 1
+      "type": "READY",
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "type": "Character",
+       "self": true
+      }
      },
      {
       "type": "ADD_MODIFIER",
@@ -3666,30 +3730,20 @@
     "trigger": "ON_PLAY_CHARACTER",
     "effects": [
      {
-      "type": "CHOICE",
-      "prompt": "You may: move up to 2 damage counters from chosen character to chosen opposing character",
-      "options": [
-       [
-        {
-         "type": "MOVE_DAMAGE",
-         "amount": 2,
-         "from": {
-          "zone": "play",
-          "who": "any",
-          "type": "Character",
-          "chosen": true
-         },
-         "to": {
-          "zone": "play",
-          "who": "opponent",
-          "type": "Character",
-          "chosen": true
-         }
-        }
-       ]
-      ],
-      "min": 0,
-      "max": 1
+      "type": "MOVE_DAMAGE",
+      "amount": 2,
+      "from": {
+       "zone": "play",
+       "who": "any",
+       "type": "Character",
+       "chosen": true
+      },
+      "to": {
+       "zone": "play",
+       "who": "opponent",
+       "type": "Character",
+       "chosen": true
+      }
      }
     ]
    }
@@ -3787,7 +3841,19 @@
   ]
  },
  "AZS-064": {
-  "cardId": "AZS-064"
+  "cardId": "AZS-064",
+  "triggered": [
+   {
+    "trigger": "ON_PLAY",
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
+     }
+    ]
+   }
+  ]
  },
  "AZS-065": {
   "cardId": "AZS-065"
@@ -4185,7 +4251,20 @@
   "cardId": "AZS-101"
  },
  "AZS-102": {
-  "cardId": "AZS-102"
+  "cardId": "AZS-102",
+  "activated": [
+   {
+    "name": "TEAMWORK",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
+     }
+    ]
+   }
+  ]
  },
  "AZS-103": {
   "cardId": "AZS-103",
@@ -4849,10 +4928,10 @@
        "chosen": true
       },
       "modifier": {
-       "duration": "this-turn",
+       "duration": "until-start-of-next-turn",
        "cantReady": true
       },
-      "duration": "this-turn"
+      "duration": "until-start-of-next-turn"
      }
     ]
    }
@@ -5296,10 +5375,10 @@
        "chosen": true
       },
       "modifier": {
-       "duration": "this-turn",
+       "duration": "until-start-of-next-turn",
        "cantChallenge": true
       },
-      "duration": "this-turn"
+      "duration": "until-start-of-next-turn"
      }
     ]
    }
@@ -5756,10 +5835,41 @@
      }
     ]
    }
+  ],
+  "activated": [
+   {
+    "name": "ROYAL FAVOR",
+    "cost": {},
+    "effects": [
+     {
+      "type": "GRANT_KEYWORD",
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "type": "Character",
+       "name": "Mickey Mouse"
+      },
+      "keyword": "Support"
+     }
+    ]
+   }
   ]
  },
  "FAB-006": {
-  "cardId": "FAB-006"
+  "cardId": "FAB-006",
+  "triggered": [
+   {
+    "name": "ROYAL WELCOME",
+    "trigger": "ON_QUEST",
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
+     }
+    ]
+   }
+  ]
  },
  "FAB-007": {
   "cardId": "FAB-007"
@@ -5965,7 +6075,25 @@
   ]
  },
  "FAB-021": {
-  "cardId": "FAB-021"
+  "cardId": "FAB-021",
+  "activated": [
+   {
+    "name": "GOOD DOG",
+    "cost": {
+     "exert": true
+    },
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "filter": {
+       "type": "Character"
+      },
+      "uses": 1
+     }
+    ]
+   }
+  ]
  },
  "FAB-022": {
   "cardId": "FAB-022",
@@ -6141,7 +6269,25 @@
   ]
  },
  "FAB-032": {
-  "cardId": "FAB-032"
+  "cardId": "FAB-032",
+  "activated": [
+   {
+    "name": "BIRTHDAY LIGHTS",
+    "cost": {
+     "exert": true
+    },
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "filter": {
+       "type": "Character"
+      },
+      "uses": 1
+     }
+    ]
+   }
+  ]
  },
  "FAB-033": {
   "cardId": "FAB-033",
@@ -6213,10 +6359,10 @@
        "chosen": true
       },
       "modifier": {
-       "duration": "this-turn",
+       "duration": "until-start-of-next-turn",
        "cantReady": true
       },
-      "duration": "this-turn"
+      "duration": "until-start-of-next-turn"
      }
     ]
    }
@@ -6356,10 +6502,10 @@
        "chosen": true
       },
       "modifier": {
-       "duration": "this-turn",
+       "duration": "until-start-of-next-turn",
        "cantReady": true
       },
-      "duration": "this-turn"
+      "duration": "until-start-of-next-turn"
      }
     ]
    }
@@ -6603,30 +6749,20 @@
     "trigger": "ON_QUEST",
     "effects": [
      {
-      "type": "CHOICE",
-      "prompt": "You may: move up to 2 damage counters from chosen character to chosen opposing character",
-      "options": [
-       [
-        {
-         "type": "MOVE_DAMAGE",
-         "amount": 2,
-         "from": {
-          "zone": "play",
-          "who": "any",
-          "type": "Character",
-          "chosen": true
-         },
-         "to": {
-          "zone": "play",
-          "who": "opponent",
-          "type": "Character",
-          "chosen": true
-         }
-        }
-       ]
-      ],
-      "min": 0,
-      "max": 1
+      "type": "MOVE_DAMAGE",
+      "amount": 2,
+      "from": {
+       "zone": "play",
+       "who": "any",
+       "type": "Character",
+       "chosen": true
+      },
+      "to": {
+       "zone": "play",
+       "who": "opponent",
+       "type": "Character",
+       "chosen": true
+      }
      }
     ]
    }
@@ -6740,10 +6876,10 @@
        "chosen": true
       },
       "modifier": {
-       "duration": "this-turn",
+       "duration": "until-start-of-next-turn",
        "cantReady": true
       },
-      "duration": "this-turn"
+      "duration": "until-start-of-next-turn"
      }
     ]
    }
@@ -7928,23 +8064,13 @@
     "trigger": "ON_CHALLENGE_BANISH",
     "effects": [
      {
-      "type": "CHOICE",
-      "prompt": "You may: ready this character",
-      "options": [
-       [
-        {
-         "type": "READY",
-         "target": {
-          "zone": "play",
-          "who": "self",
-          "type": "Character",
-          "self": true
-         }
-        }
-       ]
-      ],
-      "min": 0,
-      "max": 1
+      "type": "READY",
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "type": "Character",
+       "self": true
+      }
      },
      {
       "type": "ADD_MODIFIER",
@@ -8394,7 +8520,23 @@
   ]
  },
  "FAB-156": {
-  "cardId": "FAB-156"
+  "cardId": "FAB-156",
+  "triggered": [
+   {
+    "name": "TINKER",
+    "trigger": "ON_QUEST",
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "filter": {
+       "type": "Item"
+      },
+      "uses": 1
+     }
+    ]
+   }
+  ]
  },
  "FAB-157": {
   "cardId": "FAB-157",
@@ -9829,10 +9971,10 @@
        "chosen": true
       },
       "modifier": {
-       "duration": "this-turn",
+       "duration": "until-start-of-next-turn",
        "cantReady": true
       },
-      "duration": "this-turn"
+      "duration": "until-start-of-next-turn"
      }
     ]
    }
@@ -9923,30 +10065,20 @@
     "trigger": "ON_QUEST",
     "effects": [
      {
-      "type": "CHOICE",
-      "prompt": "You may: move up to 2 damage counters from chosen character to chosen opposing character",
-      "options": [
-       [
-        {
-         "type": "MOVE_DAMAGE",
-         "amount": 2,
-         "from": {
-          "zone": "play",
-          "who": "any",
-          "type": "Character",
-          "chosen": true
-         },
-         "to": {
-          "zone": "play",
-          "who": "opponent",
-          "type": "Character",
-          "chosen": true
-         }
-        }
-       ]
-      ],
-      "min": 0,
-      "max": 1
+      "type": "MOVE_DAMAGE",
+      "amount": 2,
+      "from": {
+       "zone": "play",
+       "who": "any",
+       "type": "Character",
+       "chosen": true
+      },
+      "to": {
+       "zone": "play",
+       "who": "opponent",
+       "type": "Character",
+       "chosen": true
+      }
      }
     ]
    }
@@ -10144,6 +10276,24 @@
   "keywords": [
    {
     "name": "Ward"
+   }
+  ],
+  "activated": [
+   {
+    "name": "Eerie Pair",
+    "cost": {},
+    "effects": [
+     {
+      "type": "GRANT_KEYWORD",
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "type": "Character",
+       "name": "Flotsam"
+      },
+      "keyword": "Ward"
+     }
+    ]
    }
   ]
  },
@@ -11066,7 +11216,23 @@
   ]
  },
  "INK-155": {
-  "cardId": "INK-155"
+  "cardId": "INK-155",
+  "triggered": [
+   {
+    "name": "Treasure Rigger",
+    "trigger": "ON_QUEST",
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "filter": {
+       "type": "Item"
+      },
+      "uses": 1
+     }
+    ]
+   }
+  ]
  },
  "INK-156": {
   "cardId": "INK-156"
@@ -11152,7 +11318,20 @@
   "cardId": "INK-167"
  },
  "INK-168": {
-  "cardId": "INK-168"
+  "cardId": "INK-168",
+  "activated": [
+   {
+    "name": "Laboratory",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
+     }
+    ]
+   }
+  ]
  },
  "INK-169": {
   "cardId": "INK-169"
@@ -11409,10 +11588,10 @@
        "chosen": true
       },
       "modifier": {
-       "duration": "this-turn",
+       "duration": "until-start-of-next-turn",
        "cantChallenge": true
       },
-      "duration": "this-turn"
+      "duration": "until-start-of-next-turn"
      }
     ]
    }
@@ -11537,7 +11716,35 @@
   "cardId": "INK-203"
  },
  "INK-204": {
-  "cardId": "INK-204"
+  "cardId": "INK-204",
+  "triggered": [
+   {
+    "name": "Show Me The Way",
+    "trigger": "ON_QUEST",
+    "effects": [
+     {
+      "type": "CHOICE",
+      "prompt": "You may: draw a card, then choose and discard a card",
+      "options": [
+       [
+        {
+         "type": "DRAW",
+         "amount": 1
+        },
+        {
+         "type": "DISCARD",
+         "amount": 1,
+         "who": "self",
+         "mode": "chosen"
+        }
+       ]
+      ],
+      "min": 0,
+      "max": 1
+     }
+    ]
+   }
+  ]
  },
  "ROF-001": {
   "cardId": "ROF-001"
@@ -11558,7 +11765,23 @@
   "cardId": "ROF-004"
  },
  "ROF-005": {
-  "cardId": "ROF-005"
+  "cardId": "ROF-005",
+  "triggered": [
+   {
+    "name": "Share and Share Alike",
+    "trigger": "ON_QUEST",
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "filter": {
+       "type": "Character"
+      },
+      "uses": 1
+     }
+    ]
+   }
+  ]
  },
  "ROF-006": {
   "cardId": "ROF-006"
@@ -11593,7 +11816,23 @@
   "cardId": "ROF-012"
  },
  "ROF-013": {
-  "cardId": "ROF-013"
+  "cardId": "ROF-013",
+  "triggered": [
+   {
+    "name": "Glad You're Here",
+    "trigger": "ON_QUEST",
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 3,
+      "filter": {
+       "type": "Character"
+      },
+      "uses": 1
+     }
+    ]
+   }
+  ]
  },
  "ROF-014": {
   "cardId": "ROF-014",
@@ -11755,7 +11994,20 @@
   ]
  },
  "ROF-024": {
-  "cardId": "ROF-024"
+  "cardId": "ROF-024",
+  "activated": [
+   {
+    "name": "How Do You Do",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
+     }
+    ]
+   }
+  ]
  },
  "ROF-025": {
   "cardId": "ROF-025",
@@ -12421,10 +12673,10 @@
        "chosen": true
       },
       "modifier": {
-       "duration": "this-turn",
+       "duration": "until-start-of-next-turn",
        "cantReady": true
       },
-      "duration": "this-turn"
+      "duration": "until-start-of-next-turn"
      }
     ]
    }
@@ -13323,23 +13575,13 @@
     "trigger": "ON_CHALLENGE_BANISH",
     "effects": [
      {
-      "type": "CHOICE",
-      "prompt": "You may: ready this character",
-      "options": [
-       [
-        {
-         "type": "READY",
-         "target": {
-          "zone": "play",
-          "who": "self",
-          "type": "Character",
-          "self": true
-         }
-        }
-       ]
-      ],
-      "min": 0,
-      "max": 1
+      "type": "READY",
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "type": "Character",
+       "self": true
+      }
      },
      {
       "type": "ADD_MODIFIER",
@@ -13385,23 +13627,13 @@
     "trigger": "ON_CHALLENGE_BANISH",
     "effects": [
      {
-      "type": "CHOICE",
-      "prompt": "You may: ready this character",
-      "options": [
-       [
-        {
-         "type": "READY",
-         "target": {
-          "zone": "play",
-          "who": "self",
-          "type": "Character",
-          "self": true
-         }
-        }
-       ]
-      ],
-      "min": 0,
-      "max": 1
+      "type": "READY",
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "type": "Character",
+       "self": true
+      }
      },
      {
       "type": "ADD_MODIFIER",
@@ -14594,7 +14826,23 @@
   "cardId": "ROJ-002"
  },
  "ROJ-003": {
-  "cardId": "ROJ-003"
+  "cardId": "ROJ-003",
+  "triggered": [
+   {
+    "name": "I KNOW THE WAY",
+    "trigger": "ON_QUEST",
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "filter": {
+       "type": "Character"
+      },
+      "uses": 1
+     }
+    ]
+   }
+  ]
  },
  "ROJ-004": {
   "cardId": "ROJ-004",
@@ -15297,7 +15545,20 @@
   "cardId": "ROJ-036"
  },
  "ROJ-037": {
-  "cardId": "ROJ-037"
+  "cardId": "ROJ-037",
+  "activated": [
+   {
+    "name": "HERE, PIGGY, PIGGY",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 2,
+      "uses": 1
+     }
+    ]
+   }
+  ]
  },
  "ROJ-038": {
   "cardId": "ROJ-038"
@@ -15396,6 +15657,21 @@
     "name": "Singer",
     "value": 9
    }
+  ],
+  "triggered": [
+   {
+    "trigger": "ON_PLAY",
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 2,
+      "filter": {
+       "type": "Character"
+      },
+      "uses": 1
+     }
+    ]
+   }
   ]
  },
  "ROJ-043": {
@@ -15427,6 +15703,17 @@
  "ROJ-044": {
   "cardId": "ROJ-044",
   "activated": [
+   {
+    "name": "INSIDE JOB",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
+     }
+    ]
+   },
    {
     "name": "PAYOFF",
     "cost": {
@@ -15528,10 +15815,10 @@
        "chosen": true
       },
       "modifier": {
-       "duration": "this-turn",
+       "duration": "until-start-of-next-turn",
        "cantReady": true
       },
-      "duration": "this-turn"
+      "duration": "until-start-of-next-turn"
      }
     ]
    }
@@ -16046,10 +16333,10 @@
        "chosen": true
       },
       "modifier": {
-       "duration": "this-turn",
+       "duration": "until-start-of-next-turn",
        "cantReady": true
       },
-      "duration": "this-turn"
+      "duration": "until-start-of-next-turn"
      }
     ]
    }
@@ -16233,7 +16520,20 @@
   ]
  },
  "ROJ-093": {
-  "cardId": "ROJ-093"
+  "cardId": "ROJ-093",
+  "activated": [
+   {
+    "name": "ARE YOU SURE THIS IS SAFE, CAPTAIN",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
+     }
+    ]
+   }
+  ]
  },
  "ROJ-094": {
   "cardId": "ROJ-094"
@@ -16342,6 +16642,28 @@
   "keywords": [
    {
     "name": "Evasive"
+   }
+  ],
+  "triggered": [
+   {
+    "name": "WRAPPED UP",
+    "trigger": "ON_QUEST",
+    "effects": [
+     {
+      "type": "ADD_MODIFIER",
+      "target": {
+       "zone": "play",
+       "who": "opponent",
+       "type": "Character",
+       "chosen": true
+      },
+      "modifier": {
+       "duration": "until-start-of-next-turn",
+       "cantQuest": true
+      },
+      "duration": "until-start-of-next-turn"
+     }
+    ]
    }
   ]
  },
@@ -17398,7 +17720,25 @@
   "cardId": "ROJ-164"
  },
  "ROJ-165": {
-  "cardId": "ROJ-165"
+  "cardId": "ROJ-165",
+  "activated": [
+   {
+    "name": "IT'S UP TO YOU, LILO",
+    "cost": {},
+    "effects": [
+     {
+      "type": "GRANT_KEYWORD",
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "type": "Character",
+       "name": "Lilo"
+      },
+      "keyword": "Support"
+     }
+    ]
+   }
+  ]
  },
  "ROJ-166": {
   "cardId": "ROJ-166"
@@ -17752,6 +18092,19 @@
  },
  "ROJ-192": {
   "cardId": "ROJ-192",
+  "activated": [
+   {
+    "name": "BEST MATES",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
+     }
+    ]
+   }
+  ],
   "continuous": [
    {
     "name": "BURST OF SPEED",
@@ -18023,6 +18376,19 @@
   "keywords": [
    {
     "name": "Bodyguard"
+   }
+  ],
+  "activated": [
+   {
+    "name": "Song Of The Herd",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
+     }
+    ]
    }
   ]
  },
@@ -18410,30 +18776,20 @@
     "trigger": "ON_PLAY",
     "effects": [
      {
-      "type": "CHOICE",
-      "prompt": "You may: move up to 2 damage counters from chosen character to chosen opposing character",
-      "options": [
-       [
-        {
-         "type": "MOVE_DAMAGE",
-         "amount": 2,
-         "from": {
-          "zone": "play",
-          "who": "any",
-          "type": "Character",
-          "chosen": true
-         },
-         "to": {
-          "zone": "play",
-          "who": "opponent",
-          "type": "Character",
-          "chosen": true
-         }
-        }
-       ]
-      ],
-      "min": 0,
-      "max": 1
+      "type": "MOVE_DAMAGE",
+      "amount": 2,
+      "from": {
+       "zone": "play",
+       "who": "any",
+       "type": "Character",
+       "chosen": true
+      },
+      "to": {
+       "zone": "play",
+       "who": "opponent",
+       "type": "Character",
+       "chosen": true
+      }
      }
     ]
    }
@@ -18622,6 +18978,19 @@
    {
     "name": "Evasive"
    }
+  ],
+  "activated": [
+   {
+    "name": "Clear The Path",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
+     }
+    ]
+   }
   ]
  },
  "SSK-051": {
@@ -18735,10 +19104,10 @@
        "chosen": true
       },
       "modifier": {
-       "duration": "this-turn",
+       "duration": "until-start-of-next-turn",
        "cantReady": true
       },
-      "duration": "this-turn"
+      "duration": "until-start-of-next-turn"
      }
     ]
    }
@@ -18899,6 +19268,19 @@
    {
     "name": "Ward"
    }
+  ],
+  "activated": [
+   {
+    "name": "Tag Me In",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
+     }
+    ]
+   }
   ]
  },
  "SSK-070": {
@@ -19040,6 +19422,22 @@
   "keywords": [
    {
     "name": "Evasive"
+   }
+  ],
+  "triggered": [
+   {
+    "name": "In Disguise",
+    "trigger": "ON_QUEST",
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 2,
+      "filter": {
+       "type": "Action"
+      },
+      "uses": 1
+     }
+    ]
    }
   ]
  },
@@ -20098,6 +20496,19 @@
    {
     "name": "Support"
    }
+  ],
+  "activated": [
+   {
+    "name": "Every Little Bit Helps",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
+     }
+    ]
+   }
   ]
  },
  "SSK-146": {
@@ -20570,6 +20981,19 @@
     "name": "Resist",
     "value": 3
    }
+  ],
+  "activated": [
+   {
+    "name": "I Don't Have Any Other Choice",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 2,
+      "uses": 1
+     }
+    ]
+   }
   ]
  },
  "SSK-183": {
@@ -20774,10 +21198,10 @@
        "chosen": true
       },
       "modifier": {
-       "duration": "this-turn",
+       "duration": "until-start-of-next-turn",
        "cantChallenge": true
       },
-      "duration": "this-turn"
+      "duration": "until-start-of-next-turn"
      },
      {
       "type": "DRAW",
@@ -21028,7 +21452,20 @@
   ]
  },
  "TFC-008": {
-  "cardId": "TFC-008"
+  "cardId": "TFC-008",
+  "activated": [
+   {
+    "name": "Loyal",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
+     }
+    ]
+   }
+  ]
  },
  "TFC-009": {
   "cardId": "TFC-009"
@@ -21518,10 +21955,10 @@
        "chosen": true
       },
       "modifier": {
-       "duration": "this-turn",
+       "duration": "until-start-of-next-turn",
        "cantReady": true
       },
-      "duration": "this-turn"
+      "duration": "until-start-of-next-turn"
      }
     ]
    }
@@ -21532,6 +21969,24 @@
   "keywords": [
    {
     "name": "Rush"
+   }
+  ],
+  "activated": [
+   {
+    "name": "Dexterous Lunge",
+    "cost": {},
+    "effects": [
+     {
+      "type": "GRANT_KEYWORD",
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "type": "Character",
+       "name": "Jetsam"
+      },
+      "keyword": "Rush"
+     }
+    ]
    }
   ]
  },
@@ -21569,6 +22024,24 @@
   "keywords": [
    {
     "name": "Evasive"
+   }
+  ],
+  "activated": [
+   {
+    "name": "Sinister Slither",
+    "cost": {},
+    "effects": [
+     {
+      "type": "GRANT_KEYWORD",
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "type": "Character",
+       "name": "Flotsam"
+      },
+      "keyword": "Evasive"
+     }
+    ]
    }
   ]
  },
@@ -21633,7 +22106,20 @@
   ]
  },
  "TFC-051": {
-  "cardId": "TFC-051"
+  "cardId": "TFC-051",
+  "activated": [
+   {
+    "name": "Animate Broom",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
+     }
+    ]
+   }
+  ]
  },
  "TFC-052": {
   "cardId": "TFC-052"
@@ -21957,7 +22443,29 @@
   "cardId": "TFC-080"
  },
  "TFC-081": {
-  "cardId": "TFC-081"
+  "cardId": "TFC-081",
+  "triggered": [
+   {
+    "name": "Puppynapping",
+    "trigger": "ON_QUEST",
+    "effects": [
+     {
+      "type": "ADD_MODIFIER",
+      "target": {
+       "zone": "play",
+       "who": "opponent",
+       "type": "Character",
+       "chosen": true
+      },
+      "modifier": {
+       "duration": "until-start-of-next-turn",
+       "cantQuest": true
+      },
+      "duration": "until-start-of-next-turn"
+     }
+    ]
+   }
+  ]
  },
  "TFC-082": {
   "cardId": "TFC-082",
@@ -22075,7 +22583,29 @@
     "value": 5
    }
   ],
-  "shiftCost": 5
+  "shiftCost": 5,
+  "triggered": [
+   {
+    "name": "Misdirection",
+    "trigger": "ON_PLAY_CHARACTER",
+    "effects": [
+     {
+      "type": "ADD_MODIFIER",
+      "target": {
+       "zone": "play",
+       "who": "opponent",
+       "type": "Character",
+       "chosen": true
+      },
+      "modifier": {
+       "duration": "until-start-of-next-turn",
+       "cantQuest": true
+      },
+      "duration": "until-start-of-next-turn"
+     }
+    ]
+   }
+  ]
  },
  "TFC-089": {
   "cardId": "TFC-089"
@@ -22871,7 +23401,23 @@
   "cardId": "TFC-140"
  },
  "TFC-141": {
-  "cardId": "TFC-141"
+  "cardId": "TFC-141",
+  "triggered": [
+   {
+    "name": "Tinker",
+    "trigger": "ON_QUEST",
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "filter": {
+       "type": "Item"
+      },
+      "uses": 1
+     }
+    ]
+   }
+  ]
  },
  "TFC-142": {
   "cardId": "TFC-142"
@@ -23043,7 +23589,23 @@
   "cardId": "TFC-151"
  },
  "TFC-152": {
-  "cardId": "TFC-152"
+  "cardId": "TFC-152",
+  "triggered": [
+   {
+    "name": "Give It A Try",
+    "trigger": "ON_QUEST",
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 2,
+      "filter": {
+       "type": "Item"
+      },
+      "uses": 1
+     }
+    ]
+   }
+  ]
  },
  "TFC-153": {
   "cardId": "TFC-153",
@@ -23856,10 +24418,10 @@
        "chosen": true
       },
       "modifier": {
-       "duration": "this-turn",
+       "duration": "until-start-of-next-turn",
        "cantChallenge": true
       },
-      "duration": "this-turn"
+      "duration": "until-start-of-next-turn"
      }
     ]
    }
@@ -24260,7 +24822,34 @@
   "cardId": "URS-033"
  },
  "URS-034": {
-  "cardId": "URS-034"
+  "cardId": "URS-034",
+  "triggered": [
+   {
+    "name": "Save a Soul",
+    "trigger": "ON_QUEST",
+    "effects": [
+     {
+      "type": "CHOICE",
+      "prompt": "You may: pay 3{i} to return a character card from your discard to your hand",
+      "options": [
+       [
+        {
+         "type": "RETURN_TO_HAND",
+         "target": {
+          "zone": "discard",
+          "who": "self",
+          "type": "Character",
+          "chosen": true
+         }
+        }
+       ]
+      ],
+      "min": 0,
+      "max": 1
+     }
+    ]
+   }
+  ]
  },
  "URS-035": {
   "cardId": "URS-035"
@@ -24719,6 +25308,24 @@
    {
     "name": "Ward"
    }
+  ],
+  "activated": [
+   {
+    "name": "Protective Goddess",
+    "cost": {},
+    "effects": [
+     {
+      "type": "GRANT_KEYWORD",
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "type": "Character",
+       "name": "Zeus"
+      },
+      "keyword": "Ward"
+     }
+    ]
+   }
   ]
  },
  "URS-077": {
@@ -24761,23 +25368,13 @@
     "trigger": "ON_PLAY_CHARACTER",
     "effects": [
      {
-      "type": "CHOICE",
-      "prompt": "You may: ready this character",
-      "options": [
-       [
-        {
-         "type": "READY",
-         "target": {
-          "zone": "play",
-          "who": "self",
-          "type": "Character",
-          "self": true
-         }
-        }
-       ]
-      ],
-      "min": 0,
-      "max": 1
+      "type": "READY",
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "type": "Character",
+       "self": true
+      }
      }
     ]
    }
@@ -26490,6 +27087,49 @@
     "name": "Boost",
     "value": 2
    }
+  ],
+  "triggered": [
+   {
+    "name": "TOP THAT",
+    "trigger": "ON_QUEST",
+    "effects": [
+     {
+      "type": "ADD_MODIFIER",
+      "target": {
+       "zone": "play",
+       "who": "opponent",
+       "type": "Character",
+       "chosen": true
+      },
+      "modifier": {
+       "duration": "until-start-of-next-turn",
+       "cantChallenge": true
+      },
+      "duration": "until-start-of-next-turn"
+     }
+    ]
+   }
+  ],
+  "activated": [
+   {
+    "name": "Boost",
+    "cost": {
+     "ink": 2
+    },
+    "oncePerTurn": true,
+    "effects": [
+     {
+      "type": "PUT_UNDER",
+      "source": "top-deck",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
+      }
+     }
+    ]
+   }
   ]
  },
  "WHI-003": {
@@ -26523,7 +27163,31 @@
   ]
  },
  "WHI-008": {
-  "cardId": "WHI-008"
+  "cardId": "WHI-008",
+  "triggered": [
+   {
+    "name": "FABULOUS WEALTH",
+    "trigger": "ON_PLAY",
+    "effects": [
+     {
+      "type": "ADD_MODIFIER",
+      "target": {
+       "zone": "play",
+       "who": "any",
+       "type": "Character",
+       "chosen": true
+      },
+      "modifier": {
+       "duration": "this-turn",
+       "stat": {
+        "lore": 1
+       }
+      },
+      "duration": "this-turn"
+     }
+    ]
+   }
+  ]
  },
  "WHI-009": {
   "cardId": "WHI-009",
@@ -26598,6 +27262,31 @@
  },
  "WHI-014": {
   "cardId": "WHI-014",
+  "triggered": [
+   {
+    "name": "DEEP RESEARCH",
+    "trigger": "ON_QUEST",
+    "effects": [
+     {
+      "type": "ADD_MODIFIER",
+      "target": {
+       "zone": "play",
+       "who": "any",
+       "type": "Character",
+       "classification": "Detective",
+       "chosen": true
+      },
+      "modifier": {
+       "duration": "this-turn",
+       "stat": {
+        "strength": 2
+       }
+      },
+      "duration": "this-turn"
+     }
+    ]
+   }
+  ],
   "activated": [
    {
     "name": "HOLD...YOUR HORSES",
@@ -26674,6 +27363,27 @@
      }
     ]
    }
+  ],
+  "activated": [
+   {
+    "name": "Boost",
+    "cost": {
+     "ink": 1
+    },
+    "oncePerTurn": true,
+    "effects": [
+     {
+      "type": "PUT_UNDER",
+      "source": "top-deck",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
+      }
+     }
+    ]
+   }
   ]
  },
  "WHI-018": {
@@ -26704,7 +27414,21 @@
   ]
  },
  "WHI-019": {
-  "cardId": "WHI-019"
+  "cardId": "WHI-019",
+  "triggered": [
+   {
+    "name": "HAVE A BETTER LOOK",
+    "trigger": "ON_PLAY",
+    "effects": [
+     {
+      "type": "DISCARD",
+      "amount": 1,
+      "who": "opponent",
+      "mode": "chosen"
+     }
+    ]
+   }
+  ]
  },
  "WHI-020": {
   "cardId": "WHI-020",
@@ -26714,16 +27438,52 @@
     "value": 3
    }
   ],
-  "activated": [
+  "triggered": [
    {
     "name": "TIMELY ALLIANCE",
-    "cost": {},
+    "trigger": "ON_PUT_UNDER",
     "effects": [
+     {
+      "type": "CHOICE",
+      "prompt": "You may: reveal the top card of your deck",
+      "options": [
+       [
+        {
+         "type": "LOOK_TOP",
+         "amount": 1,
+         "then": "keep-order"
+        }
+       ]
+      ],
+      "min": 0,
+      "max": 1
+     },
      {
       "type": "PLAY_CARD_FREE",
       "filter": {
        "type": "Character",
        "from": "hand"
+      }
+     }
+    ]
+   }
+  ],
+  "activated": [
+   {
+    "name": "Boost",
+    "cost": {
+     "ink": 3
+    },
+    "oncePerTurn": true,
+    "effects": [
+     {
+      "type": "PUT_UNDER",
+      "source": "top-deck",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
       }
      }
     ]
@@ -26765,6 +27525,25 @@
     "trigger": "ON_PLAY",
     "effects": [
      {
+      "type": "CHOICE",
+      "prompt": "You may: ready chosen character with Boost",
+      "options": [
+       [
+        {
+         "type": "READY",
+         "target": {
+          "zone": "play",
+          "who": "self",
+          "type": "Character",
+          "chosen": true
+         }
+        }
+       ]
+      ],
+      "min": 0,
+      "max": 1
+     },
+     {
       "type": "ADD_MODIFIER",
       "target": {
        "zone": "play",
@@ -26799,6 +27578,32 @@
      "stat": {
       "willpower": 2
      }
+    }
+   },
+   {
+    "name": "FRIENDLY CHORUS",
+    "selector": {
+     "zone": "play",
+     "who": "self",
+     "type": "Character",
+     "self": true
+    },
+    "condition": {
+     "kind": "count",
+     "selector": {
+      "zone": "play",
+      "who": "self",
+      "type": "Character"
+     },
+     "op": ">=",
+     "value": 3
+    },
+    "modifier": {
+     "duration": "while-in-play",
+     "grantKeywords": [
+      "Singer"
+     ],
+     "singerAs": 8
     }
    }
   ]
@@ -26892,6 +27697,18 @@
    {
     "trigger": "ON_PLAY",
     "effects": [
+     {
+      "type": "DISCARD",
+      "amount": 2,
+      "who": "self",
+      "mode": "chosen"
+     },
+     {
+      "type": "DISCARD",
+      "amount": 2,
+      "who": "opponent",
+      "mode": "chosen"
+     },
      {
       "type": "GAIN_LORE",
       "amount": 1
@@ -26999,7 +27816,29 @@
   ]
  },
  "WHI-031": {
-  "cardId": "WHI-031"
+  "cardId": "WHI-031",
+  "triggered": [
+   {
+    "name": "LATEST ENTRY",
+    "trigger": "ON_PUT_UNDER_FRIENDLY",
+    "effects": [
+     {
+      "type": "CHOICE",
+      "prompt": "You may: pay 1 {i} to draw a card",
+      "options": [
+       [
+        {
+         "type": "DRAW",
+         "amount": 1
+        }
+       ]
+      ],
+      "min": 0,
+      "max": 1
+     }
+    ]
+   }
+  ]
  },
  "WHI-032": {
   "cardId": "WHI-032"
@@ -27024,14 +27863,63 @@
       }
      }
     ]
+   },
+   {
+    "name": "COME ON OUT",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
+     }
+    ]
    }
   ]
  },
  "WHI-034": {
-  "cardId": "WHI-034"
+  "cardId": "WHI-034",
+  "triggered": [
+   {
+    "name": "WHERE FUN IS IN THE ZONE",
+    "trigger": "ON_QUEST",
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 2,
+      "filter": {
+       "type": "Character"
+      },
+      "uses": 1
+     }
+    ]
+   }
+  ]
  },
  "WHI-035": {
-  "cardId": "WHI-035"
+  "cardId": "WHI-035",
+  "triggered": [
+   {
+    "name": "MYSTICAL BALANCE",
+    "trigger": "ON_BANISH",
+    "effects": [
+     {
+      "type": "CHOICE",
+      "prompt": "You may: draw a card",
+      "options": [
+       [
+        {
+         "type": "DRAW",
+         "amount": 1
+        }
+       ]
+      ],
+      "min": 0,
+      "max": 1
+     }
+    ]
+   }
+  ]
  },
  "WHI-036": {
   "cardId": "WHI-036",
@@ -27260,7 +28148,31 @@
   ]
  },
  "WHI-052": {
-  "cardId": "WHI-052"
+  "cardId": "WHI-052",
+  "triggered": [
+   {
+    "name": "MYSTICAL MANIPULATION",
+    "trigger": "ON_PUT_UNDER_FRIENDLY",
+    "effects": [
+     {
+      "type": "MOVE_DAMAGE",
+      "amount": 1,
+      "from": {
+       "zone": "play",
+       "who": "any",
+       "type": "Character",
+       "chosen": true
+      },
+      "to": {
+       "zone": "play",
+       "who": "opponent",
+       "type": "Character",
+       "chosen": true
+      }
+     }
+    ]
+   }
+  ]
  },
  "WHI-053": {
   "cardId": "WHI-053",
@@ -27344,6 +28256,15 @@
         }
        }
       ]
+     },
+     {
+      "type": "DRAW",
+      "amount": 3
+     },
+     {
+      "type": "DRAW",
+      "amount": 3,
+      "who": "opponent"
      }
     ]
    }
@@ -27368,7 +28289,24 @@
   "cardId": "WHI-056"
  },
  "WHI-057": {
-  "cardId": "WHI-057"
+  "cardId": "WHI-057",
+  "triggered": [
+   {
+    "name": "SECOND CHANCE",
+    "trigger": "ON_BANISH",
+    "effects": [
+     {
+      "type": "RETURN_TO_HAND",
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "type": "Character",
+       "chosen": true
+      }
+     }
+    ]
+   }
+  ]
  },
  "WHI-058": {
   "cardId": "WHI-058",
@@ -27389,6 +28327,27 @@
      }
     ]
    }
+  ],
+  "activated": [
+   {
+    "name": "Boost",
+    "cost": {
+     "ink": 2
+    },
+    "oncePerTurn": true,
+    "effects": [
+     {
+      "type": "PUT_UNDER",
+      "source": "top-deck",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
+      }
+     }
+    ]
+   }
   ]
  },
  "WHI-059": {
@@ -27398,6 +28357,58 @@
     "name": "Boost",
     "value": 1
    }
+  ],
+  "activated": [
+   {
+    "name": "Boost",
+    "cost": {
+     "ink": 1
+    },
+    "oncePerTurn": true,
+    "effects": [
+     {
+      "type": "PUT_UNDER",
+      "source": "top-deck",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
+      }
+     }
+    ]
+   }
+  ],
+  "continuous": [
+   {
+    "name": "SLIPPERY SPELL",
+    "selector": {
+     "zone": "play",
+     "who": "self",
+     "type": "Character",
+     "self": true
+    },
+    "condition": {
+     "kind": "has-cards-under",
+     "selector": {
+      "zone": "play",
+      "who": "self",
+      "type": "Character",
+      "self": true
+     },
+     "op": ">=",
+     "value": 1
+    },
+    "modifier": {
+     "duration": "while-in-play",
+     "stat": {
+      "lore": 1
+     },
+     "grantKeywords": [
+      "Evasive"
+     ]
+    }
+   }
   ]
  },
  "WHI-060": {
@@ -27406,6 +28417,51 @@
    {
     "name": "Boost",
     "value": 2
+   }
+  ],
+  "triggered": [
+   {
+    "name": "IT'S LOADS OF FUN",
+    "trigger": "ON_PUT_UNDER",
+    "effects": [
+     {
+      "type": "MOVE_DAMAGE",
+      "amount": 2,
+      "from": {
+       "zone": "play",
+       "who": "any",
+       "type": "Character",
+       "chosen": true
+      },
+      "to": {
+       "zone": "play",
+       "who": "opponent",
+       "type": "Character",
+       "chosen": true
+      }
+     }
+    ]
+   }
+  ],
+  "activated": [
+   {
+    "name": "Boost",
+    "cost": {
+     "ink": 2
+    },
+    "oncePerTurn": true,
+    "effects": [
+     {
+      "type": "PUT_UNDER",
+      "source": "top-deck",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
+      }
+     }
+    ]
    }
   ]
  },
@@ -27441,6 +28497,22 @@
        "type": "Character",
        "chosen": true
       }
+     },
+     {
+      "type": "MOVE_DAMAGE",
+      "amount": 99,
+      "from": {
+       "zone": "play",
+       "who": "any",
+       "type": "Character",
+       "chosen": true
+      },
+      "to": {
+       "zone": "play",
+       "who": "any",
+       "type": "Character",
+       "chosen": true
+      }
      }
     ]
    }
@@ -27467,7 +28539,28 @@
   ]
  },
  "WHI-064": {
-  "cardId": "WHI-064"
+  "cardId": "WHI-064",
+  "triggered": [
+   {
+    "trigger": "ON_PLAY",
+    "effects": [
+     {
+      "type": "EXERT",
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "type": "Character",
+       "filter": "ready",
+       "chosen": true
+      }
+     },
+     {
+      "type": "DRAW",
+      "amount": 1
+     }
+    ]
+   }
+  ]
  },
  "WHI-065": {
   "cardId": "WHI-065",
@@ -27497,10 +28590,10 @@
        "chosen": true
       },
       "modifier": {
-       "duration": "this-turn",
+       "duration": "until-start-of-next-turn",
        "cantReady": true
       },
-      "duration": "this-turn"
+      "duration": "until-start-of-next-turn"
      }
     ]
    }
@@ -27526,7 +28619,25 @@
   ]
  },
  "WHI-067": {
-  "cardId": "WHI-067"
+  "cardId": "WHI-067",
+  "activated": [
+   {
+    "name": "CELERITAS",
+    "cost": {},
+    "effects": [
+     {
+      "type": "GRANT_KEYWORD",
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "type": "Character",
+       "name": "Demona"
+      },
+      "keyword": "Rush"
+     }
+    ]
+   }
+  ]
  },
  "WHI-068": {
   "cardId": "WHI-068"
@@ -27721,6 +28832,27 @@
     "value": 2
    }
   ],
+  "activated": [
+   {
+    "name": "Boost",
+    "cost": {
+     "ink": 2
+    },
+    "oncePerTurn": true,
+    "effects": [
+     {
+      "type": "PUT_UNDER",
+      "source": "top-deck",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
+      }
+     }
+    ]
+   }
+  ],
   "continuous": [
    {
     "name": "I'LL TAKE THAT",
@@ -27729,6 +28861,17 @@
      "who": "self",
      "type": "Character",
      "self": true
+    },
+    "condition": {
+     "kind": "has-cards-under",
+     "selector": {
+      "zone": "play",
+      "who": "self",
+      "type": "Character",
+      "self": true
+     },
+     "op": ">=",
+     "value": 1
     },
     "modifier": {
      "duration": "while-in-play",
@@ -27741,7 +28884,24 @@
   ]
  },
  "WHI-082": {
-  "cardId": "WHI-082"
+  "cardId": "WHI-082",
+  "triggered": [
+   {
+    "name": "VENDETTA",
+    "trigger": "ON_BANISH",
+    "effects": [
+     {
+      "type": "DEAL_DAMAGE",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "opponent",
+       "type": "Character"
+      }
+     }
+    ]
+   }
+  ]
  },
  "WHI-083": {
   "cardId": "WHI-083",
@@ -27832,6 +28992,27 @@
     "name": "Boost",
     "value": 1
    }
+  ],
+  "activated": [
+   {
+    "name": "Boost",
+    "cost": {
+     "ink": 1
+    },
+    "oncePerTurn": true,
+    "effects": [
+     {
+      "type": "PUT_UNDER",
+      "source": "top-deck",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
+      }
+     }
+    ]
+   }
   ]
  },
  "WHI-087": {
@@ -27846,6 +29027,16 @@
       "amount": 1,
       "who": "opponent",
       "mode": "chosen"
+     }
+    ]
+   },
+   {
+    "name": "STRIKE GOLD",
+    "trigger": "ON_QUEST",
+    "effects": [
+     {
+      "type": "GAIN_LORE",
+      "amount": 1
      }
     ]
    }
@@ -27872,6 +29063,16 @@
        "filter": "damaged",
        "chosen": true
       }
+     },
+     {
+      "type": "DEAL_DAMAGE",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "any",
+       "type": "Character",
+       "chosen": true
+      }
      }
     ]
    }
@@ -27893,6 +29094,20 @@
       "amount": 1,
       "who": "self",
       "mode": "chosen"
+     }
+    ]
+   },
+   {
+    "name": "ON THE MOVE",
+    "trigger": "ON_BANISH",
+    "effects": [
+     {
+      "type": "RETURN_TO_HAND",
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
+      }
      }
     ]
    }
@@ -27927,6 +29142,44 @@
    {
     "name": "Boost",
     "value": 3
+   }
+  ],
+  "triggered": [
+   {
+    "name": "READY TO RASSLE",
+    "trigger": "ON_PUT_UNDER",
+    "effects": [
+     {
+      "type": "READY",
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "type": "Character",
+       "self": true
+      }
+     }
+    ]
+   }
+  ],
+  "activated": [
+   {
+    "name": "Boost",
+    "cost": {
+     "ink": 3
+    },
+    "oncePerTurn": true,
+    "effects": [
+     {
+      "type": "PUT_UNDER",
+      "source": "top-deck",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
+      }
+     }
+    ]
    }
   ]
  },
@@ -28048,7 +29301,23 @@
   ]
  },
  "WHI-097": {
-  "cardId": "WHI-097"
+  "cardId": "WHI-097",
+  "triggered": [
+   {
+    "trigger": "ON_PLAY",
+    "effects": [
+     {
+      "type": "DEAL_DAMAGE",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "opponent",
+       "type": "Character"
+      }
+     }
+    ]
+   }
+  ]
  },
  "WHI-098": {
   "cardId": "WHI-098",
@@ -28154,11 +29423,30 @@
     "name": "Reckless"
    }
   ],
-  "activated": [
+  "triggered": [
    {
     "name": "CALL TO BATTLE",
-    "cost": {},
+    "trigger": "ON_PUT_UNDER_FRIENDLY",
     "effects": [
+     {
+      "type": "CHOICE",
+      "prompt": "You may: ready chosen character",
+      "options": [
+       [
+        {
+         "type": "READY",
+         "target": {
+          "zone": "play",
+          "who": "any",
+          "type": "Character",
+          "chosen": true
+         }
+        }
+       ]
+      ],
+      "min": 0,
+      "max": 1
+     },
      {
       "type": "ADD_MODIFIER",
       "target": {
@@ -28202,23 +29490,13 @@
     "trigger": "ON_PLAY_CHARACTER",
     "effects": [
      {
-      "type": "CHOICE",
-      "prompt": "You may: ready this character",
-      "options": [
-       [
-        {
-         "type": "READY",
-         "target": {
-          "zone": "play",
-          "who": "self",
-          "type": "Character",
-          "self": true
-         }
-        }
-       ]
-      ],
-      "min": 0,
-      "max": 1
+      "type": "READY",
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "type": "Character",
+       "self": true
+      }
      },
      {
       "type": "ADD_MODIFIER",
@@ -28289,6 +29567,27 @@
      {
       "type": "GAIN_LORE",
       "amount": 1
+     }
+    ]
+   }
+  ],
+  "activated": [
+   {
+    "name": "Boost",
+    "cost": {
+     "ink": 2
+    },
+    "oncePerTurn": true,
+    "effects": [
+     {
+      "type": "PUT_UNDER",
+      "source": "top-deck",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
+      }
      }
     ]
    }
@@ -28484,6 +29783,27 @@
    {
     "name": "Reckless"
    }
+  ],
+  "activated": [
+   {
+    "name": "Boost",
+    "cost": {
+     "ink": 1
+    },
+    "oncePerTurn": true,
+    "effects": [
+     {
+      "type": "PUT_UNDER",
+      "source": "top-deck",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
+      }
+     }
+    ]
+   }
   ]
  },
  "WHI-124": {
@@ -28492,6 +29812,27 @@
    {
     "name": "Boost",
     "value": 2
+   }
+  ],
+  "activated": [
+   {
+    "name": "Boost",
+    "cost": {
+     "ink": 2
+    },
+    "oncePerTurn": true,
+    "effects": [
+     {
+      "type": "PUT_UNDER",
+      "source": "top-deck",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
+      }
+     }
+    ]
    }
   ]
  },
@@ -28559,6 +29900,11 @@
    {
     "trigger": "ON_PLAY",
     "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 2,
+      "uses": 1
+     },
      {
       "type": "READY",
       "target": {
@@ -28853,6 +30199,27 @@
      }
     ]
    }
+  ],
+  "activated": [
+   {
+    "name": "Boost",
+    "cost": {
+     "ink": 2
+    },
+    "oncePerTurn": true,
+    "effects": [
+     {
+      "type": "PUT_UNDER",
+      "source": "top-deck",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
+      }
+     }
+    ]
+   }
   ]
  },
  "WHI-150": {
@@ -28899,6 +30266,51 @@
    {
     "name": "Boost",
     "value": 2
+   }
+  ],
+  "triggered": [
+   {
+    "name": "SURVIVAL OF THE FITTEST",
+    "trigger": "ON_PUT_UNDER",
+    "effects": [
+     {
+      "type": "ADD_MODIFIER",
+      "target": {
+       "zone": "play",
+       "who": "opponent",
+       "type": "Character",
+       "chosen": true
+      },
+      "modifier": {
+       "duration": "this-turn",
+       "stat": {
+        "strength": -5
+       }
+      },
+      "duration": "this-turn"
+     }
+    ]
+   }
+  ],
+  "activated": [
+   {
+    "name": "Boost",
+    "cost": {
+     "ink": 2
+    },
+    "oncePerTurn": true,
+    "effects": [
+     {
+      "type": "PUT_UNDER",
+      "source": "top-deck",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
+      }
+     }
+    ]
    }
   ]
  },
@@ -28986,6 +30398,27 @@
      {
       "type": "PUT_INTO_INKWELL",
       "source": "top-deck"
+     }
+    ]
+   }
+  ],
+  "activated": [
+   {
+    "name": "Boost",
+    "cost": {
+     "ink": 1
+    },
+    "oncePerTurn": true,
+    "effects": [
+     {
+      "type": "PUT_UNDER",
+      "source": "top-deck",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
+      }
      }
     ]
    }
@@ -29174,6 +30607,27 @@
        "who": "any",
        "type": "Character",
        "chosen": true
+      }
+     }
+    ]
+   }
+  ],
+  "activated": [
+   {
+    "name": "Boost",
+    "cost": {
+     "ink": 1
+    },
+    "oncePerTurn": true,
+    "effects": [
+     {
+      "type": "PUT_UNDER",
+      "source": "top-deck",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
       }
      }
     ]
@@ -29479,6 +30933,54 @@
     "name": "Boost",
     "value": 3
    }
+  ],
+  "triggered": [
+   {
+    "name": "STUNNING TRANSFORMATION",
+    "trigger": "ON_PUT_UNDER",
+    "effects": [
+     {
+      "type": "CHOICE",
+      "prompt": "You may: banish chosen opposing character",
+      "options": [
+       [
+        {
+         "type": "BANISH",
+         "target": {
+          "zone": "play",
+          "who": "opponent",
+          "type": "Character",
+          "chosen": true
+         }
+        }
+       ]
+      ],
+      "min": 0,
+      "max": 1
+     }
+    ]
+   }
+  ],
+  "activated": [
+   {
+    "name": "Boost",
+    "cost": {
+     "ink": 3
+    },
+    "oncePerTurn": true,
+    "effects": [
+     {
+      "type": "PUT_UNDER",
+      "source": "top-deck",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
+      }
+     }
+    ]
+   }
   ]
  },
  "WHI-193": {
@@ -29489,6 +30991,27 @@
     "value": 2
    }
   ],
+  "activated": [
+   {
+    "name": "Boost",
+    "cost": {
+     "ink": 2
+    },
+    "oncePerTurn": true,
+    "effects": [
+     {
+      "type": "PUT_UNDER",
+      "source": "top-deck",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
+      }
+     }
+    ]
+   }
+  ],
   "continuous": [
    {
     "name": "I NEED MORE THUNDERBOLTS",
@@ -29497,6 +31020,17 @@
      "who": "self",
      "type": "Character",
      "self": true
+    },
+    "condition": {
+     "kind": "has-cards-under",
+     "selector": {
+      "zone": "play",
+      "who": "self",
+      "type": "Character",
+      "self": true
+     },
+     "op": ">=",
+     "value": 1
     },
     "modifier": {
      "duration": "while-in-play",
@@ -29534,10 +31068,10 @@
        "chosen": true
       },
       "modifier": {
-       "duration": "this-turn",
+       "duration": "until-start-of-next-turn",
        "cantChallenge": true
       },
-      "duration": "this-turn"
+      "duration": "until-start-of-next-turn"
      },
      {
       "type": "DRAW",
@@ -29842,7 +31376,23 @@
   ]
  },
  "WIN-013": {
-  "cardId": "WIN-013"
+  "cardId": "WIN-013",
+  "activated": [
+   {
+    "name": "SMOOTH THE WAY",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "filter": {
+       "type": "Character"
+      },
+      "uses": 1
+     }
+    ]
+   }
+  ]
  },
  "WIN-014": {
   "cardId": "WIN-014"
@@ -29949,6 +31499,19 @@
      }
     ]
    }
+  ],
+  "activated": [
+   {
+    "name": "WELCOMING CROWD",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
+     }
+    ]
+   }
   ]
  },
  "WIN-020": {
@@ -29985,6 +31548,11 @@
        "type": "Character",
        "chosen": true
       }
+     },
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
      }
     ]
    }
@@ -30034,6 +31602,27 @@
     "name": "Boost",
     "value": 2
    }
+  ],
+  "activated": [
+   {
+    "name": "Boost",
+    "cost": {
+     "ink": 2
+    },
+    "oncePerTurn": true,
+    "effects": [
+     {
+      "type": "PUT_UNDER",
+      "source": "top-deck",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
+      }
+     }
+    ]
+   }
   ]
  },
  "WIN-025": {
@@ -30042,6 +31631,19 @@
    {
     "name": "Singer",
     "value": 3
+   }
+  ],
+  "activated": [
+   {
+    "name": "UNDERDOG",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
+     }
+    ]
    }
   ]
  },
@@ -30117,6 +31719,14 @@
    {
     "trigger": "ON_PLAY",
     "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 2,
+      "filter": {
+       "type": "Character"
+      },
+      "uses": 1
+     },
      {
       "type": "DRAW",
       "amount": 1
@@ -30201,6 +31811,27 @@
    {
     "name": "Boost",
     "value": 2
+   }
+  ],
+  "activated": [
+   {
+    "name": "Boost",
+    "cost": {
+     "ink": 2
+    },
+    "oncePerTurn": true,
+    "effects": [
+     {
+      "type": "PUT_UNDER",
+      "source": "top-deck",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
+      }
+     }
+    ]
    }
   ]
  },
@@ -30303,10 +31934,23 @@
        "chosen": true
       },
       "modifier": {
-       "duration": "this-turn",
+       "duration": "until-start-of-next-turn",
        "cantReady": true
       },
-      "duration": "this-turn"
+      "duration": "until-start-of-next-turn"
+     }
+    ]
+   }
+  ],
+  "activated": [
+   {
+    "name": "THANKS FOR NOTICIN' ME",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
      }
     ]
    }
@@ -30373,6 +32017,27 @@
     "value": 1
    }
   ],
+  "activated": [
+   {
+    "name": "Boost",
+    "cost": {
+     "ink": 1
+    },
+    "oncePerTurn": true,
+    "effects": [
+     {
+      "type": "PUT_UNDER",
+      "source": "top-deck",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
+      }
+     }
+    ]
+   }
+  ],
   "continuous": [
    {
     "name": "INCREASING WISDOM",
@@ -30392,7 +32057,19 @@
   ]
  },
  "WIN-050": {
-  "cardId": "WIN-050"
+  "cardId": "WIN-050",
+  "triggered": [
+   {
+    "name": "WARM HEART",
+    "trigger": "ON_QUEST",
+    "effects": [
+     {
+      "type": "GAIN_LORE",
+      "amount": 1
+     }
+    ]
+   }
+  ]
  },
  "WIN-051": {
   "cardId": "WIN-051"
@@ -30424,7 +32101,20 @@
   "cardId": "WIN-054"
  },
  "WIN-055": {
-  "cardId": "WIN-055"
+  "cardId": "WIN-055",
+  "activated": [
+   {
+    "name": "UNDERDOG",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
+     }
+    ]
+   }
+  ]
  },
  "WIN-056": {
   "cardId": "WIN-056",
@@ -30616,10 +32306,10 @@
        "chosen": true
       },
       "modifier": {
-       "duration": "this-turn",
+       "duration": "until-start-of-next-turn",
        "cantReady": true
       },
-      "duration": "this-turn"
+      "duration": "until-start-of-next-turn"
      }
     ]
    }
@@ -30760,6 +32450,19 @@
      }
     ]
    }
+  ],
+  "activated": [
+   {
+    "name": "WAKE OF DESTRUCTION",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
+     }
+    ]
+   }
   ]
  },
  "WIN-080": {
@@ -30819,6 +32522,27 @@
     "name": "Boost",
     "value": 2
    }
+  ],
+  "activated": [
+   {
+    "name": "Boost",
+    "cost": {
+     "ink": 2
+    },
+    "oncePerTurn": true,
+    "effects": [
+     {
+      "type": "PUT_UNDER",
+      "source": "top-deck",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
+      }
+     }
+    ]
+   }
   ]
  },
  "WIN-084": {
@@ -30839,6 +32563,19 @@
   "keywords": [
    {
     "name": "Evasive"
+   }
+  ],
+  "activated": [
+   {
+    "name": "SHOWIN' UP",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
+     }
+    ]
    }
   ]
  },
@@ -30879,6 +32616,19 @@
   "keywords": [
    {
     "name": "Evasive"
+   }
+  ],
+  "activated": [
+   {
+    "name": "UNDERDOG",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
+     }
+    ]
    }
   ]
  },
@@ -31183,6 +32933,27 @@
     "value": 1
    }
   ],
+  "activated": [
+   {
+    "name": "Boost",
+    "cost": {
+     "ink": 1
+    },
+    "oncePerTurn": true,
+    "effects": [
+     {
+      "type": "PUT_UNDER",
+      "source": "top-deck",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
+      }
+     }
+    ]
+   }
+  ],
   "continuous": [
    {
     "name": "POWERED UP",
@@ -31207,6 +32978,27 @@
    {
     "name": "Boost",
     "value": 1
+   }
+  ],
+  "activated": [
+   {
+    "name": "Boost",
+    "cost": {
+     "ink": 1
+    },
+    "oncePerTurn": true,
+    "effects": [
+     {
+      "type": "PUT_UNDER",
+      "source": "top-deck",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
+      }
+     }
+    ]
    }
   ],
   "continuous": [
@@ -31246,7 +33038,31 @@
   ]
  },
  "WIN-108": {
-  "cardId": "WIN-108"
+  "cardId": "WIN-108",
+  "activated": [
+   {
+    "name": "NOBLE SPIRIT",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
+     }
+    ]
+   },
+   {
+    "name": "FIGHTING SPIRIT",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
+     }
+    ]
+   }
+  ]
  },
  "WIN-109": {
   "cardId": "WIN-109",
@@ -31282,6 +33098,19 @@
   "keywords": [
    {
     "name": "Reckless"
+   }
+  ],
+  "activated": [
+   {
+    "name": "UNDERDOG",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
+     }
+    ]
    }
   ]
  },
@@ -31368,6 +33197,27 @@
     "value": 2
    }
   ],
+  "activated": [
+   {
+    "name": "Boost",
+    "cost": {
+     "ink": 2
+    },
+    "oncePerTurn": true,
+    "effects": [
+     {
+      "type": "PUT_UNDER",
+      "source": "top-deck",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
+      }
+     }
+    ]
+   }
+  ],
   "continuous": [
    {
     "name": "SUPERHUMAN STRENGTH",
@@ -31376,6 +33226,17 @@
      "who": "self",
      "type": "Character",
      "self": true
+    },
+    "condition": {
+     "kind": "has-cards-under",
+     "selector": {
+      "zone": "play",
+      "who": "self",
+      "type": "Character",
+      "self": true
+     },
+     "op": ">=",
+     "value": 1
     },
     "modifier": {
      "duration": "while-in-play",
@@ -31482,6 +33343,19 @@
      }
     ]
    }
+  ],
+  "activated": [
+   {
+    "name": "ABOUT TIME",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
+     }
+    ]
+   }
   ]
  },
  "WIN-123": {
@@ -31493,6 +33367,58 @@
    }
   ],
   "shiftCost": 4,
+  "triggered": [
+   {
+    "name": "ENDLESS WINTER",
+    "trigger": "ON_PLAY",
+    "effects": [
+     {
+      "type": "CHOICE",
+      "prompt": "You may: exert chosen character with 3 {s} or less",
+      "options": [
+       [
+        {
+         "type": "EXERT",
+         "target": {
+          "zone": "play",
+          "who": "any",
+          "type": "Character",
+          "chosen": true
+         }
+        }
+       ]
+      ],
+      "min": 0,
+      "max": 1
+     }
+    ]
+   },
+   {
+    "name": "ENDLESS WINTER",
+    "trigger": "ON_PLAY_CHARACTER",
+    "effects": [
+     {
+      "type": "CHOICE",
+      "prompt": "You may: exert chosen character with 3 {s} or less",
+      "options": [
+       [
+        {
+         "type": "EXERT",
+         "target": {
+          "zone": "play",
+          "who": "any",
+          "type": "Character",
+          "chosen": true
+         }
+        }
+       ]
+      ],
+      "min": 0,
+      "max": 1
+     }
+    ]
+   }
+  ],
   "continuous": [
    {
     "name": "DISTANT CALL",
@@ -31541,7 +33467,20 @@
   ]
  },
  "WIN-125": {
-  "cardId": "WIN-125"
+  "cardId": "WIN-125",
+  "triggered": [
+   {
+    "name": "CLEAR THE WAY",
+    "trigger": "ON_PLAY",
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 2,
+      "uses": 1
+     }
+    ]
+   }
+  ]
  },
  "WIN-126": {
   "cardId": "WIN-126",
@@ -31549,6 +33488,27 @@
    {
     "name": "Boost",
     "value": 3
+   }
+  ],
+  "activated": [
+   {
+    "name": "Boost",
+    "cost": {
+     "ink": 3
+    },
+    "oncePerTurn": true,
+    "effects": [
+     {
+      "type": "PUT_UNDER",
+      "source": "top-deck",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
+      }
+     }
+    ]
    }
   ]
  },
@@ -31616,6 +33576,11 @@
       "type": "LOOK_TOP",
       "amount": 4,
       "then": "keep-order"
+     },
+     {
+      "type": "COST_REDUCTION",
+      "amount": 3,
+      "uses": 1
      }
     ]
    }
@@ -31653,6 +33618,27 @@
     "name": "Boost",
     "value": 2
    }
+  ],
+  "activated": [
+   {
+    "name": "Boost",
+    "cost": {
+     "ink": 2
+    },
+    "oncePerTurn": true,
+    "effects": [
+     {
+      "type": "PUT_UNDER",
+      "source": "top-deck",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
+      }
+     }
+    ]
+   }
   ]
  },
  "WIN-135": {
@@ -31672,6 +33658,27 @@
     "value": 2
    }
   ],
+  "activated": [
+   {
+    "name": "Boost",
+    "cost": {
+     "ink": 2
+    },
+    "oncePerTurn": true,
+    "effects": [
+     {
+      "type": "PUT_UNDER",
+      "source": "top-deck",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
+      }
+     }
+    ]
+   }
+  ],
   "continuous": [
    {
     "name": "EXTRA HELP",
@@ -31680,6 +33687,17 @@
      "who": "self",
      "type": "Character",
      "self": true
+    },
+    "condition": {
+     "kind": "has-cards-under",
+     "selector": {
+      "zone": "play",
+      "who": "self",
+      "type": "Character",
+      "self": true
+     },
+     "op": ">=",
+     "value": 1
     },
     "modifier": {
      "duration": "while-in-play",
@@ -31733,6 +33751,54 @@
     "name": "Boost",
     "value": 2
    }
+  ],
+  "triggered": [
+   {
+    "name": "LOOK INTO YOUR PAST",
+    "trigger": "ON_PUT_UNDER",
+    "effects": [
+     {
+      "type": "CHOICE",
+      "prompt": "You may: put a card from your discard into your inkwell facedown and exerted",
+      "options": [
+       [
+        {
+         "type": "PUT_INTO_INKWELL",
+         "source": "top-deck",
+         "target": {
+          "zone": "discard",
+          "who": "self",
+          "chosen": true
+         }
+        }
+       ]
+      ],
+      "min": 0,
+      "max": 1
+     }
+    ]
+   }
+  ],
+  "activated": [
+   {
+    "name": "Boost",
+    "cost": {
+     "ink": 2
+    },
+    "oncePerTurn": true,
+    "effects": [
+     {
+      "type": "PUT_UNDER",
+      "source": "top-deck",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
+      }
+     }
+    ]
+   }
   ]
  },
  "WIN-147": {
@@ -31773,7 +33839,20 @@
   ]
  },
  "WIN-148": {
-  "cardId": "WIN-148"
+  "cardId": "WIN-148",
+  "activated": [
+   {
+    "name": "ANCESTORS' GIFT",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
+     }
+    ]
+   }
+  ]
  },
  "WIN-149": {
   "cardId": "WIN-149",
@@ -31867,6 +33946,19 @@
    {
     "name": "Ward"
    }
+  ],
+  "activated": [
+   {
+    "name": "UNDERDOG",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
+     }
+    ]
+   }
   ]
  },
  "WIN-154": {
@@ -31875,6 +33967,27 @@
    {
     "name": "Boost",
     "value": 1
+   }
+  ],
+  "activated": [
+   {
+    "name": "Boost",
+    "cost": {
+     "ink": 1
+    },
+    "oncePerTurn": true,
+    "effects": [
+     {
+      "type": "PUT_UNDER",
+      "source": "top-deck",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
+      }
+     }
+    ]
    }
   ]
  },
@@ -31890,6 +34003,51 @@
    },
    {
     "name": "Ward"
+   }
+  ],
+  "triggered": [
+   {
+    "name": "ANYTHING THAT GLITTERS",
+    "trigger": "ON_PUT_UNDER_FRIENDLY",
+    "effects": [
+     {
+      "type": "ADD_MODIFIER",
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "type": "Character",
+       "self": true
+      },
+      "modifier": {
+       "duration": "this-turn",
+       "stat": {
+        "lore": 1
+       }
+      },
+      "duration": "this-turn"
+     }
+    ]
+   }
+  ],
+  "activated": [
+   {
+    "name": "Boost",
+    "cost": {
+     "ink": 2
+    },
+    "oncePerTurn": true,
+    "effects": [
+     {
+      "type": "PUT_UNDER",
+      "source": "top-deck",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
+      }
+     }
+    ]
    }
   ]
  },
@@ -31944,7 +34102,25 @@
   ]
  },
  "WIN-159": {
-  "cardId": "WIN-159"
+  "cardId": "WIN-159",
+  "triggered": [
+   {
+    "name": "HARD WORK",
+    "trigger": "ON_QUEST",
+    "effects": [
+     {
+      "type": "PUT_UNDER",
+      "source": "top-deck",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
+      }
+     }
+    ]
+   }
+  ]
  },
  "WIN-160": {
   "cardId": "WIN-160"
@@ -32027,6 +34203,17 @@
  "WIN-166": {
   "cardId": "WIN-166",
   "activated": [
+   {
+    "name": "THEATRICAL ENTRANCE",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
+     }
+    ]
+   },
    {
     "name": "CLOUD OF MYSTERY",
     "cost": {
@@ -32234,10 +34421,31 @@
        "chosen": true
       },
       "modifier": {
-       "duration": "this-turn",
+       "duration": "until-start-of-next-turn",
        "cantChallenge": true
       },
-      "duration": "this-turn"
+      "duration": "until-start-of-next-turn"
+     }
+    ]
+   }
+  ],
+  "activated": [
+   {
+    "name": "Boost",
+    "cost": {
+     "ink": 2
+    },
+    "oncePerTurn": true,
+    "effects": [
+     {
+      "type": "PUT_UNDER",
+      "source": "top-deck",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
+      }
      }
     ]
    }
@@ -32460,10 +34668,23 @@
        "chosen": true
       },
       "modifier": {
-       "duration": "this-turn",
+       "duration": "until-start-of-next-turn",
        "cantChallenge": true
       },
-      "duration": "this-turn"
+      "duration": "until-start-of-next-turn"
+     }
+    ]
+   }
+  ],
+  "activated": [
+   {
+    "name": "CONTROLLED VARIABLES",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
      }
     ]
    }
@@ -32654,6 +34875,19 @@
     "name": "Resist",
     "value": 1
    }
+  ],
+  "activated": [
+   {
+    "name": "UNDERDOG",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
+     }
+    ]
+   }
   ]
  },
  "WIN-195": {
@@ -32831,7 +35065,23 @@
   ]
  },
  "WIN-206": {
-  "cardId": "WIN-206"
+  "cardId": "WIN-206",
+  "activated": [
+   {
+    "name": "SMOOTH THE WAY",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "filter": {
+       "type": "Character"
+      },
+      "uses": 1
+     }
+    ]
+   }
+  ]
  },
  "WIN-207": {
   "cardId": "WIN-207",
@@ -32919,6 +35169,27 @@
    {
     "name": "Boost",
     "value": 1
+   }
+  ],
+  "activated": [
+   {
+    "name": "Boost",
+    "cost": {
+     "ink": 1
+    },
+    "oncePerTurn": true,
+    "effects": [
+     {
+      "type": "PUT_UNDER",
+      "source": "top-deck",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
+      }
+     }
+    ]
    }
   ],
   "continuous": [
@@ -33018,6 +35289,27 @@
     "value": 2
    }
   ],
+  "activated": [
+   {
+    "name": "Boost",
+    "cost": {
+     "ink": 2
+    },
+    "oncePerTurn": true,
+    "effects": [
+     {
+      "type": "PUT_UNDER",
+      "source": "top-deck",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
+      }
+     }
+    ]
+   }
+  ],
   "continuous": [
    {
     "name": "SUPERHUMAN STRENGTH",
@@ -33026,6 +35318,17 @@
      "who": "self",
      "type": "Character",
      "self": true
+    },
+    "condition": {
+     "kind": "has-cards-under",
+     "selector": {
+      "zone": "play",
+      "who": "self",
+      "type": "Character",
+      "self": true
+     },
+     "op": ">=",
+     "value": 1
     },
     "modifier": {
      "duration": "while-in-play",
@@ -33037,7 +35340,20 @@
   ]
  },
  "WIN-215": {
-  "cardId": "WIN-215"
+  "cardId": "WIN-215",
+  "triggered": [
+   {
+    "name": "CLEAR THE WAY",
+    "trigger": "ON_PLAY",
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 2,
+      "uses": 1
+     }
+    ]
+   }
+  ]
  },
  "WIN-216": {
   "cardId": "WIN-216",
@@ -33099,10 +35415,76 @@
     "name": "Boost",
     "value": 2
    }
+  ],
+  "triggered": [
+   {
+    "name": "LOOK INTO YOUR PAST",
+    "trigger": "ON_PUT_UNDER",
+    "effects": [
+     {
+      "type": "CHOICE",
+      "prompt": "You may: put a card from your discard into your inkwell facedown and exerted",
+      "options": [
+       [
+        {
+         "type": "PUT_INTO_INKWELL",
+         "source": "top-deck",
+         "target": {
+          "zone": "discard",
+          "who": "self",
+          "chosen": true
+         }
+        }
+       ]
+      ],
+      "min": 0,
+      "max": 1
+     }
+    ]
+   }
+  ],
+  "activated": [
+   {
+    "name": "Boost",
+    "cost": {
+     "ink": 2
+    },
+    "oncePerTurn": true,
+    "effects": [
+     {
+      "type": "PUT_UNDER",
+      "source": "top-deck",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
+      }
+     }
+    ]
+   }
   ]
  },
  "WIN-219": {
-  "cardId": "WIN-219"
+  "cardId": "WIN-219",
+  "triggered": [
+   {
+    "name": "HARD WORK",
+    "trigger": "ON_QUEST",
+    "effects": [
+     {
+      "type": "PUT_UNDER",
+      "source": "top-deck",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
+      }
+     }
+    ]
+   }
+  ]
  },
  "WIN-220": {
   "cardId": "WIN-220",
@@ -33141,6 +35523,19 @@
     "name": "Resist",
     "value": 1
    }
+  ],
+  "activated": [
+   {
+    "name": "UNDERDOG",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
+     }
+    ]
+   }
   ]
  },
  "WIN-222": {
@@ -33165,10 +35560,31 @@
        "chosen": true
       },
       "modifier": {
-       "duration": "this-turn",
+       "duration": "until-start-of-next-turn",
        "cantChallenge": true
       },
-      "duration": "this-turn"
+      "duration": "until-start-of-next-turn"
+     }
+    ]
+   }
+  ],
+  "activated": [
+   {
+    "name": "Boost",
+    "cost": {
+     "ink": 2
+    },
+    "oncePerTurn": true,
+    "effects": [
+     {
+      "type": "PUT_UNDER",
+      "source": "top-deck",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
+      }
      }
     ]
    }
@@ -33268,17 +35684,42 @@
        "chosen": true
       },
       "modifier": {
-       "duration": "this-turn",
+       "duration": "until-start-of-next-turn",
        "cantReady": true
       },
-      "duration": "this-turn"
+      "duration": "until-start-of-next-turn"
+     }
+    ]
+   }
+  ],
+  "activated": [
+   {
+    "name": "THANKS FOR NOTICIN' ME",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
      }
     ]
    }
   ]
  },
  "WIN-227": {
-  "cardId": "WIN-227"
+  "cardId": "WIN-227",
+  "triggered": [
+   {
+    "name": "WARM HEART",
+    "trigger": "ON_QUEST",
+    "effects": [
+     {
+      "type": "GAIN_LORE",
+      "amount": 1
+     }
+    ]
+   }
+  ]
  },
  "WIN-228": {
   "cardId": "WIN-228",
@@ -33400,6 +35841,58 @@
    }
   ],
   "shiftCost": 4,
+  "triggered": [
+   {
+    "name": "ENDLESS WINTER",
+    "trigger": "ON_PLAY",
+    "effects": [
+     {
+      "type": "CHOICE",
+      "prompt": "You may: exert chosen character with 3 {s} or less",
+      "options": [
+       [
+        {
+         "type": "EXERT",
+         "target": {
+          "zone": "play",
+          "who": "any",
+          "type": "Character",
+          "chosen": true
+         }
+        }
+       ]
+      ],
+      "min": 0,
+      "max": 1
+     }
+    ]
+   },
+   {
+    "name": "ENDLESS WINTER",
+    "trigger": "ON_PLAY_CHARACTER",
+    "effects": [
+     {
+      "type": "CHOICE",
+      "prompt": "You may: exert chosen character with 3 {s} or less",
+      "options": [
+       [
+        {
+         "type": "EXERT",
+         "target": {
+          "zone": "play",
+          "who": "any",
+          "type": "Character",
+          "chosen": true
+         }
+        }
+       ]
+      ],
+      "min": 0,
+      "max": 1
+     }
+    ]
+   }
+  ],
   "continuous": [
    {
     "name": "DISTANT CALL",
@@ -33428,6 +35921,11 @@
       "type": "LOOK_TOP",
       "amount": 4,
       "then": "keep-order"
+     },
+     {
+      "type": "COST_REDUCTION",
+      "amount": 3,
+      "uses": 1
      }
     ]
    }
@@ -33509,6 +36007,51 @@
    },
    {
     "name": "Ward"
+   }
+  ],
+  "triggered": [
+   {
+    "name": "ANYTHING THAT GLITTERS",
+    "trigger": "ON_PUT_UNDER_FRIENDLY",
+    "effects": [
+     {
+      "type": "ADD_MODIFIER",
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "type": "Character",
+       "self": true
+      },
+      "modifier": {
+       "duration": "this-turn",
+       "stat": {
+        "lore": 1
+       }
+      },
+      "duration": "this-turn"
+     }
+    ]
+   }
+  ],
+  "activated": [
+   {
+    "name": "Boost",
+    "cost": {
+     "ink": 2
+    },
+    "oncePerTurn": true,
+    "effects": [
+     {
+      "type": "PUT_UNDER",
+      "source": "top-deck",
+      "amount": 1,
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "self": true
+      }
+     }
+    ]
    }
   ]
  },
@@ -33785,13 +36328,49 @@
   ]
  },
  "WUN-011": {
-  "cardId": "WUN-011"
+  "cardId": "WUN-011",
+  "activated": [
+   {
+    "name": "LOOSE CHANGE",
+    "cost": {
+     "exert": true
+    },
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "filter": {
+       "type": "Character"
+      },
+      "uses": 1
+     }
+    ]
+   }
+  ]
  },
  "WUN-012": {
   "cardId": "WUN-012"
  },
  "WUN-013": {
-  "cardId": "WUN-013"
+  "cardId": "WUN-013",
+  "activated": [
+   {
+    "name": "SOMEBODY DO SOMETHING",
+    "cost": {},
+    "effects": [
+     {
+      "type": "GRANT_KEYWORD",
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "type": "Character",
+       "name": "Woody"
+      },
+      "keyword": "Bodyguard"
+     }
+    ]
+   }
+  ]
  },
  "WUN-014": {
   "cardId": "WUN-014"
@@ -33857,7 +36436,20 @@
   ]
  },
  "WUN-017": {
-  "cardId": "WUN-017"
+  "cardId": "WUN-017",
+  "activated": [
+   {
+    "name": "LET'S RIDE",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
+     }
+    ]
+   }
+  ]
  },
  "WUN-018": {
   "cardId": "WUN-018"
@@ -34295,10 +36887,10 @@
        "chosen": true
       },
       "modifier": {
-       "duration": "this-turn",
+       "duration": "until-start-of-next-turn",
        "cantReady": true
       },
-      "duration": "this-turn"
+      "duration": "until-start-of-next-turn"
      }
     ]
    }
@@ -34599,7 +37191,20 @@
   ]
  },
  "WUN-073": {
-  "cardId": "WUN-073"
+  "cardId": "WUN-073",
+  "activated": [
+   {
+    "name": "CRISIS MANAGEMENT",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 2,
+      "uses": 1
+     }
+    ]
+   }
+  ]
  },
  "WUN-074": {
   "cardId": "WUN-074"
@@ -34653,23 +37258,13 @@
     "trigger": "ON_PLAY_CHARACTER",
     "effects": [
      {
-      "type": "CHOICE",
-      "prompt": "You may: ready this character",
-      "options": [
-       [
-        {
-         "type": "READY",
-         "target": {
-          "zone": "play",
-          "who": "self",
-          "type": "Character",
-          "self": true
-         }
-        }
-       ]
-      ],
-      "min": 0,
-      "max": 1
+      "type": "READY",
+      "target": {
+       "zone": "play",
+       "who": "self",
+       "type": "Character",
+       "self": true
+      }
      }
     ]
    }
@@ -35049,7 +37644,22 @@
   "cardId": "WUN-097"
  },
  "WUN-098": {
-  "cardId": "WUN-098"
+  "cardId": "WUN-098",
+  "activated": [
+   {
+    "name": "SOME ASSEMBLY REQUIRED",
+    "cost": {
+     "exert": true
+    },
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
+     }
+    ]
+   }
+  ]
  },
  "WUN-099": {
   "cardId": "WUN-099",
@@ -35207,7 +37817,20 @@
   "cardId": "WUN-111"
  },
  "WUN-112": {
-  "cardId": "WUN-112"
+  "cardId": "WUN-112",
+  "activated": [
+   {
+    "name": "ADDED TRACTION",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 2,
+      "uses": 1
+     }
+    ]
+   }
+  ]
  },
  "WUN-113": {
   "cardId": "WUN-113"
@@ -35287,7 +37910,20 @@
   ]
  },
  "WUN-120": {
-  "cardId": "WUN-120"
+  "cardId": "WUN-120",
+  "activated": [
+   {
+    "name": "REJECTED TOYS",
+    "cost": {},
+    "effects": [
+     {
+      "type": "COST_REDUCTION",
+      "amount": 1,
+      "uses": 1
+     }
+    ]
+   }
+  ]
  },
  "WUN-121": {
   "cardId": "WUN-121",
@@ -35730,7 +38366,34 @@
   ]
  },
  "WUN-147": {
-  "cardId": "WUN-147"
+  "cardId": "WUN-147",
+  "triggered": [
+   {
+    "name": "USEFUL BITS",
+    "trigger": "ON_BANISH",
+    "effects": [
+     {
+      "type": "CHOICE",
+      "prompt": "You may: return an item card from your discard to your hand",
+      "options": [
+       [
+        {
+         "type": "RETURN_TO_HAND",
+         "target": {
+          "zone": "discard",
+          "who": "self",
+          "type": "Item",
+          "chosen": true
+         }
+        }
+       ]
+      ],
+      "min": 0,
+      "max": 1
+     }
+    ]
+   }
+  ]
  },
  "WUN-148": {
   "cardId": "WUN-148"
@@ -36428,6 +39091,17 @@
      "type": "Character",
      "self": true
     },
+    "condition": {
+     "kind": "has-cards-under",
+     "selector": {
+      "zone": "play",
+      "who": "self",
+      "type": "Character",
+      "self": true
+     },
+     "op": ">=",
+     "value": 1
+    },
     "modifier": {
      "duration": "while-in-play",
      "grantKeywords": [
@@ -36665,10 +39339,10 @@
        "chosen": true
       },
       "modifier": {
-       "duration": "this-turn",
+       "duration": "until-start-of-next-turn",
        "cantChallenge": true
       },
-      "duration": "this-turn"
+      "duration": "until-start-of-next-turn"
      }
     ]
    }

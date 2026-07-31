@@ -40,18 +40,24 @@ abilities, `vanilla` = stats only (still emits a `CardScript`).
 - Triggers without a SPEC equivalent map to the closest one (documented in code):
   "whenever X challenges" → `ON_CHALLENGE_BANISH`; "whenever a(n) X is banished" →
   `ON_BANISH`; "whenever you play a character/location/action…" → `ON_PLAY_CHARACTER`;
-  "whenever your characters sing a song" → `ON_PLAY_CHARACTER`.
-- Continuous abilities whose printed condition is unmodelable (`while there's a card
-  under this character`, `if you have 3+ cards in hand`, …) are emitted without
-  `condition`; per-unit scaling buffs ("+1 {s} for each card under him") use the
-  flat per-unit value; "your other characters" buffs apply to all your characters
-  (the selector cannot exclude self).
+  "whenever your characters sing a song" → `ON_PLAY_CHARACTER`;
+  "whenever you put a card under this …" → `ON_PUT_UNDER`;
+  "whenever you put a card under one of your …" → `ON_PUT_UNDER_FRIENDLY`.
+- **Boost N** emits a once-per-turn activated ability (`pay N` → `PUT_UNDER` top deck
+  under self), matching the printed reminder text.
+- "You pay N {i} less for the next …" → `COST_REDUCTION` (turn-scoped ink discount).
+- "Until the start of your next turn" / "during their next turn" → modifier duration
+  `until-start-of-next-turn` (cleared at that player's next ready step).
+- Continuous "while there's a card under …" uses `has-cards-under` conditions.
+- Continuous abilities whose printed condition is still unmodelable (`if you have 3+
+  cards in hand`, …) are emitted without `condition`; per-unit scaling buffs
+  ("+1 {s} for each card under him") use the flat per-unit value; "your other
+  characters" buffs apply to all your characters (the selector cannot exclude self).
 - `If you do, …` / `if <unmodelable>, …` prefixes are dropped, keeping the effect.
 - `you may pay N {i} to X` keeps X (the optional ink payment is not modeled).
-- Effects with no DSL node are matched as understood noops and named explicitly:
-  `unmodeled-cost-reduction` ("you pay N {i} less…") and `unmodeled-put-under`
-  (Boost-style "put the top card under …"); deck-ordering bookkeeping continuations
-  ("Put the rest on the bottom of your deck in any order") are `cont-*` noops.
+- Remaining put-under phrasings without a top-deck source stay as `unmodeled-put-under`
+  noops; deck-ordering bookkeeping continuations ("Put the rest on the bottom of
+  your deck in any order") are `cont-*` noops.
 - "Remove all damage" uses `REMOVE_DAMAGE{amount:99}`; "discard your hand" is not
   matched.
 - Plain effect text on a permanent with no printed cost/trigger becomes a zero-cost

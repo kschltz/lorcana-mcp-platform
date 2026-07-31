@@ -43,6 +43,8 @@ interface CliArgs {
   llmSeat: "p1" | "p2" | "both" | "none";
   /** Ollama model for the LLM seat. */
   llmModel: string;
+  /** Optional path to write per-game JSONL datapoints for deck playtesting. */
+  metrics?: string;
 }
 
 function parseArgs(argv: string[]): CliArgs {
@@ -71,6 +73,7 @@ function parseArgs(argv: string[]): CliArgs {
       case "--delay": args.delay = Number.parseFloat(next); break;
       case "--llm-seat": args.llmSeat = next as CliArgs["llmSeat"]; break;
       case "--llm-model": args.llmModel = next; break;
+      case "--metrics": args.metrics = next; break;
       default: throw new Error(`unknown argument: ${a}`);
     }
   }
@@ -238,12 +241,17 @@ interface P0Error {
 interface GameResult {
   game: number;
   matchId: string;
+  seed?: number;
   winner?: PlayerId;
   reason?: string;
   turns: number;
   actions: number;
   failure?: string;
   p0: P0Error[];
+  /** Lore at game end (when finished). */
+  lore?: { p1: number; p2: number };
+  /** Count of PLAY_CARD / QUEST / CHALLENGE / ACTIVATE_ABILITY / BOOST events. */
+  eventCounts?: Record<string, number>;
 }
 
 function sameAction(a: PlayerAction, b: PlayerAction): boolean {
@@ -297,9 +305,15 @@ async function playGame(
     const s2 = views.p2 ?? (await fresh("p2"));
     const terminal = [s1.state, s2.state].find((s) => s.phase === "game-over" || s.winner);
     if (terminal) {
+      const eventCounts: Record<string, number> = {};
+      for (const ev of terminal.log) {
+        eventCounts[ev.type] = (eventCounts[ev.type] ?? 0) + 1;
+      }
       return {
-        game, matchId: m.matchId, winner: terminal.winner, reason: terminal.winReason,
+        game, matchId: m.matchId, seed, winner: terminal.winner, reason: terminal.winReason,
         turns: terminal.turn, actions, p0,
+        lore: { p1: terminal.players.p1.lore, p2: terminal.players.p2.lore },
+        eventCounts,
       };
     }
 
@@ -431,6 +445,23 @@ async function main(): Promise<number> {
     const allP0 = results.flatMap((r) => r.p0);
     if (allP0.length > 0) {
       log(`P0 INVALID_ACTION errors: ${allP0.length} (see bots-p0-*.json dumps)`);
+    }
+    if (args.metrics) {
+      const lines = results.map((r) => JSON.stringify({
+        game: r.game,
+        matchId: r.matchId,
+        seed: r.seed ?? (args.seed + r.game - 1),
+        winner: r.winner ?? null,
+        reason: r.reason ?? null,
+        turns: r.turns,
+        actions: r.actions,
+        failure: r.failure ?? null,
+        lore: r.lore ?? null,
+        eventCounts: r.eventCounts ?? null,
+        p0Count: r.p0.length,
+      }));
+      writeFileSync(args.metrics, lines.join("\n") + "\n");
+      log(`wrote ${results.length} game datapoint(s) to ${args.metrics}`);
     }
     return failures > 0 ? 1 : 0;
   } finally {

@@ -112,6 +112,54 @@ export function readyInk(state: GameState, p: PlayerId): number {
   return state.players[p].inkwell.filter((c) => !c.exerted).length;
 }
 
+/** Peek at how much ink discount applies to playing `def` (does not consume). */
+export function playDiscountFor(
+  state: GameState, player: PlayerId, def: CardDefinition,
+): number {
+  const discounts = state.players[player].inkDiscounts ?? [];
+  let total = 0;
+  for (const d of discounts) {
+    if (d.remaining <= 0) continue;
+    if (d.type !== undefined && d.type !== def.type) continue;
+    if (d.classification !== undefined && !def.classifications.includes(d.classification)) continue;
+    if (d.name !== undefined && d.name !== def.name) continue;
+    total += d.amount;
+  }
+  return total;
+}
+
+/** Effective ink cost to play `def` after pending discounts (floor 0). */
+export function effectivePlayCost(
+  state: GameState, player: PlayerId, def: CardDefinition,
+): number {
+  return Math.max(0, def.cost - playDiscountFor(state, player, def));
+}
+
+/** Consume matching ink discounts for a play of `def`; returns total discount applied. */
+export function consumePlayDiscount(
+  rt: Rt, player: PlayerId, def: CardDefinition,
+): number {
+  const p = ps(rt.state, player);
+  if (!p.inkDiscounts?.length) return 0;
+  let total = 0;
+  const next: typeof p.inkDiscounts = [];
+  for (const d of p.inkDiscounts) {
+    const matches =
+      d.remaining > 0 &&
+      (d.type === undefined || d.type === def.type) &&
+      (d.classification === undefined || def.classifications.includes(d.classification)) &&
+      (d.name === undefined || d.name === def.name);
+    if (matches) {
+      total += d.amount;
+      if (d.remaining > 1) next.push({ ...d, remaining: d.remaining - 1 });
+    } else {
+      next.push(d);
+    }
+  }
+  p.inkDiscounts = next;
+  return total;
+}
+
 export function payInk(rt: Rt, p: PlayerId, amount: number): boolean {
   const ink = rt.state.players[p].inkwell;
   let remaining = amount;

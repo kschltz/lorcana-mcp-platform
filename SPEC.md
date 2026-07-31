@@ -214,7 +214,8 @@ which case ONLY RESOLVE_CHOICE actions are legal).
 - Win: first to **20 lore** (checked immediately when lore changes). Loss: must draw from
   empty deck → opponent wins (`deck-out`). Concede supported.
 - Keyword reminder semantics: Ward = opponent's effects can't choose it; Vanish = when chosen
-  by opponent's effect, banish it; Boost = when played, put top card of deck under it
+  by opponent's effect, banish it; Boost N = once during your turn, pay N ink to put
+  the top card of your deck facedown under this character (activated ability)
   (store in `under`); Support = when it quests, may add its strength to another character
   this turn (model as CHOICE + modifier); Resist/Challenger/Singer carry an N parsed from text.
 - Triggered abilities: ON_PLAY (when played), ON_QUEST, ON_CHALLENGE_BANISH (when this
