@@ -19,6 +19,11 @@ npx tsx packages/bots/src/bulk-sim.ts \
 **`counter-amber-ruby.txt`** — Amber/Ruby L2/L3 lore race + Ghostly Tale  
 (~52% combined WR over 600 games; slight favorite into both Toys refs).
 
+## Toys vs Toys
+
+Classic (Thijn) vs Sidbox (Vince): **53.9% / 46.1%** over 2000 games —
+see [`RESULTS-toys-vs-toys.md`](./RESULTS-toys-vs-toys.md).
+
 ## Amber/Emerald Dogs vs Toys
 
 Tournament Dogs lists vs both Toys refs — **4000 games**:
