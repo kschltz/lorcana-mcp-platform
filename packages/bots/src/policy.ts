@@ -293,7 +293,7 @@ function chooseAbility(view: PlayerView, legalActions: LegalAction[]): PlayerAct
 // ---------------------------------------------------------------------------
 
 const DRAW_RE = /draw (?:a |\d+ )?card/i;
-const REMOVAL_RE = /banish chosen|banish all|deal \d|damage to chosen|return chosen .* to .*hand|put all characters|exert all opposing|spooky|into their players'? inkwell/i;
+const REMOVAL_RE = /banish chosen|banish all|deal \d|damage to chosen|return chosen .* to .*hand|put all (?:opposing )?characters|exert all opposing|spooky|into their players'? inkwell|on the bottom of their players?'? decks?/i;
 
 function scorePlayCard(view: PlayerView, l: LegalAction): number {
   const action = l.action as { cardInstanceId: string; choices?: { options?: string[]; payAlternatives?: Record<string, string> } };
@@ -319,13 +319,17 @@ function scorePlayCard(view: PlayerView, l: LegalAction): number {
         const oppChars = asInstances(opp.play).filter((c) => c.card?.type === "Character");
         const meChars = asInstances(me.play).filter((c) => c.card?.type === "Character");
         const text = def.bodyText ?? "";
-        // Mass board wipes / Spooky Sight — cast into wide opposing boards.
-        if (/put all characters with cost|banish all characters|exert all opposing/i.test(text)) {
+        // Mass board wipes / Spooky Sight / Under the Sea — cast into wide boards.
+        if (/put all characters with cost|banish all characters|exert all opposing|put all opposing characters with .*\{s\} or less on the bottom/i.test(text)) {
           const oppLow = oppChars.filter((c) => (c.card?.cost ?? 99) <= 3).length;
           const meLow = meChars.filter((c) => (c.card?.cost ?? 99) <= 3).length;
+          const oppWeak = oppChars.filter((c) => (c.card?.strength ?? 99) <= 2).length;
           if (/put all characters with cost/i.test(text)) {
             // Spooky Sight also inks our ≤3s — only fire when opponent is wider.
             score = oppLow >= 3 && oppLow > meLow ? 48 : oppLow >= 2 ? 18 : 4;
+          } else if (/on the bottom of their players?'? decks?/i.test(text)) {
+            // Under the Sea — only hits opposing ≤2 strength; one-sided wipe.
+            score = oppWeak >= 3 ? 52 : oppWeak >= 2 ? 36 : oppWeak >= 1 ? 12 : 2;
           } else if (oppChars.length >= 3) {
             score = 44;
           }

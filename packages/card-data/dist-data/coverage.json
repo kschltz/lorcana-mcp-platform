@@ -1,14 +1,14 @@
 {
  "totalCards": 2487,
  "tiers": {
-  "full": 1197,
-  "partial": 428,
+  "full": 1199,
+  "partial": 426,
   "vanilla": 862
  },
  "sentences": {
   "total": 3335,
-  "matched": 2227,
-  "ratio": 0.6677661169415292
+  "matched": 2229,
+  "ratio": 0.6683658170914543
  },
  "unmatchedPatterns": [
   {
@@ -925,10 +925,6 @@
   },
   {
    "pattern": "While this character is at a location, whenever she challenges another character, you may draw a card.",
-   "count": 1
-  },
-  {
-   "pattern": "Put all opposing characters with N {X} or less on the bottom of their players' decks in any order.",
    "count": 1
   },
   {
@@ -2913,10 +2909,6 @@
   },
   {
    "pattern": "Chosen character gains Ward and Evasive until the start of your next turn.",
-   "count": 1
-  },
-  {
-   "pattern": "Put all opposing characters with N{X} or less on the bottom of their player's decks in any order.",
    "count": 1
   },
   {
@@ -5804,7 +5796,7 @@
   "FAB-094": "full",
   "FAB-095": "full",
   "FAB-096": "full",
-  "FAB-097": "partial",
+  "FAB-097": "full",
   "FAB-098": "full",
   "FAB-099": "full",
   "FAB-100": "partial",
@@ -7026,7 +7018,7 @@
   "URS-092": "vanilla",
   "URS-093": "vanilla",
   "URS-094": "full",
-  "URS-095": "partial",
+  "URS-095": "full",
   "URS-096": "partial",
   "URS-097": "full",
   "URS-098": "partial",

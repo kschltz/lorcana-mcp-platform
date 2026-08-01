@@ -98,6 +98,7 @@ export type EffectNode =
   | { type: "OPPONENT_LOSE_LORE"; amount: number }
   | { type: "BANISH"; target: Selector }
   | { type: "RETURN_TO_HAND"; target: Selector }
+  | { type: "PUT_ON_BOTTOM"; target: Selector }
   | { type: "EXERT"; target: Selector }
   | { type: "READY"; target: Selector }
   | { type: "ADD_MODIFIER"; target: Selector; modifier: Omit<Modifier, "id" | "source">; duration: Modifier["duration"] }
@@ -137,6 +138,8 @@ export interface CardScript {
   cardId: string;
   keywords?: { name: Keyword; value?: number }[];
   shiftCost?: number;
+  /** Sing Together N — multi-character song payment threshold. */
+  singTogether?: number;
   triggered?: TriggeredAbility[];
   activated?: ActivatedAbility[];
   continuous?: ContinuousAbility[];

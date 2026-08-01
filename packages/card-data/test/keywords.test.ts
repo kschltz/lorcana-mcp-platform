@@ -34,8 +34,10 @@ describe("keyword header parsing", () => {
     expect(r2?.keywords).toEqual([{ name: "Rush" }, { name: "Reckless" }]);
   });
 
-  it("maps Sing Together N to Singer (documented approximation)", () => {
-    expect(parseKeywordHeader("Sing Together 7")?.keywords).toEqual([{ name: "Singer", value: 7 }]);
+  it("parses Sing Together N into singTogether (not Singer)", () => {
+    const r = parseKeywordHeader("Sing Together 7");
+    expect(r?.singTogether).toBe(7);
+    expect(r?.keywords ?? []).toEqual([]);
   });
 
   it("parses named Shift variants", () => {
@@ -46,7 +48,7 @@ describe("keyword header parsing", () => {
 
   it("keeps ability text after the keyword in rest", () => {
     const r = parseKeywordHeader("Sing Together 7 Look at the top 4 cards of your deck.");
-    expect(r?.keywords).toEqual([{ name: "Singer", value: 7 }]);
+    expect(r?.singTogether).toBe(7);
     expect(r?.rest).toContain("Look at the top 4 cards");
   });
 

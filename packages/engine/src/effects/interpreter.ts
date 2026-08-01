@@ -11,7 +11,7 @@ import type {
 import type { EffectNode, Selector, Trigger } from "./dsl.js";
 import {
   addEvent, banishInstance, cardLabel, drawCards, findInstance, gainLore, loseLore,
-  modId, opponentOf, ps, returnToHand, scriptOf, defOf, activePlay, type Rt,
+  modId, opponentOf, ps, putOnBottomOfDeck, returnToHand, scriptOf, defOf, activePlay, type Rt,
 } from "../state.js";
 import { cantReady, effStats, resistValue } from "../keywords.js";
 import { applyVanish, idsToInstances, resolveSelector } from "./selectors.js";
@@ -109,6 +109,7 @@ function describeNode(n: EffectNode): string {
     case "OPPONENT_LOSE_LORE": return `Opponent loses ${n.amount} lore`;
     case "BANISH": return "Banish a card";
     case "RETURN_TO_HAND": return "Return to hand";
+    case "PUT_ON_BOTTOM": return "Put on bottom of deck";
     case "EXERT": return "Exert";
     case "READY": return "Ready";
     case "ADD_MODIFIER": return "Apply modifier";
@@ -290,6 +291,12 @@ function execNode(rt: Rt, node: EffectNode, frame: EffectsFrame): boolean {
       const targets = bindTargets(rt, frame, node.target, "t");
       if (!targets) return false;
       for (const t of targets) returnToHand(rt, t);
+      return true;
+    }
+    case "PUT_ON_BOTTOM": {
+      const targets = bindTargets(rt, frame, node.target, "t");
+      if (!targets) return false;
+      for (const t of targets) putOnBottomOfDeck(rt, t);
       return true;
     }
     case "EXERT": {

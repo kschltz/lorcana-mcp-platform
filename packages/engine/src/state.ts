@@ -253,6 +253,35 @@ export function returnToHand(rt: Rt, inst: CardInstance): CardInstance[] {
   return cards;
 }
 
+/** Put an in-play card (and everything under it) on the bottom of its owner's deck. */
+export function putOnBottomOfDeck(rt: Rt, inst: CardInstance): CardInstance[] {
+  const loc = findInstance(rt.state, inst.instanceId);
+  if (!loc || loc.zone !== "play") return [];
+  const owner = rt.state.players[loc.owner];
+  const cards = stackWith(rt, inst);
+  for (const c of cards) {
+    removeFromPlayArray(owner, c);
+    c.zone = "deck";
+    c.exerted = false;
+    c.damage = 0;
+    c.atLocation = undefined;
+    c.shiftedOnto = undefined;
+    c.under = undefined;
+    c.modifiers = [];
+    owner.deck.push(c); // bottom
+  }
+  sweepSourceModifiers(rt, inst.instanceId);
+  for (const pid of ["p1", "p2"] as PlayerId[]) {
+    for (const c of rt.state.players[pid].play) {
+      if (c.atLocation === inst.instanceId) c.atLocation = undefined;
+    }
+  }
+  addEvent(rt, "put-on-bottom", `${cardLabel(rt, inst)} is put on the bottom of its owner's deck.`, loc.owner, {
+    cardInstanceId: inst.instanceId,
+  });
+  return cards;
+}
+
 // ---------------------------------------------------------------------------
 // Small utilities
 // ---------------------------------------------------------------------------

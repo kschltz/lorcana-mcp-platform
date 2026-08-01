@@ -6012,12 +6012,7 @@
  },
  "FAB-025": {
   "cardId": "FAB-025",
-  "keywords": [
-   {
-    "name": "Singer",
-    "value": 7
-   }
-  ],
+  "singTogether": 7,
   "triggered": [
    {
     "trigger": "ON_PLAY",
@@ -6033,12 +6028,7 @@
  },
  "FAB-026": {
   "cardId": "FAB-026",
-  "keywords": [
-   {
-    "name": "Singer",
-    "value": 8
-   }
-  ]
+  "singTogether": 8
  },
  "FAB-027": {
   "cardId": "FAB-027",
@@ -6658,12 +6648,7 @@
  },
  "FAB-060": {
   "cardId": "FAB-060",
-  "keywords": [
-   {
-    "name": "Singer",
-    "value": 10
-   }
-  ],
+  "singTogether": 10,
   "triggered": [
    {
     "trigger": "ON_PLAY",
@@ -7347,10 +7332,32 @@
  },
  "FAB-097": {
   "cardId": "FAB-097",
-  "keywords": [
+  "singTogether": 8,
+  "triggered": [
    {
-    "name": "Singer",
-    "value": 8
+    "trigger": "ON_PLAY",
+    "effects": [
+     {
+      "type": "FOR_EACH",
+      "selector": {
+       "zone": "play",
+       "who": "opponent",
+       "type": "Character",
+       "maxStrength": 2
+      },
+      "effects": [
+       {
+        "type": "PUT_ON_BOTTOM",
+        "target": {
+         "zone": "play",
+         "who": "opponent",
+         "type": "Character",
+         "ref": "$each"
+        }
+       }
+      ]
+     }
+    ]
    }
   ]
  },
@@ -7977,12 +7984,7 @@
  },
  "FAB-130": {
   "cardId": "FAB-130",
-  "keywords": [
-   {
-    "name": "Singer",
-    "value": 9
-   }
-  ],
+  "singTogether": 9,
   "triggered": [
    {
     "trigger": "ON_PLAY",
@@ -8027,12 +8029,7 @@
  },
  "FAB-132": {
   "cardId": "FAB-132",
-  "keywords": [
-   {
-    "name": "Singer",
-    "value": 6
-   }
-  ],
+  "singTogether": 6,
   "triggered": [
    {
     "trigger": "ON_PLAY",
@@ -8617,12 +8614,7 @@
  },
  "FAB-166": {
   "cardId": "FAB-166",
-  "keywords": [
-   {
-    "name": "Singer",
-    "value": 8
-   }
-  ],
+  "singTogether": 8,
   "triggered": [
    {
     "trigger": "ON_PLAY",
@@ -9330,12 +9322,7 @@
  },
  "FAB-202": {
   "cardId": "FAB-202",
-  "keywords": [
-   {
-    "name": "Singer",
-    "value": 10
-   }
-  ],
+  "singTogether": 10,
   "triggered": [
    {
     "trigger": "ON_PLAY",
@@ -15391,12 +15378,7 @@
  },
  "ROJ-042": {
   "cardId": "ROJ-042",
-  "keywords": [
-   {
-    "name": "Singer",
-    "value": 9
-   }
-  ]
+  "singTogether": 9
  },
  "ROJ-043": {
   "cardId": "ROJ-043",
@@ -15914,12 +15896,7 @@
  },
  "ROJ-079": {
   "cardId": "ROJ-079",
-  "keywords": [
-   {
-    "name": "Singer",
-    "value": 9
-   }
-  ]
+  "singTogether": 9
  },
  "ROJ-080": {
   "cardId": "ROJ-080",
@@ -16646,12 +16623,7 @@
  },
  "ROJ-115": {
   "cardId": "ROJ-115",
-  "keywords": [
-   {
-    "name": "Singer",
-    "value": 8
-   }
-  ]
+  "singTogether": 8
  },
  "ROJ-116": {
   "cardId": "ROJ-116",
@@ -17126,12 +17098,7 @@
  },
  "ROJ-147": {
   "cardId": "ROJ-147",
-  "keywords": [
-   {
-    "name": "Singer",
-    "value": 8
-   }
-  ],
+  "singTogether": 8,
   "triggered": [
    {
     "trigger": "ON_PLAY",
@@ -17499,12 +17466,7 @@
  },
  "ROJ-175": {
   "cardId": "ROJ-175",
-  "keywords": [
-   {
-    "name": "Singer",
-    "value": 6
-   }
-  ],
+  "singTogether": 6,
   "triggered": [
    {
     "trigger": "ON_PLAY",
@@ -17914,12 +17876,7 @@
  },
  "ROJ-202": {
   "cardId": "ROJ-202",
-  "keywords": [
-   {
-    "name": "Singer",
-    "value": 7
-   }
-  ]
+  "singTogether": 7
  },
  "ROJ-203": {
   "cardId": "ROJ-203",
@@ -24212,12 +24169,7 @@
  },
  "URS-028": {
   "cardId": "URS-028",
-  "keywords": [
-   {
-    "name": "Singer",
-    "value": 7
-   }
-  ],
+  "singTogether": 7,
   "triggered": [
    {
     "trigger": "ON_PLAY",
@@ -24617,12 +24569,7 @@
  },
  "URS-061": {
   "cardId": "URS-061",
-  "keywords": [
-   {
-    "name": "Singer",
-    "value": 10
-   }
-  ],
+  "singTogether": 10,
   "triggered": [
    {
     "trigger": "ON_PLAY",
@@ -24912,10 +24859,32 @@
  },
  "URS-095": {
   "cardId": "URS-095",
-  "keywords": [
+  "singTogether": 8,
+  "triggered": [
    {
-    "name": "Singer",
-    "value": 8
+    "trigger": "ON_PLAY",
+    "effects": [
+     {
+      "type": "FOR_EACH",
+      "selector": {
+       "zone": "play",
+       "who": "opponent",
+       "type": "Character",
+       "maxStrength": 2
+      },
+      "effects": [
+       {
+        "type": "PUT_ON_BOTTOM",
+        "target": {
+         "zone": "play",
+         "who": "opponent",
+         "type": "Character",
+         "ref": "$each"
+        }
+       }
+      ]
+     }
+    ]
    }
   ]
  },
@@ -25398,12 +25367,7 @@
  },
  "URS-128": {
   "cardId": "URS-128",
-  "keywords": [
-   {
-    "name": "Singer",
-    "value": 6
-   }
-  ],
+  "singTogether": 6,
   "triggered": [
    {
     "trigger": "ON_PLAY",
@@ -25844,12 +25808,7 @@
  },
  "URS-162": {
   "cardId": "URS-162",
-  "keywords": [
-   {
-    "name": "Singer",
-    "value": 8
-   }
-  ],
+  "singTogether": 8,
   "triggered": [
    {
     "trigger": "ON_PLAY",
@@ -26370,12 +26329,7 @@
  },
  "URS-198": {
   "cardId": "URS-198",
-  "keywords": [
-   {
-    "name": "Singer",
-    "value": 10
-   }
-  ],
+  "singTogether": 10,
   "triggered": [
    {
     "trigger": "ON_PLAY",

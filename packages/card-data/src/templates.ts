@@ -192,6 +192,8 @@ function statModifier(stat: NonNullable<Mod["stat"]>): Mod {
 export interface ParsedKeywords {
   keywords: { name: Keyword; value?: number }[];
   shiftCost?: number;
+  /** Sing Together N threshold (songs). */
+  singTogether?: number;
   /** leftover text after consuming the keyword tokens (reminders stripped) */
   rest: string;
 }
@@ -208,6 +210,7 @@ export function parseKeywordHeader(text: string): ParsedKeywords | null {
   let rest = stripped;
   const keywords: { name: Keyword; value?: number }[] = [];
   let shiftCost: number | undefined;
+  let singTogether: number | undefined;
   let matched = false;
   for (;;) {
     const m = rest.match(KEYWORD_TOKEN);
@@ -218,7 +221,7 @@ export function parseKeywordHeader(text: string): ParsedKeywords | null {
     if (shift) { keywords.push({ name: "Shift", value: parseNum(shiftV) }); shiftCost = parseNum(shiftV); }
     else if (boost) keywords.push({ name: "Boost", value: parseNum(boostV) });
     else if (singer) keywords.push({ name: "Singer", value: parseNum(singerV) });
-    else if (singT) keywords.push({ name: "Singer", value: parseNum(singTV) }); // documented approximation
+    else if (singT) singTogether = parseNum(singTV);
     else if (resist) keywords.push({ name: "Resist", value: parseNum(resistV) });
     else if (challenger) keywords.push({ name: "Challenger", value: parseNum(challV) });
     else {
@@ -228,7 +231,7 @@ export function parseKeywordHeader(text: string): ParsedKeywords | null {
     rest = rest.slice(m[0].length);
   }
   if (!matched) return null;
-  return { keywords, shiftCost, rest };
+  return { keywords, shiftCost, singTogether, rest };
 }
 
 /* --------------------------------------------------- activated costs */
@@ -497,6 +500,21 @@ export const SENTENCE_TEMPLATES: SentenceTemplate[] = [
         type: "FOR_EACH",
         selector: sel,
         effects: [{ type: "EXERT", target: { zone: "play", who: "opponent", type: "Character", ref: "$each" } }],
+      }];
+    } },
+  // Under the Sea — put opposing ≤N strength characters on bottom of deck.
+  { name: "bottom-all-opposing-max-str",
+    re: new RegExp(
+      `^put all opposing characters with ${N}\\s*\\{s\\} or less on the bottom of their (?:players'|player's) decks?(?: in any order)?$`,
+      "i",
+    ),
+    build: (m) => {
+      const maxStrength = parseNum(m[1]);
+      const sel = { zone: "play" as const, who: "opponent" as const, type: "Character" as const, maxStrength };
+      return [{
+        type: "FOR_EACH",
+        selector: sel,
+        effects: [{ type: "PUT_ON_BOTTOM", target: { zone: "play", who: "opponent", type: "Character", ref: "$each" } }],
       }];
     } },
   { name: "opp-exerts-own", re: /^each opponent chooses and exerts one of their ready characters$/i,
@@ -1000,7 +1018,7 @@ function matchContinuous(text: string, card: CardDefinition, name?: string): Con
 export interface BlockOutcome {
   matchedSentences: number;
   totalSentences: number;
-  script: Pick<CardScript, "keywords" | "shiftCost" | "triggered" | "activated" | "continuous">;
+  script: Pick<CardScript, "keywords" | "shiftCost" | "singTogether" | "triggered" | "activated" | "continuous">;
   unmatched: string[];
 }
 
@@ -1009,6 +1027,7 @@ export const emptyBlockOutcome = (): BlockOutcome => ({
   script: { keywords: [], triggered: [], activated: [], continuous: [] },
   unmatched: [],
 });
+// singTogether is optional on script; set only when a Sing Together keyword is parsed.
 
 export function processBlock(block: string, card: CardDefinition, out: BlockOutcome): void {
   // 1) keyword headers (possibly followed by ability text, e.g. "Sing Together 7 Look at...")
@@ -1017,6 +1036,7 @@ export function processBlock(block: string, card: CardDefinition, out: BlockOutc
   if (kw) {
     out.script.keywords!.push(...kw.keywords);
     if (kw.shiftCost !== undefined) out.script.shiftCost = kw.shiftCost;
+    if (kw.singTogether !== undefined) out.script.singTogether = kw.singTogether;
     if (kw.rest.replace(/[.\s]/g, "").length === 0) {
       out.matchedSentences += 1;
       out.totalSentences += 1;
@@ -1144,12 +1164,14 @@ export function generateScript(card: CardDefinition): GeneratedCard {
   const script: CardScript = { cardId: card.id };
   if (s.keywords!.length > 0) script.keywords = s.keywords;
   if (s.shiftCost !== undefined) script.shiftCost = s.shiftCost;
+  if (s.singTogether !== undefined) script.singTogether = s.singTogether;
   if (s.triggered!.length > 0) script.triggered = s.triggered;
   if (s.activated!.length > 0) script.activated = s.activated;
   if (s.continuous!.length > 0) script.continuous = s.continuous;
 
   const hasContent =
     (script.keywords?.length ?? 0) > 0 ||
+    script.singTogether !== undefined ||
     (script.triggered?.length ?? 0) > 0 ||
     (script.activated?.length ?? 0) > 0 ||
     (script.continuous?.length ?? 0) > 0;

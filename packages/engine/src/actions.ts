@@ -124,12 +124,25 @@ function execPlayCard(
   // --- payment -----------------------------------------------------------
   let shiftTarget: CardInstance | undefined;
   if (mode === "sing") {
-    const singerId = choices?.payAlternatives?.singer;
-    const singerLoc = singerId ? findInstance(rt.state, singerId) : undefined;
-    if (!singerLoc) return "sing: missing singer";
-    singerLoc.inst.exerted = true;
-    addEvent(rt, "sing", `${cardLabel(rt, singerLoc.inst)} sings ${cardLabel(rt, inst)}.`, player,
-      { singerId, cardInstanceId: inst.instanceId });
+    const singersCsv = choices?.payAlternatives?.singers;
+    const singerIds = singersCsv
+      ? singersCsv.split(",").map((s) => s.trim()).filter(Boolean)
+      : choices?.payAlternatives?.singer
+        ? [choices.payAlternatives.singer]
+        : [];
+    if (singerIds.length === 0) return "sing: missing singer";
+    for (const singerId of singerIds) {
+      const singerLoc = findInstance(rt.state, singerId);
+      if (!singerLoc) return "sing: missing singer";
+      singerLoc.inst.exerted = true;
+    }
+    const labels = singerIds
+      .map((id) => findInstance(rt.state, id)?.inst)
+      .filter((c): c is CardInstance => !!c)
+      .map((c) => cardLabel(rt, c))
+      .join(" + ");
+    addEvent(rt, "sing", `${labels} sing${singerIds.length > 1 ? "" : "s"} ${cardLabel(rt, inst)}.`, player,
+      { singers: singerIds, cardInstanceId: inst.instanceId });
   } else if (mode === "shift") {
     const targetId = choices?.targets?.[0];
     const targetLoc = targetId ? findInstance(rt.state, targetId) : undefined;
@@ -247,6 +260,41 @@ export function canSingWith(rt: Rt, song: CardInstance, singer: CardInstance): b
   if (singer.owner !== song.owner || singer.zone !== "play" || singer.exerted) return false;
   if (defOf(rt, singer.cardId).type !== "Character") return false;
   return singerValue(rt, singer) >= def.cost;
+}
+
+/**
+ * Minimal Sing Together groups: ready characters whose singerValues sum to ≥
+ * threshold, with no proper subset also meeting the threshold.
+ */
+export function singTogetherGroups(rt: Rt, player: PlayerId, threshold: number): CardInstance[][] {
+  const ready = activePlay(rt.state, player).filter(
+    (c) => !c.exerted && defOf(rt, c.cardId).type === "Character",
+  );
+  if (ready.length === 0) return [];
+  const values = ready.map((c) => singerValue(rt, c));
+  const total = values.reduce((a, b) => a + b, 0);
+  if (total < threshold) return [];
+
+  const out: CardInstance[][] = [];
+  const n = ready.length;
+  // Enumerate subsets via bitmasks (boards stay small; 2^12 = 4096).
+  const limit = 1 << n;
+  for (let mask = 1; mask < limit; mask++) {
+    let sum = 0;
+    for (let i = 0; i < n; i++) if (mask & (1 << i)) sum += values[i]!;
+    if (sum < threshold) continue;
+    // Minimal: dropping any member falls below threshold.
+    let minimal = true;
+    for (let i = 0; i < n; i++) {
+      if (!(mask & (1 << i))) continue;
+      if (sum - values[i]! >= threshold) { minimal = false; break; }
+    }
+    if (!minimal) continue;
+    const group: CardInstance[] = [];
+    for (let i = 0; i < n; i++) if (mask & (1 << i)) group.push(ready[i]!);
+    out.push(group);
+  }
+  return out;
 }
 
 /** Helper for legality: valid shift targets for a Floodborn card in hand. */

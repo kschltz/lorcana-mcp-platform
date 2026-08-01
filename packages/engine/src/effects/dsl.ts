@@ -7,6 +7,8 @@ export interface CardScript {
   cardId: string;
   keywords?: { name: Keyword; value?: number }[]; // e.g. {name:"Resist",value:2}
   shiftCost?: number;
+  /** Sing Together N — song may be sung by multiple characters whose costs sum to ≥ N. */
+  singTogether?: number;
   triggered?: TriggeredAbility[];
   activated?: ActivatedAbility[];
   continuous?: ContinuousAbility[];
@@ -68,6 +70,8 @@ export type EffectNode =
   | { type: "OPPONENT_LOSE_LORE"; amount: number }
   | { type: "BANISH"; target: Selector }
   | { type: "RETURN_TO_HAND"; target: Selector }
+  /** Put in-play card(s) on the bottom of their owner's deck (Under the Sea, etc.). */
+  | { type: "PUT_ON_BOTTOM"; target: Selector }
   | { type: "EXERT"; target: Selector }
   | { type: "READY"; target: Selector }
   | { type: "ADD_MODIFIER"; target: Selector; modifier: Omit<Modifier, "id" | "source" | "duration">; duration: Modifier["duration"] }
@@ -92,7 +96,7 @@ export interface DeckFilter {
 
 export const EFFECT_NODE_TYPES = [
   "DRAW", "DEAL_DAMAGE", "REMOVE_DAMAGE", "GAIN_LORE", "OPPONENT_LOSE_LORE",
-  "BANISH", "RETURN_TO_HAND", "EXERT", "READY", "ADD_MODIFIER", "GRANT_KEYWORD",
+  "BANISH", "RETURN_TO_HAND", "PUT_ON_BOTTOM", "EXERT", "READY", "ADD_MODIFIER", "GRANT_KEYWORD",
   "DISCARD", "LOOK_TOP", "PUT_INTO_INKWELL", "SEARCH_DECK", "PLAY_CARD_FREE",
   "MOVE_DAMAGE", "PREVENT_DAMAGE", "CHOICE", "FOR_EACH", "IF",
 ] as const;
@@ -165,7 +169,7 @@ export function validateEffectNode(n: unknown, path: string): string[] {
   if (needAmount.includes(t) && typeof n.amount !== "number") errs.push(`${path}.amount: must be number`);
   if (t === "DRAW" && n.who !== undefined && !["self", "opponent", "each"].includes(n.who as string))
     errs.push(`${path}.who: invalid`);
-  const needTarget = ["DEAL_DAMAGE", "REMOVE_DAMAGE", "BANISH", "RETURN_TO_HAND",
+  const needTarget = ["DEAL_DAMAGE", "REMOVE_DAMAGE", "BANISH", "RETURN_TO_HAND", "PUT_ON_BOTTOM",
     "EXERT", "READY", "ADD_MODIFIER", "GRANT_KEYWORD", "PREVENT_DAMAGE"];
   if (needTarget.includes(t)) errs.push(...validateSelector(n.target, `${path}.target`));
   if (t === "MOVE_DAMAGE") {
@@ -233,6 +237,9 @@ export function validateCardScript(script: CardScript): string[] {
     if (kw.value !== undefined && typeof kw.value !== "number") errs.push(`keywords.${kw.name}: value must be number`);
   }
   if (script.shiftCost !== undefined && typeof script.shiftCost !== "number") errs.push("shiftCost: must be number");
+  if (script.singTogether !== undefined && typeof script.singTogether !== "number") {
+    errs.push("singTogether: must be number");
+  }
   (script.triggered ?? []).forEach((ab, i) => {
     if (!TRIGGERS.includes(ab.trigger)) errs.push(`triggered[${i}].trigger: invalid`);
     (ab.effects ?? []).forEach((e, j) => errs.push(...validateEffectNode(e, `triggered[${i}].effects[${j}]`)));

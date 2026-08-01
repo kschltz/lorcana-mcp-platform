@@ -6,11 +6,11 @@ import type { LegalAction, PlayChoices, PlayerAction } from "./actions.js";
 import {
   activePlay, cardLabel, defOf, findInstance, isWet, ps, readyInk, scriptOf, type Rt,
 } from "./state.js";
-import { effStats } from "./keywords.js";
+import { effStats, singerValue } from "./keywords.js";
 import {
   canBeAttacker, canChallenge, canQuest, legalDefenders, recklessMustChallenge,
 } from "./combat.js";
-import { canSingWith, shiftTargets } from "./actions.js";
+import { canSingWith, shiftTargets, singTogetherGroups } from "./actions.js";
 
 // ---------------------------------------------------------------------------
 // Combinatorics helpers (deterministic order)
@@ -188,10 +188,14 @@ function playCardActions(rt: Rt, player: PlayerId, c: CardInstance, ink: number)
     }
   }
 
-  // sing (Songs only): exert a ready character with sufficient cost/singerAs
+  // sing (Songs only): single Singer/cost singer, or Sing Together groups
   if (def.type === "Action" && def.classifications.includes("Song")) {
+    const seen = new Set<string>();
     for (const s of activePlay(rt.state, player)) {
       if (!canSingWith(rt, c, s)) continue;
+      const key = s.instanceId;
+      if (seen.has(key)) continue;
+      seen.add(key);
       out.push({
         action: {
           type: "PLAY_CARD", cardInstanceId: c.instanceId,
@@ -199,6 +203,25 @@ function playCardActions(rt: Rt, player: PlayerId, c: CardInstance, ink: number)
         },
         description: `Sing ${label} with ${cardLabel(rt, s)} (free)`,
       });
+    }
+    const together = script.singTogether;
+    if (together !== undefined) {
+      for (const group of singTogetherGroups(rt, player, together)) {
+        const ids = group.map((g) => g.instanceId).sort();
+        const key = ids.join(",");
+        if (seen.has(key)) continue;
+        // Skip singleton groups already covered by canSingWith (song cost path).
+        if (group.length === 1 && canSingWith(rt, c, group[0]!)) continue;
+        seen.add(key);
+        const names = group.map((g) => cardLabel(rt, g)).join(" + ");
+        out.push({
+          action: {
+            type: "PLAY_CARD", cardInstanceId: c.instanceId,
+            choices: { payAlternatives: { mode: "sing", singers: ids.join(",") } },
+          },
+          description: `Sing Together ${label} with ${names} (free)`,
+        });
+      }
     }
   }
 
@@ -313,10 +336,35 @@ export function validateAction(rt: Rt, player: PlayerId, action: PlayerAction): 
       const script = scriptOf(rt, inst.cardId);
       const mode = action.choices?.payAlternatives?.mode;
       if (mode === "sing") {
-        const singerId = action.choices?.payAlternatives?.singer;
-        const singer = singerId ? findInstance(state, singerId)?.inst : undefined;
-        if (!singer) return "sing: unknown singer";
-        if (!canSingWith(rt, inst, singer)) return "sing: invalid singer (needs a ready character with cost/Singer >= song cost)";
+        const singersCsv = action.choices?.payAlternatives?.singers;
+        const singerIds = singersCsv
+          ? singersCsv.split(",").map((s) => s.trim()).filter(Boolean)
+          : action.choices?.payAlternatives?.singer
+            ? [action.choices.payAlternatives.singer]
+            : [];
+        if (singerIds.length === 0) return "sing: unknown singer";
+        if (singerIds.length === 1) {
+          const singer = findInstance(state, singerIds[0]!)?.inst;
+          if (!singer) return "sing: unknown singer";
+          // Single singer: either classic cost/Singer ≥ song cost, or alone meeting Sing Together.
+          if (canSingWith(rt, inst, singer)) return null;
+          if (
+            script.singTogether !== undefined &&
+            singerValue(rt, singer) >= script.singTogether &&
+            !singer.exerted &&
+            singer.owner === player
+          ) return null;
+          return "sing: invalid singer (needs a ready character with cost/Singer >= song cost)";
+        }
+        if (script.singTogether === undefined) return "sing: song is not Sing Together";
+        let sum = 0;
+        for (const id of singerIds) {
+          const singer = findInstance(state, id)?.inst;
+          if (!singer || singer.owner !== player || singer.exerted) return "sing: invalid singers";
+          if (defOf(rt, singer.cardId).type !== "Character") return "sing: invalid singers";
+          sum += singerValue(rt, singer);
+        }
+        if (sum < script.singTogether) return "sing: singers' total cost too low";
         return null;
       }
       if (mode === "shift") {

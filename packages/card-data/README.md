@@ -36,7 +36,7 @@ abilities, `vanilla` = stats only (still emits a `CardScript`).
 - `DRAW.who?: "self" | "opponent"` (default `"self"`) — for "each player draws".
 - `PUT_INTO_INKWELL.source` also accepts `"self"`, and may carry `target` for
   "put chosen X into the inkwell" effects.
-- `Sing Together N` maps to `{name:"Singer", value:N}` (closest `Keyword` member).
+- `Sing Together N` sets `CardScript.singTogether = N` (multi-character song payment).
 - Triggers without a SPEC equivalent map to the closest one (documented in code):
   "whenever X challenges" → `ON_CHALLENGE_BANISH`; "whenever a(n) X is banished" →
   `ON_BANISH`; "whenever you play a character/location/action…" → `ON_PLAY_CHARACTER`;
