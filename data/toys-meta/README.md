@@ -24,6 +24,17 @@ npx tsx packages/bots/src/bulk-sim.ts \
 Classic (Thijn) vs Sidbox (Vince): **53.9% / 46.1%** over 2000 games —
 see [`RESULTS-toys-vs-toys.md`](./RESULTS-toys-vs-toys.md).
 
+## Amber/Emerald Toys vs Amber/Ruby Toys
+
+**4000 games** — see [`RESULTS-ae-toys-vs-ar-toys.md`](./RESULTS-ae-toys-vs-ar-toys.md).
+
+| AE Toys | Combined WR vs AR Toys |
+|---|---:|
+| Karsten brew | 36.0% |
+| N (Set Champ) | 41.4% |
+
+AR Toys favored (~59–64%).
+
 ## Amber/Emerald Dogs vs Toys
 
 Tournament Dogs lists vs both Toys refs — **4000 games**:
