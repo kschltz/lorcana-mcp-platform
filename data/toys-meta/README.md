@@ -26,14 +26,15 @@ see [`RESULTS-toys-vs-toys.md`](./RESULTS-toys-vs-toys.md).
 
 ## Amber/Emerald Toys vs Amber/Ruby Toys
 
-**4000 games** — see [`RESULTS-ae-toys-vs-ar-toys.md`](./RESULTS-ae-toys-vs-ar-toys.md).
+**4000 games** (after Under the Sea + Sing Together fix) —
+see [`RESULTS-ae-toys-vs-ar-toys.md`](./RESULTS-ae-toys-vs-ar-toys.md).
 
 | AE Toys | Combined WR vs AR Toys |
 |---|---:|
-| Karsten brew | 36.0% |
-| N (Set Champ) | 41.4% |
+| Karsten brew (3× UTS) | **44.9%** (was 36% before UTS scripted) |
+| N (Set Champ, 2× UTS) | **46.5%** (was 41%) |
 
-AR Toys favored (~59–64%).
+AR Toys still slightly favored (~53–55%).
 
 ## Amber/Emerald Dogs vs Toys
 
